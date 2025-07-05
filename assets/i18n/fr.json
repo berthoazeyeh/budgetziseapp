@@ -1,0 +1,18 @@
+{
+    "app_name": "AS. POS",
+    "no_internet": "Pas de connexion internet",
+    "network": {
+        "timeout": "Délai d'attente dépassé",
+        "bad_request": "Requête incorrecte",
+        "unauthorized": "Non autorisé. Veuillez vous reconnecter.",
+        "forbidden": "Accès refusé.",
+        "not_found": "Ressource non trouvée",
+        "internal_server_error": "Erreur interne du serveur",
+        "bad_gateway": "Passerelle incorrecte (Bad Gateway)",
+        "service_unavailable": "Service indisponible",
+        "gateway_timeout": "Délai d'attente du serveur dépassé",
+        "cancelled": "Requête annulée",
+        "connection_error": "Problème de connexion internet",
+        "unknown": "Erreur réseau inconnue"
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "app_name": "AS. POS",
+    "no_internet": "Pas de connexion internet...........",
+    "network": {
+        "timeout": "Request timeout exceeded",
+        "bad_request": "Bad request",
+        "unauthorized": "Unauthorized. Please log in again.",
+        "forbidden": "Access denied.",
+        "not_found": "Resource not found",
+        "internal_server_error": "Internal server error",
+        "bad_gateway": "Bad Gateway",
+        "service_unavailable": "Service unavailable",
+        "gateway_timeout": "Server timeout exceeded",
+        "cancelled": "Request cancelled",
+        "connection_error": "Internet connection problem",
+        "unknown": "Unknown network error"
+    }
+}
