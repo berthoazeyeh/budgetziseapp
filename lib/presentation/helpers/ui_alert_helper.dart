@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 
 DateTime safeDateParsing(String dateString) {
   try {
-    return DateTime.parse(dateString);
+    return DateTime.parse(dateString).toLocal();
   } catch (e) {
     debugPrint('Erreur de parsing de date: $e');
     return DateTime.now();

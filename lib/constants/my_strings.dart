@@ -6,4 +6,5 @@ final class MyStrings {
   // ignore: dead_code
   static const isProductionMode = false && kReleaseMode;
   static const String baseUrl = "https://budgetandrens.onrender.com";
+  static const String webUrl = 'https://budget-rens.vercel.app';
 }

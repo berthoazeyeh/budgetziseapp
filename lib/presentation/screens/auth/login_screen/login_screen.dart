@@ -1,18 +1,21 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:budget_zise/budget_zise.dart';
+import 'package:budget_zise/constants/my_strings.dart';
 import 'package:budget_zise/core/exceptions/network_exception.dart';
+import 'package:budget_zise/data/services/auth_services.dart';
 import 'package:budget_zise/data/services/local_storage_service.dart';
 import 'package:budget_zise/domain/repositories/auth_repository.dart';
 import 'package:budget_zise/gen/assets.gen.dart';
-import 'package:budget_zise/gen/locale_keys.g.dart';
 import 'package:budget_zise/router/app_router.dart';
 import 'package:budget_zise/presentation/cubits/user_cubit.dart';
 import 'package:budget_zise/presentation/helpers/ui_alert_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_laravel_form_validation/flutter_laravel_form_validation.dart';
-// import 'package:sign_in_with_google/sign_in_with_google.dart'; // Exemple pour Google Sign-In
 
 part 'login_screen_controller.dart';
 
@@ -44,7 +47,7 @@ class LoginScreen extends StatelessWidget {
                   width: 80,
                   height: 80,
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.2),
+                    color: Colors.white.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(25),
                   ),
                   child: Center(
@@ -56,8 +59,8 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 14),
-                const Text(
-                  'Budget Zise',
+                Text(
+                  LocaleKeys.home_app_name.tr(),
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
@@ -65,23 +68,23 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 8),
-                const Text(
-                  'Gérez vos finances intelligemment',
+                Text(
+                  LocaleKeys.auth_subtitle.tr(),
                   style: TextStyle(fontSize: 16, color: Colors.white70),
                 ),
                 const SizedBox(height: 30),
                 Container(
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.1),
+                    color: Colors.white.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Form(
                     key: ctrl.formKey,
                     child: Column(
                       children: [
-                        const Text(
-                          'Connexion',
+                        Text(
+                          LocaleKeys.auth_login.tr(),
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
@@ -101,12 +104,12 @@ class LoginScreen extends StatelessWidget {
                             },
                           ),
                           decoration: InputDecoration(
-                            hintText: "Email",
+                            hintText: LocaleKeys.auth_email.tr(),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(18),
                               borderSide: BorderSide.none,
                             ),
-                            fillColor: Colors.white.withOpacity(0.9),
+                            fillColor: Colors.white.withValues(alpha: 0.9),
                             filled: true,
                             prefixIcon: const Icon(Icons.person),
                           ),
@@ -123,12 +126,12 @@ class LoginScreen extends StatelessWidget {
                             },
                           ),
                           decoration: InputDecoration(
-                            hintText: "Password",
+                            hintText: LocaleKeys.auth_password.tr(),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(18),
                               borderSide: BorderSide.none,
                             ),
-                            fillColor: Colors.white.withOpacity(0.9),
+                            fillColor: Colors.white.withValues(alpha: 0.9),
                             filled: true,
                             prefixIcon: const Icon(Icons.password),
                             suffixIcon: InkWell(
@@ -155,9 +158,11 @@ class LoginScreen extends StatelessWidget {
                             minimumSize: const Size(double.infinity, 50),
                           ),
                           child: ctrl.isLoading
-                              ? const CircularProgressIndicator()
-                              : const Text(
-                                  'Se connecter',
+                              ? const CircularProgressIndicator(
+                                  color: Colors.white,
+                                )
+                              : Text(
+                                  LocaleKeys.auth_sign_in.tr(),
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
@@ -166,9 +171,11 @@ class LoginScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 16),
                         TextButton(
-                          onPressed: () {},
-                          child: const Text(
-                            'Mot de passe oublié ?',
+                          onPressed: () {
+                            context.router.push(const OTPVerificationRoute());
+                          },
+                          child: Text(
+                            LocaleKeys.auth_forgot_password.tr(),
                             style: TextStyle(color: Colors.white70),
                           ),
                         ),
@@ -185,16 +192,17 @@ class LoginScreen extends StatelessWidget {
                                 side: const BorderSide(color: Colors.grey),
                               ),
                             ),
-                            icon: Image.asset(
-                              Assets.images.logo.path,
-                              height: 24,
+                            icon: const Icon(
+                              MaterialCommunityIcons.google,
+                              color: Colors.red,
+                              size: 24,
                             ),
-                            label: const Text(
-                              'Continuer avec Google',
+                            label: Text(
+                              LocaleKeys.auth_continue_with_google.tr(),
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             onPressed: () async {
-                              // await ctrl.signInWithGoogle();
+                              await ctrl._signInWithGoogle();
                             },
                           ),
                         ),
@@ -203,18 +211,16 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 14),
-                const Text(
-                  'Pas encore de compte ?',
+                Text(
+                  LocaleKeys.auth_no_account.tr(),
                   style: TextStyle(color: Colors.white70),
                 ),
                 TextButton(
                   onPressed: () {
-                    launchUrl(
-                      Uri.parse('https://budget-rens.vercel.app/register'),
-                    );
+                    launchUrl(Uri.parse('${MyStrings.webUrl}/register'));
                   },
-                  child: const Text(
-                    'Créer un compte gratuitement',
+                  child: Text(
+                    LocaleKeys.auth_create_account.tr(),
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
