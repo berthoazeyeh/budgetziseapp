@@ -2,6 +2,7 @@
 
 import 'package:budget_zise/core/network/api_response.dart';
 import 'package:budget_zise/domain/models/user_model.dart';
+import 'package:budget_zise/presentation/helpers/dio_helper.dart';
 
 import '../../core/network/api_result.dart';
 import '../../core/exceptions/network_exception.dart';
@@ -18,28 +19,32 @@ class AuthRepository {
     required String email,
     required String password,
   }) async {
-    return authService.login(email: email, password: password).then((response) {
-      final apiResponse = ApiResponse<UserModel>.fromJson(
-        response.data,
-        (json) => UserModel.fromJson(json),
-      );
-      return apiResponse.data;
-    });
+    return safeApiCall(
+      () =>
+          authService.login(email: email, password: password).then((response) {
+            final apiResponse = ApiResponse<UserModel>.fromJson(
+              response.data,
+              (json) => UserModel.fromJson(json),
+            );
+            return apiResponse.data;
+          }),
+    );
   }
 
   Future<UserModel> getUser() async {
-    return authService.me().then((response) {
-      final apiResponse = ApiResponse<UserModel>.fromJson(
-        response.data,
-        (json) => UserModel.fromJson(json),
-      );
-      return apiResponse.data;
-    });
+    return safeApiCall(
+      () => authService.me().then((response) {
+        final apiResponse = ApiResponse<UserModel>.fromJson(
+          response.data,
+          (json) => UserModel.fromJson(json),
+        );
+        return apiResponse.data;
+      }),
+    );
   }
 
   Future<ApiResult<void>> logout() async {
     try {
-      await authService.logout();
       await localStorageService.deleteAccessToken();
       return ApiResult.success(null);
     } catch (e) {
@@ -52,12 +57,13 @@ class AuthRepository {
     required String email,
     required String password,
   }) async {
-    try {
-      await authService.register(name: name, email: email, password: password);
-      return ApiResult.success(null);
-    } catch (e) {
-      return ApiResult.failure(NetworkException(e.toString()).toString());
-    }
+    return safeApiCall(
+      () => authService
+          .register(name: name, email: email, password: password)
+          .then((response) {
+            return ApiResult.success(null);
+          }),
+    );
   }
 
   Future<ApiResult<String?>> refreshToken(String refreshToken) async {

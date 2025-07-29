@@ -9,3 +9,4 @@ export 'package:path_provider/path_provider.dart';
 export 'package:intl/date_symbol_data_local.dart';
 export 'package:url_strategy/url_strategy.dart';
 export 'package:flutter_screen_controller/flutter_screen_controller.dart';
+export 'package:budget_zise/gen/locale_keys.g.dart';

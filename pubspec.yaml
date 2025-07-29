@@ -2,7 +2,7 @@ name: budget_zise
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -33,6 +33,7 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
+  permission_handler: ^12.0.1
   cupertino_icons: ^1.0.8
   auto_route: ^10.1.0+1
   easy_localization: ^3.0.7+1
@@ -59,13 +60,24 @@ dependencies:
   hive_ce: ^2.11.3
   fluttertoast: ^8.2.12
   flutter_laravel_form_validation: ^1.0.4
-
+  pretty_dio_logger: ^1.4.0
+  flutter_vector_icons: ^2.0.0
+  connectivity_plus: ^6.1.4
+  firebase_messaging: ^15.2.9
+  firebase_auth: ^5.6.2
+  google_sign_in: ^6.2.1
+  firebase_analytics: ^11.5.2
+  skeletonizer: ^2.1.0+1
+  image_picker: ^1.1.2
+  moment_dart: ^5.2.3
+  fl_chart: ^0.67.0
+  local_auth: ^2.3.0
+  flutter_local_notifications: ^19.3.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
-  graphql_codegen: ^1.2.4
   build_runner: ^2.4.13
   retrofit_generator: ^9.1.5
   flutter_gen_runner: ^5.10.0

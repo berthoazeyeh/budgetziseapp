@@ -1,8 +1,12 @@
-import 'package:budget_zise/core/network/dio_client.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart' show debugPrint;
+import 'package:google_sign_in/google_sign_in.dart' show GoogleSignIn;
+import 'package:firebase_auth/firebase_auth.dart'
+    show FirebaseAuth, FirebaseAuthException, GoogleAuthProvider;
 
 class AuthServices {
-  final DioClient dio;
+  final Dio dio;
 
   AuthServices(this.dio);
 
@@ -26,6 +30,47 @@ class AuthServices {
 
   Future<Response> me() async {
     return dio.get('/api/Auth/me');
+  }
+
+  Future<String> retreiveGoogleToken() async {
+    try {
+      // First sign out user
+      await GoogleSignIn().signOut().catchError((err, stacktrace) {
+        // Ignore sign out errors
+        debugPrint('Google sign out error: $err');
+        return null;
+      });
+
+      await FirebaseAuth.instance.signOut().catchError((err, stacktrace) {
+        // Ignore sign out errors
+        debugPrint('Firebase sign out error: $err');
+      });
+
+      // Trigger the authentication flow
+      final googleSignInAccount = await GoogleSignIn().signIn();
+
+      // Obtain the auth details from the request
+      final googleSignInAuth = await googleSignInAccount?.authentication;
+
+      // Create a new credential
+      final oauthCredential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuth?.accessToken,
+        idToken: googleSignInAuth?.idToken,
+      );
+
+      // Once signed in, return the UserCredential
+      final firebaseUser = await FirebaseAuth.instance.signInWithCredential(
+        oauthCredential,
+      );
+
+      final token = firebaseUser.credential?.accessToken;
+
+      if (token == null) throw Exception('Firebase access token is null');
+
+      return token;
+    } on FirebaseAuthException catch (err) {
+      throw Exception('Google auth error: ${err.message}');
+    }
   }
 
   Future<Response> register({

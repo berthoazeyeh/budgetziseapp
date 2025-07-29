@@ -3,11 +3,12 @@ import 'package:budget_zise/constants/my_strings.dart';
 import 'package:budget_zise/core/exceptions/network_exception.dart';
 import 'package:budget_zise/core/network/cache_interceptor.dart';
 import 'package:budget_zise/data/services/local_storage_service.dart';
-import 'package:budget_zise/gen/locale_keys.g.dart';
 import 'package:budget_zise/presentation/helpers/ui_alert_helper.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
+// import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+// import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 part 'my_api_dio_interceptor.dart';
 
 class MyDio {
@@ -30,12 +31,27 @@ class MyDio {
     dio.interceptors.add(_MyApiDioInterceptor(localStorageService));
 
     dio.interceptors.add(DioCacheInterceptor(options: cacheOptions));
-    // dio.interceptors.add(
-    //   LogInterceptor(
-    //     responseBody: true,
-    //     logPrint: (o) => logger.d(o.toString()),
-    //   ),
-    // );
+    // if (kIsWeb) {
+    //   dio.interceptors.add(
+    //     LogInterceptor(
+    //       requestHeader: true,
+    //       requestBody: true,
+    //       responseHeader: true,
+    //       responseBody: true,
+    //       logPrint: (o) => logger.d(o.toString()),
+    //     ),
+    //   );
+    // } else {
+    //   dio.interceptors.add(
+    //     LogInterceptor(
+    //       requestHeader: true,
+    //       requestBody: true,
+    //       responseHeader: true,
+    //       responseBody: true,
+    //       logPrint: (o) => logger.d(o.toString()),
+    //     ),
+    //   );
+    // }
 
     return dio;
   }

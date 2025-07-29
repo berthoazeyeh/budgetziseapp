@@ -21,13 +21,19 @@ class NetworkException implements Exception {
     if (dioError.type == DioExceptionType.connectionTimeout ||
         dioError.type == DioExceptionType.sendTimeout ||
         dioError.type == DioExceptionType.receiveTimeout) {
-      message = LocaleKeys.network_timeout.tr();
+      message =
+          details['message'] ??
+          dioError.message ??
+          LocaleKeys.network_timeout.tr();
     } else if (dioError.type == DioExceptionType.badResponse) {
       message = _getServerErrorMessage(code, details);
     } else if (dioError.type == DioExceptionType.cancel) {
       message = LocaleKeys.network_cancelled.tr();
     } else if (dioError.type == DioExceptionType.connectionError) {
-      message = LocaleKeys.network_connection_error.tr();
+      message =
+          details['message'] ??
+          dioError.message ??
+          LocaleKeys.network_connection_error.tr();
     } else {
       message =
           details['message'] ??

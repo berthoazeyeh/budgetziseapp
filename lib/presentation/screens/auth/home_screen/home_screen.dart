@@ -1,7 +1,13 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:budget_zise/budget_zise.dart';
+import 'package:budget_zise/constants/my_strings.dart';
 import 'package:budget_zise/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import 'widgets/features_row.dart';
+import 'widgets/stats_row.dart';
 
 @RoutePage()
 class HomeScreen extends StatefulWidget {
@@ -68,13 +74,19 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               Expanded(
                 child: SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
-                  child: Column(
-                    children: [
-                      _buildHeroSection(),
-                      _buildFeaturesSection(),
-                      _buildPricingSection(),
-                      _buildFooter(),
-                    ],
+                  child: RefreshIndicator(
+                    onRefresh: () async {
+                      await Future.delayed(const Duration(seconds: 12));
+                    },
+                    child: Column(
+                      children: [
+                        _buildHeroSection(),
+                        StatsRow(),
+                        _buildFeaturesSection(),
+                        _buildPricingSection(),
+                        _buildFooter(),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -163,8 +175,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 },
               ),
               const SizedBox(width: 12),
-              const Text(
-                'Budget Zise',
+              Text(
+                LocaleKeys.home_app_name.tr(),
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w700,
@@ -174,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             ],
           ),
           _buildAnimatedButton(
-            text: 'Connexion',
+            text: LocaleKeys.home_login.tr(),
             onPressed: () {
               context.pushRoute(const LoginRoute());
             },
@@ -187,7 +199,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   Widget _buildHeroSection() {
     return Container(
-      padding: const EdgeInsets.all(40),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
@@ -199,8 +211,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         children: [
           FadeTransition(
             opacity: _fadeAnimation,
-            child: const Text(
-              'Gérez vos finances en toute simplicité',
+            child: Text(
+              LocaleKeys.home_hero_title.tr(),
               style: TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.w800,
@@ -214,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           FadeTransition(
             opacity: _fadeAnimation,
             child: Text(
-              'Suivez vos dépenses, créez des budgets intelligents et atteignez vos objectifs financiers avec notre plateforme moderne et intuitive.',
+              LocaleKeys.home_hero_subtitle.tr(),
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.white.withValues(alpha: 0.9),
@@ -225,20 +237,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ),
           const SizedBox(height: 40),
           _buildAnimatedButton(
-            text: 'Commencer gratuitement',
-            onPressed: () {},
+            text: LocaleKeys.home_get_started.tr(),
+            onPressed: () {
+              launchUrl(Uri.parse('${MyStrings.webUrl}/register'));
+            },
             isSecondary: true,
             fullWidth: true,
           ),
           const SizedBox(height: 16),
-          Text(
-            'Aucune carte de crédit requise • Essai gratuit de 30 jours',
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.white.withValues(alpha: 0.8),
-            ),
-            textAlign: TextAlign.center,
-          ),
+
+          FeaturesRow(),
         ],
       ),
     );
@@ -256,8 +264,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       ),
       child: Column(
         children: [
-          const Text(
-            'Fonctionnalités principales',
+          Text(
+            LocaleKeys.home_main_features.tr(),
             style: TextStyle(
               fontSize: 28,
               fontWeight: FontWeight.w700,
@@ -268,27 +276,24 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           const SizedBox(height: 40),
           _buildFeatureCard(
             icon: Icons.analytics,
-            title: 'Suivi intelligent des dépenses',
-            description:
-                'Catégorisez automatiquement vos transactions avec l\'IA et visualisez précisément où va votre argent grâce à nos tableaux de bord intuitifs.',
+            title: LocaleKeys.home_feature1_title.tr(),
+            description: LocaleKeys.home_feature1_desc.tr(),
             color: const Color(0xFF3B82F6),
             delay: 0,
           ),
           const SizedBox(height: 20),
           _buildFeatureCard(
             icon: Icons.account_balance_wallet,
-            title: 'Budgets prédictifs',
-            description:
-                'Créez des budgets personnalisés basés sur vos habitudes et recevez des alertes proactives avant de dépasser vos limites.',
+            title: LocaleKeys.home_feature2_title.tr(),
+            description: LocaleKeys.home_feature2_desc.tr(),
             color: const Color(0xFF10B981),
             delay: 100,
           ),
           const SizedBox(height: 20),
           _buildFeatureCard(
             icon: Icons.insights,
-            title: 'Analyses avancées',
-            description:
-                'Découvrez vos tendances financières avec des rapports détaillés, des prévisions et des recommandations personnalisées.',
+            title: LocaleKeys.home_feature3_title.tr(),
+            description: LocaleKeys.home_feature3_desc.tr(),
             color: const Color(0xFFF59E0B),
             delay: 200,
           ),
@@ -383,7 +388,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   Widget _buildPricingSection() {
     return Container(
-      padding: const EdgeInsets.all(40),
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
@@ -393,8 +398,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       ),
       child: Column(
         children: [
-          const Text(
-            'Tarifs transparents',
+          Text(
+            LocaleKeys.home_pricing_title.tr(),
             style: TextStyle(
               fontSize: 28,
               fontWeight: FontWeight.w700,
@@ -404,29 +409,44 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ),
           const SizedBox(height: 40),
           _buildPricingCard(
-            name: 'Gratuit',
+            name: LocaleKeys.home_free.tr(),
             price: '0€',
             features: [
-              'Jusqu\'à 100 transactions par mois',
-              '3 budgets personnalisés',
-              'Rapports de base',
-              'Synchronisation 2 comptes',
+              LocaleKeys.home_free_feature1.tr(),
+              LocaleKeys.home_free_feature2.tr(),
+              LocaleKeys.home_free_feature3.tr(),
+              LocaleKeys.home_free_feature4.tr(),
             ],
-            buttonText: 'Commencer maintenant',
+            buttonText: LocaleKeys.home_get_started.tr(),
             isFeatured: true,
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 40),
+
           _buildPricingCard(
-            name: 'Premium',
-            price: '9€',
+            name: LocaleKeys.home_classic.tr(),
+            price: '9.99€',
             features: [
-              'Transactions illimitées',
-              'Budgets et catégories illimités',
-              'Analyses prédictives avancées',
-              'Support prioritaire 24/7',
-              'Exportation de données',
+              LocaleKeys.home_premium_feature1.tr(),
+              LocaleKeys.home_premium_feature2.tr(),
+              LocaleKeys.home_premium_feature3.tr(),
+              LocaleKeys.home_premium_feature4.tr(),
             ],
-            buttonText: 'Essai gratuit 30 jours',
+            buttonText: LocaleKeys.home_free_trial.tr(),
+            isFeatured: false,
+          ),
+          const SizedBox(height: 20),
+
+          _buildPricingCard(
+            name: LocaleKeys.home_premium.tr(),
+            price: '19.99€',
+            features: [
+              LocaleKeys.home_premium_feature1.tr(),
+              LocaleKeys.home_premium_feature2.tr(),
+              LocaleKeys.home_premium_feature3.tr(),
+              LocaleKeys.home_premium_feature4.tr(),
+              LocaleKeys.home_premium_feature5.tr(),
+            ],
+            buttonText: LocaleKeys.home_free_trial.tr(),
             isFeatured: false,
           ),
         ],
@@ -475,8 +495,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 color: Colors.white.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(20),
               ),
-              child: const Text(
-                'POPULAIRE',
+              child: Text(
+                LocaleKeys.home_popular.tr(),
                 style: TextStyle(
                   fontSize: 10,
                   fontWeight: FontWeight.w700,
@@ -507,7 +527,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 ),
               ),
               Text(
-                '/mois',
+                LocaleKeys.home_per_month.tr(),
                 style: TextStyle(
                   fontSize: 16,
                   color: isFeatured
@@ -555,7 +575,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           const SizedBox(height: 32),
           _buildAnimatedButton(
             text: buttonText,
-            onPressed: () {},
+            onPressed: () {
+              launchUrl(Uri.parse('${MyStrings.webUrl}/register'));
+            },
             isPrimary: !isFeatured,
             isSecondary: isFeatured,
             fullWidth: true,
@@ -606,8 +628,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 ),
               ),
               const SizedBox(width: 12),
-              const Text(
-                'Budget Zise',
+              Text(
+                LocaleKeys.home_app_name.tr(),
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w700,
@@ -618,7 +640,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ),
           const SizedBox(height: 16),
           Text(
-            'La solution moderne pour une gestion financière simplifiée',
+            LocaleKeys.home_footer_slogan.tr(),
             style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
             textAlign: TextAlign.center,
           ),
@@ -626,7 +648,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           Container(height: 1, color: Colors.grey.withValues(alpha: 0.3)),
           const SizedBox(height: 20),
           Text(
-            '© 2025 Budget Zise. Tous droits réservés.',
+            LocaleKeys.home_footer_copyright.tr(),
             style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
             textAlign: TextAlign.center,
           ),

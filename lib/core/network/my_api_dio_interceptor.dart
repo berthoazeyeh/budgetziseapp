@@ -15,6 +15,8 @@ class _MyApiDioInterceptor extends Interceptor {
       options.headers['Authorization'] = 'Bearer $accessToken';
     }
     debugPrint('📤 REQUEST: ${options.method} ${options.uri}');
+    debugPrint('📤 Headers: ${options.headers}');
+    debugPrint('📤 Body: ${options.data}');
 
     super.onRequest(options, handler);
   }

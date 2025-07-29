@@ -1,6 +1,13 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:budget_zise/budget_zise.dart';
+import 'package:budget_zise/core/network/api_result.dart';
+import 'package:budget_zise/domain/repositories/auth_repository.dart';
+import 'package:budget_zise/router/app_router.dart';
+import 'package:budget_zise/providers/language_switch_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:provider/provider.dart';
 // part 'principal_settings_screen_controller.dart';
 
 @RoutePage()
@@ -8,7 +15,7 @@ class PrincipalSettingsScreen extends StatefulWidget {
   const PrincipalSettingsScreen({super.key});
 
   @override
-  _SettingsPageState createState() => _SettingsPageState();
+  State<PrincipalSettingsScreen> createState() => _SettingsPageState();
 }
 
 class _SettingsPageState extends State<PrincipalSettingsScreen> {
@@ -22,9 +29,10 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
   bool biometricAuthEnabled = true;
   bool shareDataEnabled = false;
   bool cloudBackupEnabled = true;
-
   @override
   Widget build(BuildContext context) {
+    final authRepository = Provider.of<AuthRepository>(context);
+    final languageSwitchCubit = BlocProvider.of<LanguageSwitchCubit>(context);
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
@@ -43,7 +51,7 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
-          'Paramètres',
+          LocaleKeys.settings_title.tr(),
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
@@ -57,29 +65,32 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
           child: Column(
             children: [
               // Paramètres Généraux
-              _buildSettingsCard('Général', [
+              _buildSettingsCard(LocaleKeys.settings_general.tr(), [
                 _buildSettingItem(
-                  '🌐',
-                  'Langue',
-                  'Français',
+                  Ionicons.language_outline,
+                  LocaleKeys.settings_language.tr(),
+                  languageSwitchCubit.isFrench
+                      ? LocaleKeys.settings_french.tr()
+                      : LocaleKeys.settings_english.tr(),
                   Colors.blue[50]!,
                   Colors.blue[600]!,
                   showArrow: true,
-                  onTap: () => _showLanguageDialog(),
+                  onTap: () => _showLanguageDialog(languageSwitchCubit),
                 ),
                 _buildSettingItem(
-                  '💰',
-                  'Devise',
-                  'Euro (€)',
+                  MaterialCommunityIcons.currency_eur,
+
+                  LocaleKeys.settings_currency.tr(),
+                  LocaleKeys.settings_euro.tr(),
                   Colors.green[50]!,
                   Colors.green[500]!,
                   showArrow: true,
                   onTap: () => _showCurrencyDialog(),
                 ),
                 _buildSettingItem(
-                  '🌙',
-                  'Mode sombre',
-                  'Activé automatiquement',
+                  Ionicons.moon_outline,
+                  LocaleKeys.settings_dark_mode.tr(),
+                  LocaleKeys.settings_dark_mode_subtitle.tr(),
                   Colors.red[50]!,
                   Colors.red[500]!,
                   hasSwitch: true,
@@ -91,9 +102,9 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
                   },
                 ),
                 _buildSettingItem(
-                  '🔄',
-                  'Synchronisation automatique',
-                  'Synchroniser avec le cloud',
+                  Feather.refresh_ccw,
+                  LocaleKeys.settings_auto_sync.tr(),
+                  LocaleKeys.settings_auto_sync_subtitle.tr(),
                   Colors.purple[50]!,
                   Colors.purple[600]!,
                   hasSwitch: true,
@@ -109,9 +120,9 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
               // Notifications
               _buildSettingsCard('Notifications', [
                 _buildSettingItem(
-                  '🔔',
-                  'Notifications push',
-                  'Recevoir des notifications',
+                  Feather.bell,
+                  LocaleKeys.settings_push_notifications.tr(),
+                  LocaleKeys.settings_push_notifications_subtitle.tr(),
                   Colors.blue[50]!,
                   Colors.blue[600]!,
                   hasSwitch: true,
@@ -123,9 +134,9 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
                   },
                 ),
                 _buildSettingItem(
-                  '📊',
-                  'Alertes de budget',
-                  'Quand vous dépassez 80% du budget',
+                  Feather.alert_triangle,
+                  LocaleKeys.settings_budget_alerts.tr(),
+                  LocaleKeys.settings_budget_alerts_subtitle.tr(),
                   Colors.green[50]!,
                   Colors.green[500]!,
                   hasSwitch: true,
@@ -137,9 +148,9 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
                   },
                 ),
                 _buildSettingItem(
-                  '📈',
-                  'Rapports hebdomadaires',
-                  'Résumé de vos dépenses',
+                  Feather.bar_chart_2,
+                  LocaleKeys.settings_weekly_reports.tr(),
+                  LocaleKeys.settings_weekly_reports_subtitle.tr(),
                   Colors.red[50]!,
                   Colors.red[500]!,
                   hasSwitch: true,
@@ -151,9 +162,9 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
                   },
                 ),
                 _buildSettingItem(
-                  '🎯',
-                  'Objectifs d\'épargne',
-                  'Rappels pour vos objectifs',
+                  Feather.target,
+                  LocaleKeys.settings_savings_goals.tr(),
+                  LocaleKeys.settings_savings_goals_subtitle.tr(),
                   Colors.purple[50]!,
                   Colors.purple[600]!,
                   hasSwitch: true,
@@ -167,20 +178,20 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
               ]),
 
               // Sécurité et Confidentialité
-              _buildSettingsCard('Sécurité et Confidentialité', [
+              _buildSettingsCard(LocaleKeys.settings_security_privacy.tr(), [
                 _buildSettingItem(
-                  '🔒',
-                  'Verrouillage automatique',
-                  'Après 5 minutes d\'inactivité',
+                  Feather.lock,
+                  LocaleKeys.settings_auto_lock.tr(),
+                  LocaleKeys.settings_auto_lock_subtitle.tr(),
                   Colors.blue[50]!,
                   Colors.blue[600]!,
                   showArrow: true,
                   onTap: () => _showAutoLockDialog(),
                 ),
                 _buildSettingItem(
-                  '📱',
-                  'Authentification biométrique',
-                  'Touch ID / Face ID',
+                  Feather.smartphone,
+                  LocaleKeys.settings_biometric_auth.tr(),
+                  LocaleKeys.settings_biometric_auth_subtitle.tr(),
                   Colors.green[50]!,
                   Colors.green[500]!,
                   hasSwitch: true,
@@ -192,9 +203,9 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
                   },
                 ),
                 _buildSettingItem(
-                  '🛡️',
-                  'Données de navigation',
-                  'Partager les données anonymes',
+                  Feather.shield,
+                  LocaleKeys.settings_navigation_data.tr(),
+                  LocaleKeys.settings_navigation_data_subtitle.tr(),
                   Colors.red[50]!,
                   Colors.red[500]!,
                   hasSwitch: true,
@@ -208,11 +219,11 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
               ]),
 
               // Sauvegarde
-              _buildSettingsCard('Sauvegarde', [
+              _buildSettingsCard(LocaleKeys.settings_backup.tr(), [
                 _buildSettingItem(
-                  '☁️',
-                  'Sauvegarde cloud',
-                  'Dernière sauvegarde : il y a 2h',
+                  Feather.cloud,
+                  LocaleKeys.settings_cloud_backup.tr(),
+                  LocaleKeys.settings_cloud_backup_subtitle.tr(),
                   Colors.blue[50]!,
                   Colors.blue[600]!,
                   hasSwitch: true,
@@ -224,18 +235,18 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
                   },
                 ),
                 _buildSettingItem(
-                  '📤',
-                  'Exporter les données',
-                  'Télécharger vos données',
+                  Feather.upload,
+                  LocaleKeys.settings_export_data.tr(),
+                  LocaleKeys.settings_export_data_subtitle.tr(),
                   Colors.green[50]!,
                   Colors.green[500]!,
                   showArrow: true,
                   onTap: () => _exportData(),
                 ),
                 _buildSettingItem(
-                  '🔄',
-                  'Restaurer les données',
-                  'Importer depuis une sauvegarde',
+                  Feather.download,
+                  LocaleKeys.settings_restore_data.tr(),
+                  LocaleKeys.settings_restore_data_subtitle.tr(),
                   Colors.red[50]!,
                   Colors.red[500]!,
                   showArrow: true,
@@ -244,29 +255,29 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
               ]),
 
               // Support
-              _buildSettingsCard('Support', [
+              _buildSettingsCard(LocaleKeys.settings_support.tr(), [
                 _buildSettingItem(
-                  '❓',
-                  'Centre d\'aide',
-                  'FAQ et guides d\'utilisation',
+                  Feather.help_circle,
+                  LocaleKeys.settings_help_center.tr(),
+                  LocaleKeys.settings_help_center_subtitle.tr(),
                   Colors.blue[50]!,
                   Colors.blue[600]!,
                   showArrow: true,
                   onTap: () => _openHelpCenter(),
                 ),
                 _buildSettingItem(
-                  '💬',
-                  'Contacter le support',
-                  'Besoin d\'aide ? Contactez-nous',
+                  Feather.message_square,
+                  LocaleKeys.settings_contact_support.tr(),
+                  LocaleKeys.settings_contact_support_subtitle.tr(),
                   Colors.green[50]!,
                   Colors.green[500]!,
                   showArrow: true,
                   onTap: () => _contactSupport(),
                 ),
                 _buildSettingItem(
-                  '🐛',
-                  'Signaler un bug',
-                  'Aidez-nous à améliorer l\'app',
+                  Feather.alert_octagon,
+                  LocaleKeys.settings_report_bug.tr(),
+                  LocaleKeys.settings_report_bug_subtitle.tr(),
                   Colors.red[50]!,
                   Colors.red[500]!,
                   showArrow: true,
@@ -277,25 +288,25 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
               // À propos
               _buildSettingsCard('À propos', [
                 _buildSettingItem(
-                  '📱',
-                  'Version de l\'application',
-                  '2.1.0 (Build 210)',
+                  Feather.info,
+                  LocaleKeys.settings_app_version.tr(),
+                  LocaleKeys.settings_app_version_subtitle.tr(),
                   Colors.blue[50]!,
                   Colors.blue[600]!,
                 ),
                 _buildSettingItem(
-                  '📋',
-                  'Conditions d\'utilisation',
-                  'Lire nos conditions',
+                  Feather.file_text,
+                  LocaleKeys.settings_terms_of_service.tr(),
+                  LocaleKeys.settings_terms_of_service_subtitle.tr(),
                   Colors.green[50]!,
                   Colors.green[500]!,
                   showArrow: true,
                   onTap: () => _openTermsOfService(),
                 ),
                 _buildSettingItem(
-                  '🔒',
-                  'Politique de confidentialité',
-                  'Comment nous protégeons vos données',
+                  Feather.shield,
+                  LocaleKeys.settings_privacy_policy.tr(),
+                  LocaleKeys.settings_privacy_policy_subtitle.tr(),
                   Colors.red[50]!,
                   Colors.red[500]!,
                   showArrow: true,
@@ -309,9 +320,9 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
                   width: double.infinity,
                   margin: EdgeInsets.only(bottom: 12),
                   child: ElevatedButton.icon(
-                    onPressed: () => _logout(),
-                    icon: Text('🚪'),
-                    label: Text('Se déconnecter'),
+                    onPressed: () => _logout(authRepository),
+                    icon: const Icon(Feather.log_out),
+                    label: Text(LocaleKeys.settings_logout.tr()),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red[500],
                       foregroundColor: Colors.white,
@@ -326,8 +337,8 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
                   width: double.infinity,
                   child: OutlinedButton.icon(
                     onPressed: () => _deleteAccount(),
-                    icon: Text('🗑️'),
-                    label: Text('Supprimer le compte'),
+                    icon: const Icon(Feather.trash),
+                    label: Text(LocaleKeys.settings_delete_account.tr()),
                     style: OutlinedButton.styleFrom(
                       foregroundColor: Colors.red[500],
                       side: BorderSide(color: Colors.red[500]!),
@@ -357,7 +368,7 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
+            color: Colors.grey.withValues(alpha: 0.1),
             spreadRadius: 1,
             blurRadius: 10,
             offset: Offset(0, 2),
@@ -385,7 +396,7 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
   }
 
   Widget _buildSettingItem(
-    String emoji,
+    IconData emoji,
     String title,
     String subtitle,
     Color bgColor,
@@ -414,7 +425,7 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
                 color: bgColor,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Center(child: Text(emoji, style: TextStyle(fontSize: 18))),
+              child: Center(child: Icon(emoji, size: 24)),
             ),
             SizedBox(width: 16),
             Expanded(
@@ -454,21 +465,27 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
   }
 
   // Méthodes d'action
-  void _showLanguageDialog() {
+  void _showLanguageDialog(LanguageSwitchCubit languageSwitchCubit) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Choisir la langue'),
+        title: Text(LocaleKeys.settings_choose_language.tr()),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             ListTile(
-              title: Text('Français'),
-              onTap: () => Navigator.pop(context),
+              title: Text(LocaleKeys.settings_french.tr()),
+              onTap: () {
+                languageSwitchCubit.switchLanguage(context, 'fr');
+                Navigator.pop(context);
+              },
             ),
             ListTile(
-              title: Text('English'),
-              onTap: () => Navigator.pop(context),
+              title: Text(LocaleKeys.settings_english.tr()),
+              onTap: () {
+                languageSwitchCubit.switchLanguage(context, 'en');
+                Navigator.pop(context);
+              },
             ),
           ],
         ),
@@ -480,16 +497,16 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Choisir la devise'),
+        title: Text(LocaleKeys.settings_choose_currency.tr()),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             ListTile(
-              title: Text('Euro (€)'),
+              title: Text(LocaleKeys.settings_euro.tr()),
               onTap: () => Navigator.pop(context),
             ),
             ListTile(
-              title: Text('Dollar (\$)'),
+              title: Text(LocaleKeys.settings_dollar.tr()),
               onTap: () => Navigator.pop(context),
             ),
           ],
@@ -502,24 +519,24 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Verrouillage automatique'),
+        title: Text(LocaleKeys.settings_auto_lock.tr()),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             ListTile(
-              title: Text('Jamais'),
+              title: Text(LocaleKeys.settings_never.tr()),
               onTap: () => Navigator.pop(context),
             ),
             ListTile(
-              title: Text('1 minute'),
+              title: Text(LocaleKeys.settings_one_minute.tr()),
               onTap: () => Navigator.pop(context),
             ),
             ListTile(
-              title: Text('5 minutes'),
+              title: Text(LocaleKeys.settings_five_minutes.tr()),
               onTap: () => Navigator.pop(context),
             ),
             ListTile(
-              title: Text('15 minutes'),
+              title: Text(LocaleKeys.settings_fifteen_minutes.tr()),
               onTap: () => Navigator.pop(context),
             ),
           ],
@@ -529,66 +546,75 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
   }
 
   void _exportData() {
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text('Export des données en cours...')));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(LocaleKeys.settings_export_data_subtitle.tr())),
+    );
   }
 
   void _restoreData() {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Sélectionnez un fichier de sauvegarde')),
+      SnackBar(content: Text(LocaleKeys.settings_restore_data_subtitle.tr())),
     );
   }
 
   void _openHelpCenter() {
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text('Ouverture du centre d\'aide...')));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(LocaleKeys.settings_help_center_subtitle.tr())),
+    );
   }
 
   void _contactSupport() {
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text('Ouverture du support...')));
-  }
-
-  void _reportBug() {
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text('Formulaire de signalement...')));
-  }
-
-  void _openTermsOfService() {
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text('Ouverture des conditions...')));
-  }
-
-  void _openPrivacyPolicy() {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Ouverture de la politique de confidentialité...'),
+        content: Text(LocaleKeys.settings_contact_support_subtitle.tr()),
       ),
     );
   }
 
-  void _logout() {
+  void _reportBug() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(LocaleKeys.settings_report_bug_subtitle.tr())),
+    );
+  }
+
+  void _openTermsOfService() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(LocaleKeys.settings_terms_of_service_subtitle.tr()),
+      ),
+    );
+  }
+
+  void _openPrivacyPolicy() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(LocaleKeys.settings_privacy_policy_subtitle.tr())),
+    );
+  }
+
+  void _logout(AuthRepository authRepository) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Déconnexion'),
-        content: Text('Êtes-vous sûr de vouloir vous déconnecter ?'),
+        title: Text(LocaleKeys.settings_logout_title.tr()),
+        content: Text(LocaleKeys.settings_logout_message.tr()),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('Annuler'),
+            child: Text(LocaleKeys.settings_cancel.tr()),
           ),
           TextButton(
             onPressed: () {
-              Navigator.pop(context);
-              // Logique de déconnexion
+              authRepository.logout().then((value) {
+                if (value is Success && context.mounted) {
+                  Navigator.pop(context);
+                  context.router.replaceAll([
+                    const HomeRoute(),
+                    const LoginRoute(),
+                  ]);
+                }
+              });
             },
-            child: Text('Déconnecter'),
+            child: Text(LocaleKeys.settings_logout.tr()),
           ),
         ],
       ),
@@ -599,19 +625,22 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Supprimer le compte'),
-        content: Text('Cette action est irréversible. Êtes-vous sûr ?'),
+        title: Text(LocaleKeys.settings_delete_account_title.tr()),
+        content: Text(LocaleKeys.settings_delete_account_message.tr()),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('Annuler'),
+            child: Text(LocaleKeys.settings_cancel.tr()),
           ),
           TextButton(
             onPressed: () {
               Navigator.pop(context);
               // Logique de suppression
             },
-            child: Text('Supprimer', style: TextStyle(color: Colors.red)),
+            child: Text(
+              LocaleKeys.settings_delete_account.tr(),
+              style: TextStyle(color: Colors.red),
+            ),
           ),
         ],
       ),

@@ -1,6 +1,22 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:budget_zise/budget_zise.dart';
+import 'package:budget_zise/core/exceptions/network_exception.dart';
+import 'package:budget_zise/core/network/api_response.dart';
+import 'package:budget_zise/data/services/dashboard_sevices.dart';
+import 'package:budget_zise/domain/models/transaction.dart';
+import 'package:budget_zise/domain/models/transaction_type.dart';
+import 'package:budget_zise/domain/repositories/dashboard_repository.dart';
+import 'package:budget_zise/domain/repositories/public_repository.dart';
+import 'package:budget_zise/presentation/cubits/user_cubit.dart';
+import 'package:budget_zise/presentation/helpers/ui_alert_helper.dart';
+import 'package:budget_zise/presentation/screens/home/transaction_screen/widgets/categories_picker.dart';
+import 'package:budget_zise/presentation/utils/icon_mapper.dart';
+import 'package:budget_zise/providers/language_switch_cubit.dart';
+import 'package:budget_zise/router/app_router.dart';
 import 'package:flutter/material.dart';
+import 'package:moment_dart/moment_dart.dart';
+import 'package:provider/provider.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 part 'transaction_screen_controller.dart';
 
 @RoutePage()
@@ -8,297 +24,459 @@ class TransactionScreen extends StatefulWidget {
   const TransactionScreen({super.key});
 
   @override
-  _TransactionScreenState createState() => _TransactionScreenState();
+  State<TransactionScreen> createState() => _TransactionScreenState();
 }
 
 class _TransactionScreenState extends State<TransactionScreen> {
-  int _selectedPeriod = 0;
-  final List<String> _periods = ['Aujourd\'hui', 'Cette semaine', 'Ce mois'];
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
+    debugPrint(context.router.currentPath);
+    final languageSwitchCubit = BlocProvider.of<LanguageSwitchCubit>(context);
+    final userCubit = BlocProvider.of<AuthCubit>(context);
+    final currency = userCubit.getSignedInUser.country.currency;
+    return ScreenControllerBuilder<TransactionScreenController>(
+      create: (state) =>
+          TransactionScreenController(state, languageSwitchCubit, userCubit),
+      builder: (context, ctrl) => Scaffold(
         backgroundColor: Colors.white,
-        elevation: 0,
-        title: Text(
-          'Transactions',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF1E293B),
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 16),
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFF667EEA),
-                foregroundColor: Colors.white,
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              child: Text('+ Ajouter', style: TextStyle(fontSize: 14)),
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          title: Text(
+            'Transactions',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF1E293B),
             ),
           ),
-        ],
-      ),
-      body: Column(
-        children: [
-          // Header avec recherche et filtres
-          Container(
-            color: Colors.white,
-            padding: EdgeInsets.all(16),
-            child: Column(
-              children: [
-                // Barre de recherche et filtre
-                Row(
+          actions: [
+            Padding(
+              padding: EdgeInsets.only(right: 16),
+              child: ElevatedButton(
+                onPressed: () {
+                  context.router.push(NewTransactionRoute()).then((value) {
+                    ctrl.refreshTransactions();
+                  });
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF667EEA),
+                  foregroundColor: Colors.white,
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                child: Text('+ Ajouter', style: TextStyle(fontSize: 14)),
+              ),
+            ),
+          ],
+        ),
+        body: RefreshIndicator(
+          onRefresh: () => ctrl.refreshTransactions(),
+          child: Column(
+            children: [
+              // Header avec recherche et filtres
+              Container(
+                color: Colors.white,
+                padding: EdgeInsets.all(16),
+                child: Column(
                   children: [
-                    Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: Color(0xFFE5E7EB),
-                            width: 2,
+                    // Barre de recherche et filtre
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                color: Color(0xFFE5E7EB),
+                                width: 2,
+                              ),
+                            ),
+                            child: TextField(
+                              decoration: InputDecoration(
+                                hintText: 'Rechercher...',
+                                prefixIcon: Icon(
+                                  Icons.search,
+                                  color: Color(0xFF64748B),
+                                ),
+                                border: InputBorder.none,
+                                contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 12,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            hintText: 'Rechercher...',
-                            prefixIcon: Icon(
-                              Icons.search,
+                        SizedBox(width: 12),
+                        PopupMenuButton<String>(
+                          position: PopupMenuPosition.under,
+                          onSelected: (String value) {
+                            if (ctrl.isLoadingCategories) return;
+                            ctrl.getCategories();
+                            CategoriesPicker.show(
+                              context,
+                              (categoryId) => ctrl.changeCategory(categoryId),
+                              ctrl.selectedCategoryId,
+                              ctrl.categories,
+                              ctrl.isLoadingCategories,
+                            );
+                          },
+                          itemBuilder: (BuildContext context) =>
+                              <PopupMenuEntry<String>>[
+                                PopupMenuItem<String>(
+                                  value: '1',
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.arrow_drop_down),
+                                      Text('Trier par depence'),
+                                    ],
+                                  ),
+                                ),
+                                PopupMenuItem<String>(
+                                  value: '2',
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.arrow_drop_down),
+                                      Text('Trier par Revenu'),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                          child: Container(
+                            padding: EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: Color(0xFFF8FAFC),
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(color: Color(0xFFE2E8F0)),
+                            ),
+                            child: Icon(
+                              Icons.bar_chart,
                               color: Color(0xFF64748B),
                             ),
-                            border: InputBorder.none,
-                            contentPadding: EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 12,
-                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
-                    SizedBox(width: 12),
+                    SizedBox(height: 16),
+                    // Onglets de période
                     Container(
                       decoration: BoxDecoration(
                         color: Color(0xFFF8FAFC),
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Color(0xFFE2E8F0)),
                       ),
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.bar_chart, color: Color(0xFF64748B)),
+                      padding: EdgeInsets.all(4),
+                      child: Row(
+                        children: ctrl.periods.asMap().entries.map((entry) {
+                          int index = entry.key;
+                          String period = entry.value;
+                          bool isSelected = ctrl.selectedPeriod == index;
+
+                          return Expanded(
+                            child: GestureDetector(
+                              onTap: () => ctrl.changePeriod(index),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: isSelected
+                                      ? Colors.white
+                                      : Colors.transparent,
+                                  borderRadius: BorderRadius.circular(8),
+                                  boxShadow: isSelected
+                                      ? [
+                                          BoxShadow(
+                                            color: Colors.black.withValues(
+                                              alpha: 0.05,
+                                            ),
+                                            blurRadius: 4,
+                                            offset: Offset(0, 2),
+                                          ),
+                                        ]
+                                      : [],
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 8,
+                                  horizontal: 12,
+                                ),
+                                child: Text(
+                                  period,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontWeight: isSelected
+                                        ? FontWeight.w500
+                                        : FontWeight.normal,
+                                    color: isSelected
+                                        ? Color(0xFF667EEA)
+                                        : Color(0xFF64748B),
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        }).toList(),
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 16),
-                // Onglets de période
-                Container(
-                  decoration: BoxDecoration(
-                    color: Color(0xFFF8FAFC),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  padding: EdgeInsets.all(4),
-                  child: Row(
-                    children: _periods.asMap().entries.map((entry) {
-                      int index = entry.key;
-                      String period = entry.value;
-                      bool isSelected = _selectedPeriod == index;
-
-                      return Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _selectedPeriod = index;
-                            });
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: isSelected
-                                  ? Colors.white
-                                  : Colors.transparent,
-                              borderRadius: BorderRadius.circular(8),
-                              boxShadow: isSelected
-                                  ? [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.05),
-                                        blurRadius: 4,
-                                        offset: Offset(0, 2),
+              ),
+              // Contenu principal
+              Expanded(
+                child: ListView(
+                  controller: ctrl.scrollController,
+                  padding: EdgeInsets.all(16),
+                  children: [
+                    // Résumé du jour
+                    Skeletonizer(
+                      enabled: ctrl.isLoadingTransactionsStats,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.08),
+                              blurRadius: 20,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
+                          border: Border.all(color: Color(0xFFF1F5F9)),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                          vertical: 20,
+                          horizontal: 15,
+                        ),
+                        margin: EdgeInsets.only(bottom: 24),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Dépenses',
+                                    style: TextStyle(
+                                      color: Color(0xFF64748B),
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  SizedBox(height: 4),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        '-${ctrl.transactionsStats?.totalExpenses.toStringAsFixed(1)} ',
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color(0xFFEF4444),
+                                        ),
                                       ),
-                                    ]
-                                  : [],
-                            ),
-                            padding: EdgeInsets.symmetric(
-                              vertical: 8,
-                              horizontal: 12,
-                            ),
-                            child: Text(
-                              period,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontWeight: isSelected
-                                    ? FontWeight.w500
-                                    : FontWeight.normal,
-                                color: isSelected
-                                    ? Color(0xFF667EEA)
-                                    : Color(0xFF64748B),
-                                fontSize: 14,
+                                      Text(
+                                        ' $currency',
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color(0xFFEF4444),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
+                            Container(
+                              width: 1,
+                              height: 40,
+                              color: Color(0xFFE2E8F0),
+                            ),
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Revenus',
+                                    style: TextStyle(
+                                      color: Color(0xFF64748B),
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  SizedBox(height: 4),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        '+${ctrl.transactionsStats?.totalRecharges.toStringAsFixed(1)} ',
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color(0xFF10B981),
+                                        ),
+                                      ),
+                                      Text(
+                                        ' $currency',
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color(0xFF10B981),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible:
+                          ctrl.groupByDate().isEmpty &&
+                          !ctrl.isLoadingTransactions,
+                      child: Center(
+                        child: Text(
+                          'Aucune transaction trouvée pour cette période',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xFF64748B),
                           ),
                         ),
-                      );
-                    }).toList(),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          // Contenu principal
-          Expanded(
-            child: ListView(
-              padding: EdgeInsets.all(16),
-              children: [
-                // Résumé du jour
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(16),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.08),
-                        blurRadius: 20,
-                        offset: Offset(0, 4),
                       ),
-                    ],
-                    border: Border.all(color: Color(0xFFF1F5F9)),
-                  ),
-                  padding: EdgeInsets.all(20),
-                  margin: EdgeInsets.only(bottom: 24),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          children: [
-                            Text(
-                              'Dépenses',
-                              style: TextStyle(
-                                color: Color(0xFF64748B),
-                                fontSize: 14,
-                              ),
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              '-156.30 €',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFFEF4444),
-                              ),
-                            ),
-                          ],
+                    ),
+                    Skeletonizer(
+                      enabled: ctrl.isLoadingTransactions && ctrl.nextPage == 1,
+                      child: Visibility(
+                        visible: ctrl.groupByDate().isNotEmpty,
+                        child: Builder(
+                          builder: (BuildContext context) {
+                            return Column(
+                              children: ctrl.groupByDate().entries.toList().map(
+                                (e) {
+                                  String date = e.key;
+                                  List<Transaction> transactions = e.value;
+                                  return Padding(
+                                    padding: const EdgeInsets.only(bottom: 10),
+                                    child: _buildTransactionSection(
+                                      ctrl.formatRelativeDate(
+                                        Moment.parse(date),
+                                      ),
+                                      transactions.map((e) {
+                                        final icon = IconMapper.getIcon(
+                                          e.categoryName,
+                                        );
+                                        final isExpense =
+                                            e.transactionType == "Expense";
+                                        final amount = isExpense
+                                            ? -e.amount
+                                            : e.amount;
+                                        String category = e.categoryName;
+                                        if (category.split("/").length > 1) {
+                                          if (languageSwitchCubit.isFrench) {
+                                            category = category
+                                                .split("/")
+                                                .first
+                                                .trim();
+                                          } else {
+                                            category = category.split("/").last;
+                                          }
+                                        }
+                                        return TransactionItem(
+                                          icon: icon.icon,
+                                          iconColor: icon.iconColor,
+                                          iconBg: icon.color,
+                                          title: category,
+                                          subtitle:
+                                              e.description ??
+                                              e.transactionReference ??
+                                              "",
+                                          time: Moment(e.date).format('HH:mm'),
+                                          amount:
+                                              "${amount.toStringAsFixed(2)} €",
+                                          amountColor: isExpense
+                                              ? Color(0xFFEF4444)
+                                              : Color(0xFF10B981),
+                                          category: e.paymentMethod,
+                                          fileUrl: e.receiptUrl,
+                                        );
+                                      }).toList(),
+                                    ),
+                                  );
+                                },
+                              ).toList(),
+                            );
+                          },
                         ),
                       ),
-                      Container(width: 1, height: 40, color: Color(0xFFE2E8F0)),
-                      Expanded(
-                        child: Column(
-                          children: [
-                            Text(
-                              'Revenus',
-                              style: TextStyle(
-                                color: Color(0xFF64748B),
-                                fontSize: 14,
+                    ),
+                    Skeletonizer(
+                      enabled: ctrl.isLoadingTransactions,
+                      child: Visibility(
+                        visible: ctrl.isLoadingTransactions,
+                        child:
+                            // Transactions d'aujourd'hui
+                            _buildTransactionSection('Aujourd\'hui', [
+                              TransactionItem(
+                                icon: Icons.shopping_cart,
+                                iconColor: Color(0xFFEF4444),
+                                iconBg: Color(0xFFFEF2F2),
+                                title: 'Carrefour Market',
+                                subtitle: 'Alimentation • Carte bancaire',
+                                time: '14:30',
+                                amount: '-45.80 €',
+                                amountColor: Color(0xFFEF4444),
+                                category: 'Alimentaire',
                               ),
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              '+0.00 €',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFF10B981),
+                              TransactionItem(
+                                icon: Icons.coffee,
+                                iconColor: Color(0xFFEF4444),
+                                iconBg: Color(0xFFFEF2F2),
+                                title: 'Starbucks',
+                                subtitle: 'Loisirs • Carte bancaire',
+                                time: '11:15',
+                                amount: '-4.50 €',
+                                amountColor: Color(0xFFEF4444),
+                                category: 'Café',
                               ),
-                            ),
-                          ],
-                        ),
+                              TransactionItem(
+                                icon: Icons.train,
+                                iconColor: Color(0xFFEF4444),
+                                iconBg: Color(0xFFFEF2F2),
+                                title: 'Métro RATP',
+                                subtitle: 'Transport • Paiement mobile',
+                                time: '09:30',
+                                amount: '-2.15 €',
+                                amountColor: Color(0xFFEF4444),
+                                category: 'Transport',
+                              ),
+                            ]),
                       ),
-                    ],
-                  ),
+                    ),
+                    Visibility(
+                      visible:
+                          ctrl.isLoadingTransactions &&
+                          ctrl.groupByDate().isNotEmpty,
+                      child: Center(child: CircularProgressIndicator()),
+                    ),
+
+                    SizedBox(height: 200),
+                  ],
                 ),
-                // Transactions d'aujourd'hui
-                _buildTransactionSection('Aujourd\'hui', [
-                  TransactionItem(
-                    icon: '🛒',
-                    iconColor: Color(0xFFEF4444),
-                    iconBg: Color(0xFFFEF2F2),
-                    title: 'Carrefour Market',
-                    subtitle: 'Alimentation • Carte bancaire',
-                    time: '14:30',
-                    amount: '-45.80 €',
-                    amountColor: Color(0xFFEF4444),
-                    category: 'Alimentaire',
-                  ),
-                  TransactionItem(
-                    icon: '☕',
-                    iconColor: Color(0xFFEF4444),
-                    iconBg: Color(0xFFFEF2F2),
-                    title: 'Starbucks',
-                    subtitle: 'Loisirs • Carte bancaire',
-                    time: '11:15',
-                    amount: '-4.50 €',
-                    amountColor: Color(0xFFEF4444),
-                    category: 'Café',
-                  ),
-                  TransactionItem(
-                    icon: '🚇',
-                    iconColor: Color(0xFFEF4444),
-                    iconBg: Color(0xFFFEF2F2),
-                    title: 'Métro RATP',
-                    subtitle: 'Transport • Paiement mobile',
-                    time: '09:30',
-                    amount: '-2.15 €',
-                    amountColor: Color(0xFFEF4444),
-                    category: 'Transport',
-                  ),
-                ]),
-                SizedBox(height: 24),
-                // Transactions d'hier
-                _buildTransactionSection('Hier', [
-                  TransactionItem(
-                    icon: '💰',
-                    iconColor: Color(0xFF10B981),
-                    iconBg: Color(0xFFECFDF5),
-                    title: 'Salaire Janvier',
-                    subtitle: 'Revenus • Virement',
-                    time: '09:00',
-                    amount: '+2,800 €',
-                    amountColor: Color(0xFF10B981),
-                    category: 'Salaire',
-                  ),
-                  TransactionItem(
-                    icon: '🏠',
-                    iconColor: Color(0xFFEF4444),
-                    iconBg: Color(0xFFFEF2F2),
-                    title: 'Loyer Janvier',
-                    subtitle: 'Logement • Prélèvement',
-                    time: '06:00',
-                    amount: '-950 €',
-                    amountColor: Color(0xFFEF4444),
-                    category: 'Logement',
-                  ),
-                ]),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -325,7 +503,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.08),
+                color: Colors.black.withValues(alpha: 0.08),
                 blurRadius: 20,
                 offset: Offset(0, 4),
               ),
@@ -344,24 +522,25 @@ class _TransactionScreenState extends State<TransactionScreen> {
                       ? Border(bottom: BorderSide(color: Color(0xFFF1F5F9)))
                       : null,
                 ),
-                padding: EdgeInsets.all(16),
+                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
                 child: Row(
                   children: [
                     Container(
-                      width: 48,
-                      height: 48,
+                      width: 45,
+                      height: 45,
                       decoration: BoxDecoration(
                         color: transaction.iconBg,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Center(
-                        child: Text(
+                        child: Icon(
                           transaction.icon,
-                          style: TextStyle(fontSize: 20),
+                          size: 20,
+                          color: transaction.iconColor,
                         ),
                       ),
                     ),
-                    SizedBox(width: 16),
+                    SizedBox(width: 12),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -411,6 +590,13 @@ class _TransactionScreenState extends State<TransactionScreen> {
                             fontSize: 12,
                           ),
                         ),
+                        SizedBox(height: 4),
+                        if (transaction.fileUrl != null)
+                          Icon(
+                            Icons.file_present,
+                            color: Color.fromARGB(255, 73, 128, 206),
+                            size: 16,
+                          ),
                       ],
                     ),
                   ],
@@ -425,7 +611,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
 }
 
 class TransactionItem {
-  final String icon;
+  final IconData icon;
   final Color iconColor;
   final Color iconBg;
   final String title;
@@ -434,7 +620,8 @@ class TransactionItem {
   final String amount;
   final Color amountColor;
   final String category;
-
+  final String? fileUrl;
+  final String? place;
   TransactionItem({
     required this.icon,
     required this.iconColor,
@@ -445,5 +632,7 @@ class TransactionItem {
     required this.amount,
     required this.amountColor,
     required this.category,
+    this.fileUrl,
+    this.place,
   });
 }

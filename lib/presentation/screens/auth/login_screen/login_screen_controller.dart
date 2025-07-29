@@ -12,9 +12,25 @@ class LoginScreenController extends ScreenController {
     updateUI();
   }
 
+  @override
+  void onInit() {
+    super.onInit();
+    _signInWithGoogle();
+  }
+
+  Future<void> _signInWithGoogle() async {
+    try {
+      final authServices = Provider.of<AuthServices>(context, listen: false);
+      final token = await authServices.retreiveGoogleToken();
+      debugPrint('🔑 Token Google : $token');
+    } catch (error) {
+      debugPrint('❌ Erreur lors de la connexion : $error');
+    }
+  }
+
   Future<void> login() async {
     if (!(formKey.currentState?.validate() ?? false)) {
-      UiAlertHelper.showErrorToast('Veuillez remplir tous les champs');
+      UiAlertHelper.showErrorToast(LocaleKeys.auth_please_fill_all_fields.tr());
       return;
     }
     try {
@@ -38,9 +54,12 @@ class LoginScreenController extends ScreenController {
       if (context.mounted) {
         UiAlertHelper.showSuccessSnackBar(
           context,
-          'Bienvenue ${response.firstName}',
+          LocaleKeys.auth_welcome.tr(args: [response.firstName]),
         );
-        context.replaceRoute(const MainShellRoute());
+        context.router.push(const OTPVerificationRoute());
+        // context.router.replaceAll([const MainShellRoute()]);
+
+        // context..back(const MainShellRoute());
       }
     } catch (e) {
       debugPrint(e.toString());
