@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.budget_zise"
-        minSdk = 23
+        minSdk = 24
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
