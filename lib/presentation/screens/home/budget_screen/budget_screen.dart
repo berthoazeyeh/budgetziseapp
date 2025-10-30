@@ -31,7 +31,7 @@ class BudgetScreen extends StatelessWidget {
           backgroundColor: Colors.white,
           elevation: 0,
           title: Text(
-            'Mes Budgets',
+            LocaleKeys.budget_screen_budget_title.tr(),
             style: TextStyle(
               color: Colors.black,
               fontSize: 24,
@@ -53,7 +53,7 @@ class BudgetScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                child: Text('+ Créer'),
+                child: Text(LocaleKeys.budget_screen_budget_create.tr()),
               ),
             ),
           ],
@@ -81,7 +81,16 @@ class BudgetScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Budget ${DateFormat('MMMM yyyy', languageSwitchCubit.currentLocale.languageCode).format(DateTime.now())}',
+                              LocaleKeys.budget_screen_budget_month.tr(
+                                args: [
+                                  DateFormat(
+                                    'MMMM yyyy',
+                                    languageSwitchCubit
+                                        .currentLocale
+                                        .languageCode,
+                                  ).format(DateTime.now()),
+                                ],
+                              ),
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
@@ -97,7 +106,7 @@ class BudgetScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: Text(
-                                '📊 Bien géré',
+                                '📊 ${LocaleKeys.budget_screen_budget_well_managed.tr()}',
                                 style: TextStyle(
                                   color: Colors.green[700],
                                   fontSize: 14,
@@ -112,12 +121,12 @@ class BudgetScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             _buildBudgetSummaryItem(
-                              'Dépensé',
+                              LocaleKeys.budget_screen_budget_spent.tr(),
                               '${ctrl.getExpencesTotal()} ${ctrl.userCubit.getSignedInUser.country.currency}',
                               Colors.red,
                             ),
                             _buildBudgetSummaryItem(
-                              'Budget Total',
+                              LocaleKeys.budget_screen_budget_total.tr(),
                               '${ctrl.getBudgetTotal()} ${ctrl.userCubit.getSignedInUser.country.currency}',
                               Colors.black,
                             ),
@@ -128,12 +137,13 @@ class BudgetScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             _buildBudgetSummaryItem(
-                              '% d\'utilisation',
+                              LocaleKeys.budget_screen_budget_usage_percent
+                                  .tr(),
                               '${ctrl.getExpencePercentage().toStringAsFixed(2)}%',
                               Colors.green,
                             ),
                             _buildBudgetSummaryItem(
-                              'Reste',
+                              LocaleKeys.budget_screen_budget_remaining.tr(),
                               '${ctrl.getBudgetTotal() - ctrl.getExpencesTotal()} ${ctrl.userCubit.getSignedInUser.country.currency}',
                               Colors.green,
                             ),
@@ -175,13 +185,18 @@ class BudgetScreen extends StatelessWidget {
                                 ctrl.budget[index].allocatedAmount);
                             String status = "";
                             if (percentage >= 1) {
-                              status =
-                                  "budget dépassé ${((1 - percentage) * 100).toStringAsFixed(2)}%";
+                              status = LocaleKeys.budget_screen_budget_over.tr(
+                                namedArgs: {
+                                  'percentage': ((1 - percentage) * 100)
+                                      .toStringAsFixed(2),
+                                },
+                              );
                             } else {
                               final days = (ctrl.budget[index].endDate
                                   .difference(DateTime.now())
                                   .inDays);
-                              status = "$days jour(s) restants";
+                              status = LocaleKeys.budget_screen_budget_days_left
+                                  .tr(args: [days.toString()]);
                             }
                             return _buildBudgetItem(
                               icon: iconData.icon,
@@ -249,7 +264,7 @@ class BudgetScreen extends StatelessWidget {
                           Text('💡', style: TextStyle(fontSize: 24)),
                           SizedBox(width: 12),
                           Text(
-                            'Conseil du mois',
+                            LocaleKeys.budget_screen_budget_tip_title.tr(),
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
@@ -259,7 +274,9 @@ class BudgetScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 12),
                       Text(
-                        'Vous avez dépassé votre budget loisirs de 20€. Essayez de réduire vos sorties cette semaine pour rattraper !',
+                        LocaleKeys.budget_screen_budget_tip_text.tr(
+                          args: ["loisirs", "20€"],
+                        ),
                         style: TextStyle(
                           color: Colors.orange[800],
                           fontSize: 14,

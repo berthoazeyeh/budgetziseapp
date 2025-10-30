@@ -1,6 +1,7 @@
 import 'package:budget_zise/app_widget.dart';
 import 'package:budget_zise/budget_zise.dart';
 import 'package:budget_zise/core/network/dio_client.dart';
+import 'package:budget_zise/data/services/device_info_service.dart';
 import 'package:budget_zise/data/services/notification_service.dart';
 import 'package:budget_zise/firebase_options.dart';
 import 'package:budget_zise/init_application.dart';
@@ -23,6 +24,8 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 void main() async {
   await InitApplication.initMyApplication();
   await EasyLocalization.ensureInitialized();
+  await DeviceInfoService.instance.getDeviceId();
+  await DeviceInfoService.instance.getDeviceInfo();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   final logger = Logger();

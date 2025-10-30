@@ -32,20 +32,20 @@ class PinScreenController extends ScreenController {
   String get headerTitle {
     if (isCreatingPin) {
       return _currentStep == PinStep.create
-          ? 'Créer votre PIN'
-          : 'Confirmer votre PIN';
+          ? LocaleKeys.pin_screen_pin_create_title.tr()
+          : LocaleKeys.pin_screen_pin_confirm_title.tr();
     } else {
-      return 'Entrez votre PIN';
+      return LocaleKeys.pin_screen_pin_enter_title.tr();
     }
   }
 
   String get headerSubtitle {
     if (isCreatingPin) {
       return _currentStep == PinStep.create
-          ? 'Choisissez un code à 4 chiffres'
-          : 'Saisissez à nouveau votre PIN';
+          ? LocaleKeys.pin_screen_pin_create_subtitle.tr()
+          : LocaleKeys.pin_screen_pin_confirm_subtitle.tr();
     } else {
-      return 'Saisissez votre PIN pour continuer';
+      return LocaleKeys.pin_screen_pin_enter_subtitle.tr();
     }
   }
 
@@ -150,7 +150,7 @@ class PinScreenController extends ScreenController {
       if (_firstPin == _currentPin) {
         _savePinToUser();
       } else {
-        _setError('Les codes PIN ne correspondent pas');
+        _setError(LocaleKeys.pin_screen_pin_error_mismatch.tr());
         _resetCurrentPin();
       }
     }
@@ -162,7 +162,7 @@ class PinScreenController extends ScreenController {
     if (userPin == _currentPin) {
       _onPinVerificationSuccess();
     } else {
-      _setError('PIN incorrect');
+      _setError(LocaleKeys.pin_screen_pin_error_incorrect.tr());
       _resetCurrentPin();
       _vibrateError();
     }
@@ -179,7 +179,7 @@ class PinScreenController extends ScreenController {
       if (res) {
         _onPinCreationSuccess();
       } else {
-        _setError('Erreur lors de la sauvegarde du PIN');
+        _setError(LocaleKeys.pin_screen_pin_error_save.tr());
         _resetCurrentPin();
       }
     } catch (e) {

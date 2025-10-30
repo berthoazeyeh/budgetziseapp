@@ -306,7 +306,7 @@ class _EditProfilScreenState extends State<EditProfilScreen> {
         ),
         const SizedBox(height: 8),
         DropdownButtonFormField<String>(
-          value: _selectedCountry,
+          initialValue: _selectedCountry,
           decoration: InputDecoration(
             prefixIcon: const Icon(Icons.flag, color: Color(0xFF667eea)),
             border: OutlineInputBorder(
@@ -349,7 +349,7 @@ class _EditProfilScreenState extends State<EditProfilScreen> {
         ),
         const SizedBox(height: 8),
         DropdownButtonFormField<String>(
-          value: _selectedCurrency,
+          initialValue: _selectedCurrency,
           decoration: InputDecoration(
             prefixIcon: const Icon(
               Icons.attach_money,
@@ -398,7 +398,7 @@ class _EditProfilScreenState extends State<EditProfilScreen> {
         ),
         const SizedBox(height: 8),
         DropdownButtonFormField<String>(
-          value: _selectedLanguage,
+          initialValue: _selectedLanguage,
           decoration: InputDecoration(
             prefixIcon: const Icon(Icons.language, color: Color(0xFF667eea)),
             border: OutlineInputBorder(
@@ -441,7 +441,7 @@ class _EditProfilScreenState extends State<EditProfilScreen> {
         ),
         const SizedBox(height: 8),
         DropdownButtonFormField<String>(
-          value: _selectedTimezone,
+          initialValue: _selectedTimezone,
           decoration: InputDecoration(
             prefixIcon: const Icon(Icons.schedule, color: Color(0xFF667eea)),
             border: OutlineInputBorder(

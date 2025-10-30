@@ -15,7 +15,7 @@ class LoginScreenController extends ScreenController {
   @override
   void onInit() {
     super.onInit();
-    _signInWithGoogle();
+    // _signInWithGoogle();
   }
 
   Future<void> _signInWithGoogle() async {

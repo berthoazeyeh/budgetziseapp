@@ -35,6 +35,7 @@ class MainShellPage extends StatelessWidget {
           drawer: BudgetDrawer(user: authUser),
           body: child,
           bottomNavigationBar: FloatingBottomNavBar(
+            key: ValueKey(context.locale.languageCode),
             currentIndex: tabsRouter.activeIndex,
             onTap: (index) {
               // Haptic feedback pour une meilleure UX

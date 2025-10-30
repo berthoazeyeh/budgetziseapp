@@ -54,7 +54,9 @@ class DashboardScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Bonjour, ${user.firstName}',
+                                LocaleKeys.dashboard_screen_greeting.tr(
+                                  namedArgs: {'name': user.firstName},
+                                ),
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -63,7 +65,7 @@ class DashboardScreen extends StatelessWidget {
                               ),
                               SizedBox(height: 4),
                               Text(
-                                'Voici votre situation financière',
+                                LocaleKeys.dashboard_screen_subtitle.tr(),
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: Colors.white70,
@@ -106,8 +108,8 @@ class DashboardScreen extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                'Solde disponible',
+                              Text(
+                                LocaleKeys.dashboard_screen_balance.tr(),
                                 style: TextStyle(color: Colors.white70),
                               ),
                               const SizedBox(height: 8),
@@ -126,7 +128,8 @@ class DashboardScreen extends StatelessWidget {
                                     child: Column(
                                       children: [
                                         Text(
-                                          'Ce mois',
+                                          LocaleKeys.dashboard_screen_this_month
+                                              .tr(),
                                           style: TextStyle(
                                             color: Colors.white70,
                                           ),
@@ -144,9 +147,10 @@ class DashboardScreen extends StatelessWidget {
                                   ),
                                   Expanded(
                                     child: Column(
-                                      children: const [
+                                      children: [
                                         Text(
-                                          'Économies',
+                                          LocaleKeys.dashboard_screen_savings
+                                              .tr(),
                                           style: TextStyle(
                                             color: Colors.white70,
                                           ),
@@ -188,7 +192,7 @@ class DashboardScreen extends StatelessWidget {
                             Expanded(
                               child: _StatCard(
                                 icon: '📈',
-                                label: 'Revenus',
+                                label: LocaleKeys.dashboard_screen_income.tr(),
                                 amount: '+3,200 ${user.country.currency}',
                                 color: Colors.green,
                               ),
@@ -197,7 +201,8 @@ class DashboardScreen extends StatelessWidget {
                             Expanded(
                               child: _StatCard(
                                 icon: '📉',
-                                label: 'Dépenses',
+                                label: LocaleKeys.dashboard_screen_expenses
+                                    .tr(),
                                 amount: '-2,550 ${user.country.currency}',
                                 color: Colors.red,
                               ),
@@ -229,7 +234,8 @@ class DashboardScreen extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    "Budgets Actifs",
+                                    LocaleKeys.dashboard_screen_active_budgets
+                                        .tr(),
                                     style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
@@ -241,7 +247,7 @@ class DashboardScreen extends StatelessWidget {
                                     context.router.push(const BudgetRoute());
                                   },
                                   child: Text(
-                                    "Voir tous",
+                                    LocaleKeys.dashboard_screen_see_all.tr(),
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Colors.blue,
@@ -273,7 +279,7 @@ class DashboardScreen extends StatelessWidget {
                                   children: List.generate(
                                     4,
                                     (index) => BudgetCard(
-                                      title: "Alimentation",
+                                      title: "..............",
                                       icon: Icons.restaurant,
                                       spent: 880,
                                       limit: 700,
@@ -308,7 +314,9 @@ class DashboardScreen extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    "Transactions Récentes",
+                                    LocaleKeys
+                                        .dashboard_screen_recent_transactions
+                                        .tr(),
                                     style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
@@ -322,7 +330,9 @@ class DashboardScreen extends StatelessWidget {
                                     );
                                   },
                                   child: Text(
-                                    "Voir toutes",
+                                    LocaleKeys
+                                        .dashboard_screen_see_all_transactions
+                                        .tr(),
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Colors.blue,
@@ -488,8 +498,12 @@ class BudgetCard extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             overLimit
-                ? "Dépassement de ${(spent - limit).toInt()}€"
-                : "Reste ${(limit - spent).toInt()}€ pour ce mois",
+                ? LocaleKeys.dashboard_screen_budget_over.tr(
+                    namedArgs: {"amount": '${(spent - limit).toInt()}€'},
+                  )
+                : LocaleKeys.dashboard_screen_budget_remaining.tr(
+                    namedArgs: {"amount": '${(spent - limit).toInt()}€'},
+                  ),
             style: TextStyle(
               fontSize: 12,
               color: overLimit ? Colors.red : Colors.grey,

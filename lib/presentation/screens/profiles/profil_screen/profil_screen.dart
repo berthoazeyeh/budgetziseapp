@@ -41,7 +41,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Mon Profil',
+                        LocaleKeys.profile_screen_title.tr(),
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -71,7 +71,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        child: Text('Modifier'),
+                        child: Text(LocaleKeys.profile_screen_edit.tr()),
                       ),
                     ],
                   ),
@@ -122,7 +122,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
               child: Column(
                 children: [
                   Skeletonizer(
-                    enabled: true,
+                    enabled: false,
                     child: Container(
                       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       padding: EdgeInsets.all(20),
@@ -142,7 +142,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Statistiques Personnelles',
+                            LocaleKeys.profile_screen_stats_title.tr(),
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
@@ -155,7 +155,8 @@ class _ProfilScreenState extends State<ProfilScreen> {
                               Expanded(
                                 child: _buildStatCard(
                                   '📊',
-                                  'Transactions',
+                                  LocaleKeys.profile_screen_stat_transactions
+                                      .tr(),
                                   '247',
                                   Colors.green[50]!,
                                   Colors.green[500]!,
@@ -165,7 +166,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                               Expanded(
                                 child: _buildStatCard(
                                   '🎯',
-                                  'Budgets',
+                                  LocaleKeys.profile_screen_stat_budgets.tr(),
                                   '8',
                                   Colors.red[50]!,
                                   Colors.red[500]!,
@@ -179,7 +180,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                               Expanded(
                                 child: _buildStatCard(
                                   '📈',
-                                  'Économies',
+                                  LocaleKeys.profile_screen_stat_savings.tr(),
                                   '12.3%',
                                   Colors.blue[50]!,
                                   Colors.blue[600]!,
@@ -189,8 +190,10 @@ class _ProfilScreenState extends State<ProfilScreen> {
                               Expanded(
                                 child: _buildStatCard(
                                   '⏰',
-                                  'Depuis',
-                                  '8 mois',
+                                  LocaleKeys.profile_screen_stat_since.tr(),
+                                  LocaleKeys.profile_screen_stat_months.tr(
+                                    namedArgs: {'months': "8"},
+                                  ),
                                   Colors.purple[50]!,
                                   Colors.purple[600]!,
                                 ),
@@ -221,7 +224,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Informations Personnelles',
+                          LocaleKeys.profile_screen_personal_info.tr(),
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
@@ -231,28 +234,28 @@ class _ProfilScreenState extends State<ProfilScreen> {
                         SizedBox(height: 20),
                         _buildInfoItem(
                           Feather.user,
-                          'Nom complet',
+                          LocaleKeys.profile_screen_full_name.tr(),
                           '${user.firstName} ${user.lastName}',
                           Colors.blue[50]!,
                           Colors.blue[600]!,
                         ),
                         _buildInfoItem(
                           Feather.mail,
-                          'Email',
+                          LocaleKeys.profile_screen_email.tr(),
                           user.email,
                           Colors.green[50]!,
                           Colors.green[500]!,
                         ),
                         _buildInfoItem(
                           Feather.smartphone,
-                          'Téléphone',
+                          LocaleKeys.profile_screen_phone.tr(),
                           user.phoneNumber,
                           Colors.red[50]!,
                           Colors.red[500]!,
                         ),
                         _buildInfoItem(
                           Feather.home,
-                          'Adresse',
+                          LocaleKeys.profile_screen_address.tr(),
                           '123 Rue de la Paix, 75001 Paris',
                           Colors.purple[50]!,
                           Colors.purple[600]!,
@@ -281,7 +284,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Actions Rapides',
+                          LocaleKeys.profile_screen_quick_actions.tr(),
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
@@ -296,7 +299,9 @@ class _ProfilScreenState extends State<ProfilScreen> {
                               context.router.push(EditProfilRoute());
                             },
                             icon: Icon(Feather.user, color: Colors.amber),
-                            label: Text('Modifier le profil'),
+                            label: Text(
+                              LocaleKeys.profile_screen_edit_profile.tr(),
+                            ),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blue[600],
                               foregroundColor: Colors.white,
@@ -317,7 +322,9 @@ class _ProfilScreenState extends State<ProfilScreen> {
                               context.router.push(ChangePasswordRoute());
                             },
                             icon: Icon(Feather.lock, color: Colors.amber),
-                            label: Text('Changer le mot de passe'),
+                            label: Text(
+                              LocaleKeys.profile_screen_change_password.tr(),
+                            ),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.grey[200],
                               foregroundColor: Colors.black,
@@ -337,7 +344,9 @@ class _ProfilScreenState extends State<ProfilScreen> {
                               context.router.push(PrincipalSettingsRoute());
                             },
                             icon: Icon(Feather.settings, color: Colors.blue),
-                            label: Text('Paramètres de l\'application'),
+                            label: Text(
+                              LocaleKeys.profile_screen_app_settings.tr(),
+                            ),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.grey[200],
                               foregroundColor: Colors.black,

@@ -301,8 +301,8 @@ class OTPHeader extends StatelessWidget {
             shaderCallback: (bounds) => const LinearGradient(
               colors: [Color.fromARGB(255, 255, 255, 255), Color(0xFF667EEA)],
             ).createShader(bounds),
-            child: const Text(
-              'Vérification',
+            child: Text(
+              LocaleKeys.otp_screen_title.tr(),
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w800,
@@ -311,8 +311,8 @@ class OTPHeader extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10),
-          const Text(
-            'Saisissez le code de vérification envoyé à',
+          Text(
+            LocaleKeys.otp_screen_subtitle.tr(),
             style: TextStyle(fontSize: 14, color: Colors.white),
             textAlign: TextAlign.center,
           ),
@@ -440,6 +440,7 @@ class OTPInputField extends StatelessWidget {
         ],
       ),
       transform: hasValue
+          // ignore: deprecated_member_use
           ? (Matrix4.identity()..scale(1.05))
           : Matrix4.identity(),
       child: KeyboardListener(
@@ -519,8 +520,10 @@ class TimerWidget extends StatelessWidget {
           const SizedBox(width: 12),
           Text(
             isExpired
-                ? 'Code expiré'
-                : 'Code expire dans ${controller.formattedTime}',
+                ? LocaleKeys.otp_screen_code_expired.tr()
+                : LocaleKeys.otp_screen_code_expires_in.tr(
+                    args: [controller.formattedTime],
+                  ),
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
@@ -583,7 +586,7 @@ class VerifyButton extends StatelessWidget {
                     ),
                   )
                 : Text(
-                    'Vérifier le code',
+                    LocaleKeys.otp_screen_verify_button.tr(),
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
@@ -607,8 +610,8 @@ class ResendSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Text(
-          'Vous n\'avez pas reçu le code ?',
+        Text(
+          LocaleKeys.otp_screen_not_received.tr(),
           style: TextStyle(fontSize: 13, color: Color(0xFF64748B)),
         ),
         const SizedBox(height: 12),
@@ -617,7 +620,7 @@ class ResendSection extends StatelessWidget {
               ? controller.resendOTP
               : null,
           child: Text(
-            'Renvoyer le code',
+            LocaleKeys.otp_screen_resend_code.tr(),
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
@@ -647,13 +650,13 @@ class FingerprintHint extends StatelessWidget {
         color: const Color(0xFF10B981).withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
       ),
-      child: const Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text('👆', style: TextStyle(fontSize: 18)),
           SizedBox(width: 8),
           Text(
-            'Prochaine fois, utilisez votre empreinte',
+            LocaleKeys.otp_screen_fingerprint_hint.tr(),
             style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w500,

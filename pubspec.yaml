@@ -73,6 +73,8 @@ dependencies:
   fl_chart: ^0.67.0
   local_auth: ^2.3.0
   flutter_local_notifications: ^19.3.1
+  device_info_plus: ^11.5.0
+  package_info_plus: ^8.3.0
 
 dev_dependencies:
   flutter_test:

@@ -14,6 +14,12 @@ class _MyApiDioInterceptor extends Interceptor {
     if (accessToken != null) {
       options.headers['Authorization'] = 'Bearer $accessToken';
     }
+    final deviceId = await DeviceInfoService.instance.getDeviceId();
+    final deviceInfo = await DeviceInfoService.instance.getDeviceInfo();
+    options.headers['X-Device-Id'] = deviceId;
+    options.headers['X-Device-Info'] = jsonEncode(deviceInfo);
+    options.headers['X-App-Platform'] = 'flutter';
+
     debugPrint('📤 REQUEST: ${options.method} ${options.uri}');
     debugPrint('📤 Headers: ${options.headers}');
     debugPrint('📤 Body: ${options.data}');

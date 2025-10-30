@@ -40,13 +40,10 @@ class OtpScreenController extends ScreenController {
   int _countdown = 120; // 2 minutes
   bool _canResend = false;
 
-  final String _phoneNumber = "+33 6 ** ** ** 89";
-
   List<TextEditingController> get otpControllers => _otpControllers;
   List<FocusNode> get focusNodes => _focusNodes;
   int get countdown => _countdown;
   bool get canResend => _canResend;
-  String get phoneNumber => _phoneNumber;
 
   String get formattedTime {
     final minutes = _countdown ~/ 60;
@@ -158,7 +155,7 @@ class OtpScreenController extends ScreenController {
         // Navigation logic here
       } else {
         // Error
-        setError('Code incorrect. Veuillez réessayer.');
+        setError(LocaleKeys.otp_screen_error_incorrect.tr());
         clearOTPFields();
         HapticFeedback.heavyImpact();
         _focusNodes[0].requestFocus();
@@ -167,7 +164,7 @@ class OtpScreenController extends ScreenController {
       if (e is NetworkException) {
         setError(e.message);
       } else {
-        setError('Erreur de connexion. Veuillez réessayer.');
+        setError(LocaleKeys.otp_screen_error_network.tr());
       }
     } finally {
       setLoading(false);
@@ -189,7 +186,7 @@ class OtpScreenController extends ScreenController {
       _focusNodes[0].requestFocus();
       HapticFeedback.selectionClick();
     } catch (e) {
-      setError('Erreur lors de l\'envoi. Veuillez réessayer.');
+      setError(LocaleKeys.otp_screen_error_send.tr());
     } finally {
       setLoading(false);
     }

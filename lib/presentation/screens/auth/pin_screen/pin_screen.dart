@@ -594,7 +594,7 @@ class ResetPinButton extends StatelessWidget {
     return TextButton(
       onPressed: controller.resetPinCreation,
       child: Text(
-        'Recommencer',
+        LocaleKeys.pin_screen_pin_reset.tr(),
         style: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w600,
@@ -617,7 +617,7 @@ class ForgotPinButton extends StatelessWidget {
     return TextButton(
       onPressed: controller.showForgotPinOptions,
       child: Text(
-        'PIN oublié ?',
+        LocaleKeys.pin_screen_pin_forgot.tr(),
         style: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w600,
@@ -659,7 +659,7 @@ class BiometricHint extends StatelessWidget {
             const SizedBox(width: 12),
             Expanded(
               child: Text(
-                'Utilisez votre empreinte la prochaine fois',
+                LocaleKeys.pin_screen_pin_biometric_hint.tr(),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(

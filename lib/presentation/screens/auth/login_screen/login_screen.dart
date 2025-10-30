@@ -96,11 +96,15 @@ class LoginScreen extends StatelessWidget {
                         TextFormField(
                           controller: ctrl.emailController,
                           validator: ['required', 'email'].validate(
-                            attribute: 'Adresse email',
+                            attribute: LocaleKeys
+                                .login_validation_email_attribute
+                                .tr(),
                             customMessages: {
-                              'required': 'L\'email est requis',
-                              'email':
-                                  'Veuillez saisir une adresse email valide',
+                              'required': LocaleKeys
+                                  .login_validation_email_required
+                                  .tr(),
+                              'email': LocaleKeys.login_validation_email_invalid
+                                  .tr(),
                             },
                           ),
                           decoration: InputDecoration(
@@ -118,11 +122,15 @@ class LoginScreen extends StatelessWidget {
                         TextFormField(
                           controller: ctrl.passwordController,
                           validator: ['required', 'min:4'].validate(
-                            attribute: 'Mot de passe',
+                            attribute: LocaleKeys
+                                .login_validation_password_attribute
+                                .tr(),
                             customMessages: {
-                              'required': 'Le mot de passe est requis',
-                              'min':
-                                  'Le mot de passe doit contenir au moins 4 caractères',
+                              'required': LocaleKeys
+                                  .login_validation_password_required
+                                  .tr(),
+                              'min': LocaleKeys.login_validation_password_min
+                                  .tr(),
                             },
                           ),
                           decoration: InputDecoration(
@@ -172,7 +180,7 @@ class LoginScreen extends StatelessWidget {
                         const SizedBox(height: 16),
                         TextButton(
                           onPressed: () {
-                            context.router.push(const OTPVerificationRoute());
+                            context.router.push(const ForgotPasswordRoute());
                           },
                           child: Text(
                             LocaleKeys.auth_forgot_password.tr(),

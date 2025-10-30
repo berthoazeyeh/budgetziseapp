@@ -90,9 +90,14 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       color: const Color(0xFFF8FAFC),
                       borderRadius: BorderRadius.circular(25),
                     ),
-                    child: const Icon(
-                      Icons.arrow_back,
-                      color: Color(0xFF64748B),
+                    child: InkWell(
+                      onTap: () {
+                        context.router.pop();
+                      },
+                      child: const Icon(
+                        Icons.arrow_back,
+                        color: Color(0xFF64748B),
+                      ),
                     ),
                   ),
                   const SizedBox(width: 16),
@@ -534,7 +539,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           Switch(
             value: isEnabled,
             onChanged: onChanged,
-            activeColor: const Color(0xFF667EEA),
+            activeThumbColor: const Color(0xFF667EEA),
           ),
         ],
       ),

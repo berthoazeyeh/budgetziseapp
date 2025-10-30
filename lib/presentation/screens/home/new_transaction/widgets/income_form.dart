@@ -226,7 +226,7 @@ class IncomeForm extends StatelessWidget {
                       ),
                       SizedBox(height: 8),
                       DropdownButtonFormField<String>(
-                        value: ctrl.selectedPaymentMethod,
+                        initialValue: ctrl.selectedPaymentMethod,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),

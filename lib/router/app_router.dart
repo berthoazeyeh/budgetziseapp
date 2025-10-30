@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:budget_zise/presentation/componends/my_bottom_nav_bar.dart';
+import 'package:budget_zise/presentation/screens/auth/forgot_password/forgot_password_screen.dart';
 import 'package:budget_zise/presentation/screens/auth/home_screen/home_screen.dart';
 import 'package:budget_zise/presentation/screens/auth/otp_screen/otp_screen.dart';
 import 'package:budget_zise/presentation/screens/auth/pin_screen/pin_screen.dart';
@@ -31,6 +32,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: EntryRoute.page, initial: true),
     AutoRoute(page: LoginRoute.page, path: '/login'),
     AutoRoute(page: HomeRoute.page, path: '/home'),
+    AutoRoute(page: ForgotPasswordRoute.page, path: '/forgot-password'),
     AutoRoute(
       page: OTPVerificationRoute.page,
       path: '/otp-verification',

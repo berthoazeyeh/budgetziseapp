@@ -95,7 +95,7 @@ class _EntryScreenState extends State<EntryScreen> {
         final user = result;
         authCubit.setUser(user);
         final fcmToken = await localStorageService.getFcmToken();
-        if (fcmToken == null) {
+        if (fcmToken == null || fcmToken.isEmpty || user.fcmToken != fcmToken) {
           final fcmToken = await pushNotificationService.getFcmToken();
           if (fcmToken != null) {
             final result = await publicRepository.updateFcmToken(fcmToken);

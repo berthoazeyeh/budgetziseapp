@@ -452,7 +452,7 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
               Switch(
                 value: switchValue,
                 onChanged: onSwitchChanged,
-                activeColor: Colors.blue[600],
+                activeThumbColor: Colors.blue[600],
                 inactiveThumbColor: Colors.grey[300],
                 inactiveTrackColor: Colors.grey[200],
               ),
