@@ -8,7 +8,7 @@ class ExpensesTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Column(
         children: [
           // Résumé des dépenses
@@ -23,7 +23,7 @@ class ExpensesTab extends StatelessWidget {
                   isPositive: false,
                 ),
               ),
-              SizedBox(width: 16),
+              const SizedBox(width: 16),
               Expanded(
                 child: _buildStatCard(
                   title: 'Moyenne/jour',
@@ -34,7 +34,7 @@ class ExpensesTab extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
 
           // Graphique d'évolution
           _buildChartCard(
@@ -43,33 +43,33 @@ class ExpensesTab extends StatelessWidget {
               height: 200,
               child: LineChart(
                 LineChartData(
-                  gridData: FlGridData(show: false),
-                  titlesData: FlTitlesData(show: false),
+                  gridData: const FlGridData(show: false),
+                  titlesData: const FlTitlesData(show: false),
                   borderData: FlBorderData(show: false),
                   lineBarsData: [
                     LineChartBarData(
                       spots: [
-                        FlSpot(0, 2200),
-                        FlSpot(1, 2400),
-                        FlSpot(2, 2100),
-                        FlSpot(3, 2800),
-                        FlSpot(4, 2680),
+                        const FlSpot(0, 2200),
+                        const FlSpot(1, 2400),
+                        const FlSpot(2, 2100),
+                        const FlSpot(3, 2800),
+                        const FlSpot(4, 2680),
                       ],
                       isCurved: true,
-                      color: Color(0xFF667EEA),
+                      color: const Color(0xFF667EEA),
                       barWidth: 3,
                       belowBarData: BarAreaData(
                         show: true,
-                        color: Color(0xFF667EEA).withValues(alpha: 0.1),
+                        color: const Color(0xFF667EEA).withValues(alpha: 0.1),
                       ),
-                      dotData: FlDotData(show: false),
+                      dotData: const FlDotData(show: false),
                     ),
                   ],
                 ),
               ),
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
 
           // Répartition par catégorie
           _buildChartCard(
@@ -91,7 +91,7 @@ class ExpensesTab extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(width: 16),
+                    const SizedBox(width: 16),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,20 +99,28 @@ class ExpensesTab extends StatelessWidget {
                           _buildLegendItem(
                             'Logement',
                             '35%',
-                            Color(0xFF10B981),
+                            const Color(0xFF10B981),
                           ),
                           _buildLegendItem(
                             'Alimentation',
                             '22%',
-                            Color(0xFF667EEA),
+                            const Color(0xFF667EEA),
                           ),
-                          _buildLegendItem('Loisirs', '12%', Color(0xFFEF4444)),
+                          _buildLegendItem(
+                            'Loisirs',
+                            '12%',
+                            const Color(0xFFEF4444),
+                          ),
                           _buildLegendItem(
                             'Transport',
                             '7%',
-                            Color(0xFFF59E0B),
+                            const Color(0xFFF59E0B),
                           ),
-                          _buildLegendItem('Autres', '24%', Color(0xFF0EA5E9)),
+                          _buildLegendItem(
+                            'Autres',
+                            '24%',
+                            const Color(0xFF0EA5E9),
+                          ),
                         ],
                       ),
                     ),
@@ -121,11 +129,11 @@ class ExpensesTab extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
 
           // Top 5 des dépenses
           _buildTopExpensesCard(),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
 
           // Analyse intelligente
           _buildAnalysisCard(),
@@ -141,7 +149,7 @@ class ExpensesTab extends StatelessWidget {
     required bool isPositive,
   }) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       height: 130,
       decoration: BoxDecoration(
         color: Colors.white,
@@ -150,7 +158,7 @@ class ExpensesTab extends StatelessWidget {
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ],
       ),
@@ -158,21 +166,25 @@ class ExpensesTab extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(title, style: TextStyle(color: Colors.grey[600], fontSize: 14)),
-          SizedBox(height: 4),
+          const SizedBox(height: 4),
           Text(
             value,
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: title.contains('Total') ? Color(0xFFEF4444) : Colors.black,
+              color: title.contains('Total')
+                  ? const Color(0xFFEF4444)
+                  : Colors.black,
             ),
           ),
-          SizedBox(height: 4),
+          const SizedBox(height: 4),
           Text(
             change,
             style: TextStyle(
               fontSize: 12,
-              color: isPositive ? Color(0xFF10B981) : Color(0xFFEF4444),
+              color: isPositive
+                  ? const Color(0xFF10B981)
+                  : const Color(0xFFEF4444),
             ),
           ),
         ],
@@ -186,7 +198,7 @@ class ExpensesTab extends StatelessWidget {
     required Widget child,
   }) {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -194,7 +206,7 @@ class ExpensesTab extends StatelessWidget {
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ],
       ),
@@ -206,16 +218,22 @@ class ExpensesTab extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
               if (subtitle != null)
                 Text(
                   subtitle,
-                  style: TextStyle(fontSize: 14, color: Color(0xFF667EEA)),
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color(0xFF667EEA),
+                  ),
                 ),
             ],
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           child,
         ],
       ),
@@ -225,31 +243,31 @@ class ExpensesTab extends StatelessWidget {
   List<PieChartSectionData> _buildPieChartSections() {
     return [
       PieChartSectionData(
-        color: Color(0xFF10B981),
+        color: const Color(0xFF10B981),
         value: 35,
         title: '',
         radius: 30,
       ),
       PieChartSectionData(
-        color: Color(0xFF667EEA),
+        color: const Color(0xFF667EEA),
         value: 22,
         title: '',
         radius: 30,
       ),
       PieChartSectionData(
-        color: Color(0xFFEF4444),
+        color: const Color(0xFFEF4444),
         value: 12,
         title: '',
         radius: 30,
       ),
       PieChartSectionData(
-        color: Color(0xFFF59E0B),
+        color: const Color(0xFFF59E0B),
         value: 7,
         title: '',
         radius: 30,
       ),
       PieChartSectionData(
-        color: Color(0xFF0EA5E9),
+        color: const Color(0xFF0EA5E9),
         value: 24,
         title: '',
         radius: 30,
@@ -259,7 +277,7 @@ class ExpensesTab extends StatelessWidget {
 
   Widget _buildLegendItem(String label, String percentage, Color color) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 4),
+      padding: const EdgeInsets.only(bottom: 4),
       child: Row(
         children: [
           Container(
@@ -267,7 +285,7 @@ class ExpensesTab extends StatelessWidget {
             height: 12,
             decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           ),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           Expanded(
             child: Text(
               label,
@@ -276,7 +294,7 @@ class ExpensesTab extends StatelessWidget {
           ),
           Text(
             percentage,
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
           ),
         ],
       ),
@@ -290,40 +308,40 @@ class ExpensesTab extends StatelessWidget {
         'date': '01/01/2025',
         'amount': '-950 €',
         'icon': '🏠',
-        'color': Color(0xFFFEF2F2),
+        'color': const Color(0xFFFEF2F2),
       },
       {
         'title': 'Courses Carrefour',
         'date': '02/01/2025',
         'amount': '-156 €',
         'icon': '🍕',
-        'color': Color(0xFFFEF3C7),
+        'color': const Color(0xFFFEF3C7),
       },
       {
         'title': 'Cinéma + Restaurant',
         'date': '02/01/2025',
         'amount': '-89 €',
         'icon': '🎯',
-        'color': Color(0xFFF0F9FF),
+        'color': const Color(0xFFF0F9FF),
       },
       {
         'title': 'Essence Total',
         'date': '03/01/2025',
         'amount': '-75 €',
         'icon': '⛽',
-        'color': Color(0xFFECFDF5),
+        'color': const Color(0xFFECFDF5),
       },
       {
         'title': 'Vêtements H&M',
         'date': '03/01/2025',
         'amount': '-68 €',
         'icon': '👕',
-        'color': Color(0xFFFEF2F2),
+        'color': const Color(0xFFFEF2F2),
       },
     ];
 
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -331,18 +349,18 @@ class ExpensesTab extends StatelessWidget {
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             'Top 5 des dépenses',
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           ...expenses.map((expense) => _buildExpenseItem(expense)),
         ],
       ),
@@ -351,7 +369,7 @@ class ExpensesTab extends StatelessWidget {
 
   Widget _buildExpenseItem(Map<String, dynamic> expense) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 12),
+      padding: const EdgeInsets.symmetric(vertical: 12),
       decoration: BoxDecoration(
         border: Border(bottom: BorderSide(color: Colors.grey[100]!)),
       ),
@@ -365,17 +383,23 @@ class ExpensesTab extends StatelessWidget {
               shape: BoxShape.circle,
             ),
             child: Center(
-              child: Text(expense['icon'], style: TextStyle(fontSize: 18)),
+              child: Text(
+                expense['icon'],
+                style: const TextStyle(fontSize: 18),
+              ),
             ),
           ),
-          SizedBox(width: 12),
+          const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   expense['title'],
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
                 Text(
                   expense['date'],
@@ -386,7 +410,7 @@ class ExpensesTab extends StatelessWidget {
           ),
           Text(
             expense['amount'],
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
               color: Color(0xFFEF4444),
@@ -399,16 +423,16 @@ class ExpensesTab extends StatelessWidget {
 
   Widget _buildAnalysisCard() {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           colors: [Color(0xFFECFDF5), Color(0xFFD1FAE5)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(16),
       ),
-      child: Column(
+      child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(

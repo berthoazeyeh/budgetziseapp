@@ -41,7 +41,7 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
         systemOverlayStyle: SystemUiOverlayStyle.dark,
         leading: IconButton(
           icon: Container(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: Colors.grey[100],
               shape: BoxShape.circle,
@@ -52,7 +52,7 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
         ),
         title: Text(
           LocaleKeys.settings_title.tr(),
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
             color: Colors.black,
@@ -61,7 +61,7 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             children: [
               // Paramètres Généraux
@@ -318,7 +318,7 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
               _buildSettingsCard('', [
                 Container(
                   width: double.infinity,
-                  margin: EdgeInsets.only(bottom: 12),
+                  margin: const EdgeInsets.only(bottom: 12),
                   child: ElevatedButton.icon(
                     onPressed: () => _logout(authRepository),
                     icon: const Icon(Feather.log_out),
@@ -326,7 +326,7 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red[500],
                       foregroundColor: Colors.white,
-                      padding: EdgeInsets.symmetric(vertical: 16),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -342,7 +342,7 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
                     style: OutlinedButton.styleFrom(
                       foregroundColor: Colors.red[500],
                       side: BorderSide(color: Colors.red[500]!),
-                      padding: EdgeInsets.symmetric(vertical: 16),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -351,7 +351,7 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
                 ),
               ]),
 
-              SizedBox(height: 32),
+              const SizedBox(height: 32),
             ],
           ),
         ),
@@ -361,8 +361,8 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
 
   Widget _buildSettingsCard(String title, List<Widget> children) {
     return Container(
-      margin: EdgeInsets.only(bottom: 16),
-      padding: EdgeInsets.all(20),
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -371,7 +371,7 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
             color: Colors.grey.withValues(alpha: 0.1),
             spreadRadius: 1,
             blurRadius: 10,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ],
       ),
@@ -381,13 +381,13 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
           if (title.isNotEmpty) ...[
             Text(
               title,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
                 color: Colors.black,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
           ],
           ...children,
         ],
@@ -410,7 +410,7 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 16),
+        padding: const EdgeInsets.symmetric(vertical: 16),
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(color: Colors.grey[100]!, width: 1),
@@ -427,20 +427,20 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
               ),
               child: Center(child: Icon(emoji, size: 24)),
             ),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     title,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 16,
                       color: Colors.black,
                     ),
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Text(
                     subtitle,
                     style: TextStyle(color: Colors.grey[600], fontSize: 14),
@@ -639,7 +639,7 @@ class _SettingsPageState extends State<PrincipalSettingsScreen> {
             },
             child: Text(
               LocaleKeys.settings_delete_account.tr(),
-              style: TextStyle(color: Colors.red),
+              style: const TextStyle(color: Colors.red),
             ),
           ),
         ],

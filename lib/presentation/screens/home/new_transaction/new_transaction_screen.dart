@@ -41,7 +41,7 @@ class _NewTransactionScreenState extends State<NewTransactionScreen>
           userCubit,
         ),
         builder: (context, ctrl) => Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -53,7 +53,7 @@ class _NewTransactionScreenState extends State<NewTransactionScreen>
               children: [
                 // Header avec tabs
                 Container(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   child: Column(
                     children: [
                       // Titre et bouton retour
@@ -62,7 +62,7 @@ class _NewTransactionScreenState extends State<NewTransactionScreen>
                           GestureDetector(
                             onTap: () => Navigator.pop(context),
                             child: Container(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                 horizontal: 12,
                                 vertical: 8,
                               ),
@@ -70,15 +70,15 @@ class _NewTransactionScreenState extends State<NewTransactionScreen>
                                 color: Colors.white.withValues(alpha: 0.1),
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              child: Icon(
+                              child: const Icon(
                                 Icons.arrow_back_ios,
                                 color: Colors.white,
                                 size: 16,
                               ),
                             ),
                           ),
-                          SizedBox(width: 16),
-                          Text(
+                          const SizedBox(width: 16),
+                          const Text(
                             'Nouvelle Transaction',
                             style: TextStyle(
                               fontSize: 24,
@@ -88,11 +88,11 @@ class _NewTransactionScreenState extends State<NewTransactionScreen>
                           ),
                         ],
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
 
                       // Tabs Dépense/Revenu
                       Container(
-                        padding: EdgeInsets.all(4),
+                        padding: const EdgeInsets.all(4),
                         decoration: BoxDecoration(
                           color: Colors.white.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(12),
@@ -105,22 +105,22 @@ class _NewTransactionScreenState extends State<NewTransactionScreen>
                             borderRadius: BorderRadius.circular(8),
                           ),
 
-                          labelColor: Color(0xFF667eea),
+                          labelColor: const Color(0xFF667eea),
                           unselectedLabelColor: Colors.white.withValues(
                             alpha: 0.8,
                           ),
                           dividerColor: Colors.transparent,
 
                           indicatorColor: Colors.transparent,
-                          labelStyle: TextStyle(
+                          labelStyle: const TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 16,
                           ),
-                          unselectedLabelStyle: TextStyle(
+                          unselectedLabelStyle: const TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 16,
                           ),
-                          tabs: [
+                          tabs: const [
                             Tab(text: '    Dépense    '),
                             Tab(text: '    Revenu    '),
                           ],
@@ -133,7 +133,7 @@ class _NewTransactionScreenState extends State<NewTransactionScreen>
                 // Contenu des tabs
                 Expanded(
                   child: Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color(0xFFF8FAFC),
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(20),

@@ -40,8 +40,10 @@ class NotificationsScreenController extends ScreenController {
     await fetchNextNotifications();
   }
 
-  fetchNextNotifications() async {
-    if (isLoading || !hasMoreNotifications) return;
+  Future<void> fetchNextNotifications() async {
+    if (isLoading || !hasMoreNotifications) {
+      return;
+    }
     isLoading = true;
     updateUI();
     try {
@@ -62,7 +64,7 @@ class NotificationsScreenController extends ScreenController {
         updateUI();
       }
     } catch (e) {
-      if (e is NetworkException) {
+      if (e is DioNetworkException) {
         UiAlertHelper.showErrorToast(e.message);
       } else {
         UiAlertHelper.showErrorToast(e.toString());
@@ -79,7 +81,9 @@ class NotificationsScreenController extends ScreenController {
     final Map<String, List<NotificationModel>> groupedNotifications = {};
 
     for (final notification in notifications) {
-      String dateKey = DateFormat('yyyy-MM-dd').format(notification.createdAt);
+      final String dateKey = DateFormat(
+        'yyyy-MM-dd',
+      ).format(notification.createdAt);
       if (!groupedNotifications.containsKey(dateKey)) {
         groupedNotifications[dateKey] = [];
       }
@@ -89,8 +93,10 @@ class NotificationsScreenController extends ScreenController {
     return groupedNotifications;
   }
 
-  markAsRead(NotificationModel notification) async {
-    if (isMutating) return;
+  Future<void> markAsRead(NotificationModel notification) async {
+    if (isMutating) {
+      return;
+    }
     isMutating = true;
     updateUI();
     try {
@@ -100,7 +106,7 @@ class NotificationsScreenController extends ScreenController {
       );
       await dashboardRepo.markNotificationAsRead(notification.id);
     } catch (e) {
-      if (e is NetworkException) {
+      if (e is DioNetworkException) {
         UiAlertHelper.showErrorToast(e.message);
       } else {
         UiAlertHelper.showErrorToast(e.toString());
@@ -111,8 +117,10 @@ class NotificationsScreenController extends ScreenController {
     }
   }
 
-  markAsUnRead(NotificationModel notification) async {
-    if (isMutating) return;
+  Future<void> markAsUnRead(NotificationModel notification) async {
+    if (isMutating) {
+      return;
+    }
     isMutating = true;
     updateUI();
     try {
@@ -122,7 +130,7 @@ class NotificationsScreenController extends ScreenController {
       );
       await dashboardRepo.markNotificationAsUnread(notification.id);
     } catch (e) {
-      if (e is NetworkException) {
+      if (e is DioNetworkException) {
         UiAlertHelper.showErrorToast(e.message);
       } else {
         UiAlertHelper.showErrorToast(e.toString());
@@ -133,8 +141,10 @@ class NotificationsScreenController extends ScreenController {
     }
   }
 
-  markAllAsRead() async {
-    if (isMutating) return;
+  Future<void> markAllAsRead() async {
+    if (isMutating) {
+      return;
+    }
     isMutating = true;
     updateUI();
     try {
@@ -152,7 +162,7 @@ class NotificationsScreenController extends ScreenController {
       }
       await refreshNotifications();
     } catch (e) {
-      if (e is NetworkException) {
+      if (e is DioNetworkException) {
         UiAlertHelper.showErrorToast(e.message);
       } else {
         UiAlertHelper.showErrorToast(e.toString());

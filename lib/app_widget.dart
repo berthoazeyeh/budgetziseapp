@@ -1,4 +1,5 @@
 import 'package:budget_zise/budget_zise.dart';
+import 'package:budget_zise/core/graphql/my_graphql_client.dart';
 import 'package:budget_zise/data/services/budget_sevices.dart';
 import 'package:budget_zise/data/services/dashboard_sevices.dart';
 import 'package:budget_zise/data/services/public_sevices.dart';
@@ -75,6 +76,9 @@ class AppWidget extends StatelessWidget {
               c.read<BudgetServices>(),
               c.read<LocalStorageService>(),
             ),
+          ),
+          Provider(
+            create: (c) => MyGraphQLClient(c.read<LocalStorageService>()),
           ),
           Provider<DashboardRepository>(
             create: (c) => DashboardRepository(

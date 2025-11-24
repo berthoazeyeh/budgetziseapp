@@ -74,10 +74,10 @@
 //     }
 //   }
 
-//   NetworkException _extractApiException(DioException e) {
-//     if (e.error is NetworkException) {
-//       return e.error as NetworkException;
+//   DioNetworkException _extractApiException(DioException e) {
+//     if (e.error is DioNetworkException) {
+//       return e.error as DioNetworkException;
 //     }
-//     return NetworkException(LocaleKeys.network_unknown.tr());
+//     return DioNetworkException(LocaleKeys.network_unknown.tr());
 //   }
 // }

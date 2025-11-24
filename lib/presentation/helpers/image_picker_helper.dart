@@ -9,7 +9,9 @@ final class ImagePickerHelper {
   static Future<XFile?> _onlyIfNotAlreadyPicking(
     Future<XFile?> Function(ImagePicker) pickFn,
   ) async {
-    if (_isPicking) return null;
+    if (_isPicking) {
+      return null;
+    }
 
     try {
       _isPicking = true;
@@ -38,7 +40,9 @@ final class ImagePickerHelper {
     BuildContext context, {
     required Function(XFile?) onImagePicked,
   }) async {
-    if (_isPicking) return;
+    if (_isPicking) {
+      return;
+    }
 
     showModalBottomSheet(
       context: context,
@@ -53,7 +57,9 @@ final class ImagePickerHelper {
                   title: Text(LocaleKeys.image_service_choose_camera.tr()),
                   onTap: () async {
                     await pick(ImageSource.camera).then(onImagePicked);
-                    if (context.mounted) Navigator.pop(context);
+                    if (context.mounted) {
+                      Navigator.pop(context);
+                    }
                   },
                 ),
                 ListTile(
@@ -61,7 +67,9 @@ final class ImagePickerHelper {
                   title: Text(LocaleKeys.image_service_choose_gallery.tr()),
                   onTap: () async {
                     await pick(ImageSource.gallery).then(onImagePicked);
-                    if (context.mounted) Navigator.pop(context);
+                    if (context.mounted) {
+                      Navigator.pop(context);
+                    }
                   },
                 ),
               ],
@@ -76,7 +84,9 @@ final class ImagePickerHelper {
     BuildContext context, {
     required Function(XFile?) onVideoPicked,
   }) async {
-    if (_isPicking) return;
+    if (_isPicking) {
+      return;
+    }
 
     showModalBottomSheet(
       context: context,
@@ -91,7 +101,9 @@ final class ImagePickerHelper {
                   title: Text(LocaleKeys.image_service_choose_camera.tr()),
                   onTap: () async {
                     await pickVideo(ImageSource.camera).then(onVideoPicked);
-                    if (context.mounted) Navigator.pop(context);
+                    if (context.mounted) {
+                      Navigator.pop(context);
+                    }
                   },
                 ),
                 ListTile(
@@ -99,7 +111,9 @@ final class ImagePickerHelper {
                   title: Text(LocaleKeys.image_service_choose_gallery.tr()),
                   onTap: () async {
                     await pickVideo(ImageSource.gallery).then(onVideoPicked);
-                    if (context.mounted) Navigator.pop(context);
+                    if (context.mounted) {
+                      Navigator.pop(context);
+                    }
                   },
                 ),
               ],

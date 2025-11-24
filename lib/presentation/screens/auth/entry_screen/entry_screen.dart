@@ -46,7 +46,7 @@ class _EntryScreenState extends State<EntryScreen> {
       if (canAuthenticate) {
         final didAuthenticate = await auth.authenticate(
           localizedReason: LocaleKeys.auth_please_authenticate.tr(),
-          options: const AuthenticationOptions(biometricOnly: true),
+          biometricOnly: true,
         );
         if (didAuthenticate) {
           await localStorageService.setBiometricAuthDate(DateTime.now());
@@ -114,12 +114,16 @@ class _EntryScreenState extends State<EntryScreen> {
           final result = await tryBiometricAuth();
           if (result) {
             await localStorageService.setBiometricAuthDate(DateTime.now());
-            if (!mounted) return;
+            if (!mounted) {
+              return;
+            }
             context.replaceRoute(const MainShellRoute());
             return;
           } else {
             await localStorageService.deleteBiometricAuthDate();
-            if (!mounted) return;
+            if (!mounted) {
+              return;
+            }
             context.replaceRoute(const PinRoute());
             return;
           }
@@ -132,13 +136,17 @@ class _EntryScreenState extends State<EntryScreen> {
           context.replaceRoute(const MainShellRoute());
         }
       } else {
-        if (!mounted) return;
+        if (!mounted) {
+          return;
+        }
         context.replaceRoute(const HomeRoute());
       }
     } catch (e) {
       debugPrint(e.toString());
 
-      if (!mounted) return;
+      if (!mounted) {
+        return;
+      }
       setState(() {
         hasError = true;
       });
@@ -175,7 +183,7 @@ class _EntryScreenState extends State<EntryScreen> {
                   ),
                   child: Center(
                     child: Image.asset(
-                      Assets.images.logo.path,
+                      MyAssets.images.logo.path,
                       width: 100,
                       height: 100,
                     ),
@@ -184,7 +192,7 @@ class _EntryScreenState extends State<EntryScreen> {
                 const SizedBox(height: 20),
                 Text(
                   LocaleKeys.home_app_name.tr(),
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 26,
                     fontWeight: FontWeight.bold,
@@ -193,7 +201,7 @@ class _EntryScreenState extends State<EntryScreen> {
               ],
             ),
             Padding(
-              padding: EdgeInsets.only(bottom: 40),
+              padding: const EdgeInsets.only(bottom: 40),
               child: Center(
                 child: Visibility(
                   visible: !hasError,
@@ -201,7 +209,7 @@ class _EntryScreenState extends State<EntryScreen> {
                     onTap: _checkAuthStatus,
                     child: Text(
                       LocaleKeys.auth_refresh.tr(),
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                     ),
                   ),
                   child: Container(
@@ -211,7 +219,7 @@ class _EntryScreenState extends State<EntryScreen> {
                       color: Colors.white.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(25),
                     ),
-                    child: CircularProgressIndicator(color: Colors.white),
+                    child: const CircularProgressIndicator(color: Colors.white),
                   ),
                 ),
               ),

@@ -5,8 +5,8 @@ Future<T> safeApiCall<T>(Future<T> Function() apiCall) async {
   try {
     return await apiCall();
   } on DioException catch (e) {
-    throw NetworkException.fromDioException(e);
+    throw DioNetworkException.fromDioException(e);
   } catch (e) {
-    throw NetworkException(e.toString());
+    throw DioNetworkException(e.toString());
   }
 }

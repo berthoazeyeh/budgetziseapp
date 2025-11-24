@@ -6,11 +6,7 @@ class Book {
   final String name;
   final String genre;
 
-  const Book({
-    required this.id,
-    required this.name,
-    required this.genre,
-  });
+  const Book({required this.id, required this.name, required this.genre});
 }
 
 class BooksDB {
@@ -43,22 +39,34 @@ class BooksDBProvider extends InheritedWidget {
   }
 
   static BooksDB? of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<BooksDBProvider>()?.booksDb;
+    return context
+        .dependOnInheritedWidgetOfExactType<BooksDBProvider>()
+        ?.booksDb;
   }
 }
 
 class UsersDB {
   final List<User> users = [
-    User(id: 1, name: 'User one', email: 'userone@email.com', books: [
-      Book(id: 1, genre: 'Fiction', name: 'Anna Karenina'),
-      Book(id: 2, genre: 'Fiction', name: 'The Great Gatsby'),
-      Book(id: 3, genre: 'Comic', name: 'Amazing Spider-Man'),
-    ]),
-    User(id: 2, name: 'User two', email: 'usertwo@email.com', books: [
-      Book(id: 5, genre: 'Comic', name: 'The Incredible Hulk'),
-      Book(id: 6, genre: 'Fiction', name: 'The Big Sleep'),
-      Book(id: 7, genre: 'Fiction', name: 'Woman in White'),
-    ])
+    User(
+      id: 1,
+      name: 'User one',
+      email: 'userone@email.com',
+      books: [
+        const Book(id: 1, genre: 'Fiction', name: 'Anna Karenina'),
+        const Book(id: 2, genre: 'Fiction', name: 'The Great Gatsby'),
+        const Book(id: 3, genre: 'Comic', name: 'Amazing Spider-Man'),
+      ],
+    ),
+    User(
+      id: 2,
+      name: 'User two',
+      email: 'usertwo@email.com',
+      books: [
+        const Book(id: 5, genre: 'Comic', name: 'The Incredible Hulk'),
+        const Book(id: 6, genre: 'Fiction', name: 'The Big Sleep'),
+        const Book(id: 7, genre: 'Fiction', name: 'Woman in White'),
+      ],
+    ),
   ];
 
   User findUserById(int id) {
@@ -94,6 +102,8 @@ class UsersDBProvider extends InheritedWidget {
   }
 
   static UsersDB? of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<UsersDBProvider>()?.usersDB;
+    return context
+        .dependOnInheritedWidgetOfExactType<UsersDBProvider>()
+        ?.usersDB;
   }
 }

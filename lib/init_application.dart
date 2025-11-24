@@ -22,7 +22,7 @@ class InitApplication {
     if (kIsWeb) {
       setPathUrlStrategy();
     } else {
-      var appDir = await getApplicationDocumentsDirectory();
+      final appDir = await getApplicationDocumentsDirectory();
       Hive.init(appDir.path);
     }
     await Firebase.initializeApp(

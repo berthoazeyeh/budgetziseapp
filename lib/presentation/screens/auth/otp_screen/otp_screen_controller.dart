@@ -136,7 +136,9 @@ class OtpScreenController extends ScreenController {
   }
 
   Future<void> verifyOTP() async {
-    if (!isOTPComplete) return;
+    if (!isOTPComplete) {
+      return;
+    }
 
     setLoading(true);
     clearError();
@@ -161,7 +163,7 @@ class OtpScreenController extends ScreenController {
         _focusNodes[0].requestFocus();
       }
     } catch (e) {
-      if (e is NetworkException) {
+      if (e is DioNetworkException) {
         setError(e.message);
       } else {
         setError(LocaleKeys.otp_screen_error_network.tr());
@@ -172,7 +174,9 @@ class OtpScreenController extends ScreenController {
   }
 
   Future<void> resendOTP() async {
-    if (!_canResend) return;
+    if (!_canResend) {
+      return;
+    }
 
     setLoading(true);
     clearError();
@@ -193,7 +197,7 @@ class OtpScreenController extends ScreenController {
   }
 
   void clearOTPFields() {
-    for (var controller in _otpControllers) {
+    for (final controller in _otpControllers) {
       controller.clear();
     }
     updateUI();
@@ -202,10 +206,10 @@ class OtpScreenController extends ScreenController {
   @override
   void onDispose() {
     _timer?.cancel();
-    for (var controller in _otpControllers) {
+    for (final controller in _otpControllers) {
       controller.dispose();
     }
-    for (var node in _focusNodes) {
+    for (final node in _focusNodes) {
       node.dispose();
     }
     pulseController.dispose();

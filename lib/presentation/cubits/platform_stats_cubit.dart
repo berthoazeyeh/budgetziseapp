@@ -16,7 +16,9 @@ class PlatformStatsCubit extends HydratedCubit<PlatformStatsState> {
   PlatformStatsState get getCount => state;
 
   Future<void> fetchPlatformStats() async {
-    if (state.isFechting) return;
+    if (state.isFechting) {
+      return;
+    }
     try {
       emit(PlatformStatsState(isFechting: true));
       final platformStats = await publicRepository.getAppStats();
@@ -87,7 +89,7 @@ class PlatformStatsState {
       error: json['error'],
       platformStats:
           json['platformStats'] ??
-          PlatformStats(
+          const PlatformStats(
             averageReview: 0,
             totalRecharges: 0,
             totalUsers: 0,

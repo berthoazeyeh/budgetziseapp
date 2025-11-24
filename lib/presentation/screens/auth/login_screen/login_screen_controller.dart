@@ -63,7 +63,7 @@ class LoginScreenController extends ScreenController {
       }
     } catch (e) {
       debugPrint(e.toString());
-      if (e is NetworkException) {
+      if (e is DioNetworkException) {
         UiAlertHelper.showErrorToast(e.message);
       } else {
         UiAlertHelper.showErrorToast(LocaleKeys.network_unknown.tr());

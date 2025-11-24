@@ -30,24 +30,32 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   }
 
   void _updatePasswordStrength() {
-    String password = _newPasswordController.text;
+    final String password = _newPasswordController.text;
     int criteriaMet = 0;
 
     // Au moins 8 caractères
     _criteriasMet[0] = password.length >= 8;
-    if (_criteriasMet[0]) criteriaMet++;
+    if (_criteriasMet[0]) {
+      criteriaMet++;
+    }
 
     // Contient des lettres
     _criteriasMet[1] = password.contains(RegExp(r'[a-zA-Z]'));
-    if (_criteriasMet[1]) criteriaMet++;
+    if (_criteriasMet[1]) {
+      criteriaMet++;
+    }
 
     // Contient des chiffres
     _criteriasMet[2] = password.contains(RegExp(r'[0-9]'));
-    if (_criteriasMet[2]) criteriaMet++;
+    if (_criteriasMet[2]) {
+      criteriaMet++;
+    }
 
     // Contient des symboles
     _criteriasMet[3] = password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
-    if (_criteriasMet[3]) criteriaMet++;
+    if (_criteriasMet[3]) {
+      criteriaMet++;
+    }
 
     setState(() {
       _passwordStrength = criteriaMet / 4;
@@ -127,17 +135,17 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         border: Border.all(color: const Color(0xFFDBEAFE)),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: Row(
+                      child: const Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('🔒', style: TextStyle(fontSize: 18)),
-                          const SizedBox(width: 12),
+                          Text('🔒', style: TextStyle(fontSize: 18)),
+                          SizedBox(width: 12),
                           Expanded(
                             child: Text(
                               'Pour votre sécurité, choisissez un mot de passe contenant au moins 8 caractères avec des lettres, chiffres et symboles.',
                               style: TextStyle(
                                 fontSize: 14,
-                                color: const Color(0xFF1E40AF),
+                                color: Color(0xFF1E40AF),
                                 height: 1.4,
                               ),
                             ),
@@ -345,9 +353,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           ),
           const SizedBox(height: 8),
           ...criteria.asMap().entries.map((entry) {
-            int index = entry.key;
-            String criterion = entry.value;
-            bool isMet = _criteriasMet[index];
+            final int index = entry.key;
+            final String criterion = entry.value;
+            final bool isMet = _criteriasMet[index];
 
             return Padding(
               padding: const EdgeInsets.only(bottom: 4),

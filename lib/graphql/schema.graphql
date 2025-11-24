@@ -1,0 +1,304 @@
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscriptions
+}
+
+type Category {
+  id: Int!
+  name: String!
+  description: String!
+  expenses: [Expense!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Continent {
+  name: String!
+  countries: [Country!]!
+  code: String!
+}
+
+type Country {
+  awsRegion: String!
+  capital: String
+  emoji: String!
+  emojiU: String!
+  native: String!
+  phone: String!
+  phones: [String!]!
+  currencies: [String!]!
+  currency: String
+  name: String!
+  continent: Continent!
+  continentCode: String!
+  languages: [Language!]!
+  states: [State!]!
+  subdivisions: [Subdivision!]!
+  code: String!
+}
+
+type Expense {
+  id: Int!
+  amount: Float!
+  date: DateTime!
+  categoryId: Int
+  category: Category
+  description: String!
+  receiptUrl: String
+  place: String
+  paymentMethod: PaymentMethodType!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  userId: Int!
+  user: User
+}
+
+"A connection to a list of items."
+type GetSimpleUserConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [GetSimpleUserEdge!]
+  "A flattened list of the nodes."
+  nodes: [SimpleUser!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int! @cost(weight: "10")
+}
+
+"An edge in a connection."
+type GetSimpleUserEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: SimpleUser!
+}
+
+type Language {
+  name: String!
+  native: String!
+  rtl: Boolean!
+  code: String!
+}
+
+type Mutation {
+  countryById(code: String!): Country @cost(weight: "10")
+}
+
+"Information about pagination in a connection."
+type PageInfo {
+  "Indicates whether more edges exist following the set defined by the clients arguments."
+  hasNextPage: Boolean!
+  "Indicates whether more edges exist prior the set defined by the clients arguments."
+  hasPreviousPage: Boolean!
+  "When paginating backwards, the cursor to continue."
+  startCursor: String
+  "When paginating forwards, the cursor to continue."
+  endCursor: String
+}
+
+type Profession {
+  id: Int!
+  name: String!
+  domain: String!
+  users: [User!]!
+}
+
+type Query {
+  countries: [Country!]! @cost(weight: "10")
+  countryByCode(code: String!): Country @cost(weight: "10")
+  continent: [Continent!]! @cost(weight: "10")
+  continentByCode(code: String!): Continent @cost(weight: "10")
+  language: [Language!]! @cost(weight: "10")
+  languageByCode(code: String!): Language @cost(weight: "10")
+  state: [State!]! @cost(weight: "10")
+  stateById(id: Int!): State @cost(weight: "10")
+  subdivision: [Subdivision!]! @cost(weight: "10")
+  subdivisionByCode(code: String!): Subdivision @cost(weight: "10")
+  userProfileStatistique(userID: Int!): UserProfileStatistique!
+    @cost(weight: "10")
+  login(login: LoginInput!): ResponsesOfUser @cost(weight: "10")
+  getSimpleUser(
+    "Returns the first _n_ elements from the list."
+    first: Int
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+    "Returns the last _n_ elements from the list."
+    last: Int
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+  ): GetSimpleUserConnection
+    @listSize(
+      assumedSize: 50
+      slicingArguments: ["first", "last"]
+      slicingArgumentDefaultValue: 10
+      sizedFields: ["edges", "nodes"]
+    )
+    @cost(weight: "10")
+}
+
+type ResponsesOfUser {
+  data: User
+  message: String!
+  success: Boolean!
+  statusCode: Int!
+}
+
+type SimpleUser {
+  dailyLimit: Float!
+  remainingAmount: Float!
+  id: Int!
+  lastName: String!
+  firstName: String!
+  dateOfBirth: DateTime!
+  isActive: Boolean!
+  pinCode: String!
+  lastLocalAthenficationDate: DateTime!
+  isBlocked: Boolean!
+  isSendAlertEmailBlocked: Boolean!
+  isSendAlertPushNotificationBlocked: Boolean!
+  isTwoFactorAuthenticationEnabled: Boolean!
+  twoFactorAuthenticationSecret: String
+  email: String!
+  address: String
+  city: String
+  phoneNumber: String!
+  password: String!
+  role: String!
+  imageUrl: String!
+  fcmToken: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  token: String!
+  expenses: [Expense!]!
+  profession: Profession
+  professionId: Int
+  previousProfession: Profession
+  previousProfessionId: Int
+  country: Country
+  countryCode: String
+  allowMultipleDevices: Boolean!
+  sessions: [UserSession!]!
+}
+
+type State {
+  id: Int!
+  code: String
+  name: String!
+  country: Country!
+  countryCode: String!
+}
+
+type Subdivision {
+  name: String!
+  emoji: String
+  code: String!
+}
+
+type Subscriptions {
+  onUserAdded: User!
+}
+
+type User {
+  id: Int!
+  lastName: String!
+  firstName: String!
+  dateOfBirth: DateTime!
+  isActive: Boolean!
+  pinCode: String!
+  lastLocalAthenficationDate: DateTime!
+  isBlocked: Boolean!
+  isSendAlertEmailBlocked: Boolean!
+  isSendAlertPushNotificationBlocked: Boolean!
+  isTwoFactorAuthenticationEnabled: Boolean!
+  twoFactorAuthenticationSecret: String
+  email: String!
+  address: String
+  city: String
+  phoneNumber: String!
+  password: String!
+  role: String!
+  imageUrl: String!
+  fcmToken: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  token: String!
+  expenses: [Expense!]!
+  profession: Profession
+  professionId: Int
+  previousProfession: Profession
+  previousProfessionId: Int
+  country: Country
+  countryCode: String
+  allowMultipleDevices: Boolean!
+  sessions: [UserSession!]!
+}
+
+type UserProfileStatistique {
+  transactionCount: Int!
+  budgetCount: Int!
+  profit: Decimal!
+  registrationDate: DateTime!
+  currentMonthTransactionCount: Int!
+  currentMonthBudgetCount: Int!
+  currentMonthProfit: Decimal!
+}
+
+type UserSession {
+  id: Int!
+  userId: Int!
+  sessionToken: String!
+  deviceId: String!
+  deviceInfo: String!
+  ipAddress: String!
+  createdAt: DateTime!
+  lastActivity: DateTime!
+  expiredAt: DateTime
+  isActive: Boolean!
+  user: User!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+enum PaymentMethodType {
+  CASH
+  CARD
+  MOBILE
+  BANK_TRANSFER
+  CRYPTO
+}
+
+"The purpose of the `cost` directive is to define a `weight` for GraphQL types, fields, and arguments. Static analysis can use these weights when calculating the overall cost of a query or response."
+directive @cost(
+  "The `weight` argument defines what value to add to the overall cost for every appearance, or possible appearance, of a type, field, argument, etc."
+  weight: String!
+) on SCALAR | OBJECT | FIELD_DEFINITION | ARGUMENT_DEFINITION | ENUM | INPUT_FIELD_DEFINITION
+
+"The purpose of the `@listSize` directive is to either inform the static analysis about the size of returned lists (if that information is statically available), or to point the analysis to where to find that information."
+directive @listSize(
+  "The `assumedSize` argument can be used to statically define the maximum length of a list returned by a field."
+  assumedSize: Int
+  "The `slicingArguments` argument can be used to define which of the field's arguments with numeric type are slicing arguments, so that their value determines the size of the list returned by that field. It may specify a list of multiple slicing arguments."
+  slicingArguments: [String!]
+  "The `slicingArgumentDefaultValue` argument can be used to define a default value for a slicing argument, which is used if the argument is not present in a query."
+  slicingArgumentDefaultValue: Int
+  "The `sizedFields` argument can be used to define that the value of the `assumedSize` argument or of a slicing argument does not affect the size of a list returned by a field itself, but that of a list returned by one of its sub-fields."
+  sizedFields: [String!]
+  "The `requireOneSlicingArgument` argument can be used to inform the static analysis that it should expect that exactly one of the defined slicing arguments is present in a query. If that is not the case (i.e., if none or multiple slicing arguments are present), the static analysis may throw an error."
+  requireOneSlicingArgument: Boolean! = true
+) on FIELD_DEFINITION
+
+"The `@specifiedBy` directive is used within the type system definition language to provide a URL for specifying the behavior of custom scalar definitions."
+directive @specifiedBy(
+  "The specifiedBy URL points to a human-readable specification. This field will only read a result for scalar types."
+  url: String!
+) on SCALAR
+
+"The `DateTime` scalar represents an ISO-8601 compliant date time type."
+scalar DateTime @specifiedBy(url: "https://www.graphql-scalars.com/date-time")
+
+"The `Decimal` scalar type represents a decimal floating-point number."
+scalar Decimal

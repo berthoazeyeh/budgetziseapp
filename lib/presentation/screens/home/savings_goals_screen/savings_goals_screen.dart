@@ -76,35 +76,35 @@ class _SavingsGoalsScreenState extends State<SavingsGoalsScreen> {
         child: Column(
           children: [
             // Header avec résumé total
-            SavingsHeader(),
+            const SavingsHeader(),
 
             // Contenu principal
             Expanded(
               child: SingleChildScrollView(
-                padding: EdgeInsets.all(12),
+                padding: const EdgeInsets.all(12),
                 child: Column(
                   children: [
                     // Titre et bouton d'ajout
-                    GoalsListHeader(),
+                    const GoalsListHeader(),
 
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     // Liste des objectifs
                     ...goals.map(
                       (goal) => Padding(
-                        padding: EdgeInsets.only(bottom: 12),
+                        padding: const EdgeInsets.only(bottom: 12),
                         child: GoalCard(goal: goal),
                       ),
                     ),
 
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
                     // Conseils d'épargne
-                    SavingsAdviceCard(),
+                    const SavingsAdviceCard(),
 
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
                     // Graphique d'évolution
-                    SavingsChartCard(),
+                    const SavingsChartCard(),
                   ],
                 ),
               ),
@@ -123,15 +123,15 @@ class SavingsHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [Color(0xFF667eea), Color(0xFF764ba2)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
       ),
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-      child: Column(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Titre principal
@@ -165,7 +165,7 @@ class SavingsSummaryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(16),
@@ -178,7 +178,7 @@ class SavingsSummaryCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              const Text(
                 'Épargne totale',
                 style: TextStyle(
                   fontSize: 16,
@@ -187,7 +187,7 @@ class SavingsSummaryCard extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: Colors.green.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(8),
@@ -204,10 +204,10 @@ class SavingsSummaryCard extends StatelessWidget {
             ],
           ),
 
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
 
           // Montant principal
-          Text(
+          const Text(
             '4,750 €',
             style: TextStyle(
               fontSize: 28,
@@ -216,7 +216,7 @@ class SavingsSummaryCard extends StatelessWidget {
             ),
           ),
 
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
 
           // Objectif annuel
           Text(
@@ -227,7 +227,7 @@ class SavingsSummaryCard extends StatelessWidget {
             ),
           ),
 
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
 
           // Barre de progression
           ProgressBar(
@@ -250,7 +250,7 @@ class GoalsListHeader extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
+        const Text(
           'Mes objectifs',
           style: TextStyle(
             fontSize: 18,
@@ -263,13 +263,13 @@ class GoalsListHeader extends StatelessWidget {
             context.router.push(const NewSavingsGoalRoute());
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xFF667eea),
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            backgroundColor: const Color(0xFF667eea),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
           ),
-          child: Text(
+          child: const Text(
             '+ Nouvel objectif',
             style: TextStyle(
               fontSize: 14,
@@ -292,18 +292,18 @@ class GoalCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Color(0xFFf8fafc),
+        color: const Color(0xFFf8fafc),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Color(0xFFe2e8f0)),
+        border: Border.all(color: const Color(0xFFe2e8f0)),
       ),
       child: Row(
         children: [
           // Icône de l'objectif
           GoalIcon(emoji: goal.emoji, color: goal.color),
 
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
 
           // Informations de progression
           Expanded(child: GoalProgress(goal: goal)),
@@ -329,7 +329,7 @@ class GoalIcon extends StatelessWidget {
         color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(16),
       ),
-      child: Center(child: Text(emoji, style: TextStyle(fontSize: 24))),
+      child: Center(child: Text(emoji, style: const TextStyle(fontSize: 24))),
     );
   }
 }
@@ -355,7 +355,7 @@ class GoalProgress extends StatelessWidget {
                 goal.title,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                   color: Color(0xFF1e293b),
@@ -373,7 +373,7 @@ class GoalProgress extends StatelessWidget {
           ],
         ),
 
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
 
         // Barre de progression
         ProgressBar(
@@ -381,7 +381,7 @@ class GoalProgress extends StatelessWidget {
           progressColor: goal.color,
         ),
 
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
 
         // Informations supplémentaires
         Row(
@@ -389,11 +389,11 @@ class GoalProgress extends StatelessWidget {
           children: [
             Text(
               'Reste ${goal.remainingAmount.toInt()}€',
-              style: TextStyle(fontSize: 12, color: Color(0xFF64748b)),
+              style: const TextStyle(fontSize: 12, color: Color(0xFF64748b)),
             ),
             Text(
               goal.deadline,
-              style: TextStyle(fontSize: 12, color: Color(0xFF64748b)),
+              style: const TextStyle(fontSize: 12, color: Color(0xFF64748b)),
             ),
           ],
         ),
@@ -422,7 +422,7 @@ class ProgressBar extends StatelessWidget {
     return Container(
       height: height,
       decoration: BoxDecoration(
-        color: backgroundColor ?? Color(0xFFf1f5f9),
+        color: backgroundColor ?? const Color(0xFFf1f5f9),
         borderRadius: BorderRadius.circular(6),
       ),
       child: FractionallySizedBox(
@@ -430,7 +430,7 @@ class ProgressBar extends StatelessWidget {
         alignment: Alignment.centerLeft,
         child: Container(
           decoration: BoxDecoration(
-            color: progressColor ?? Color(0xFF667eea),
+            color: progressColor ?? const Color(0xFF667eea),
             borderRadius: BorderRadius.circular(6),
           ),
         ),
@@ -446,16 +446,16 @@ class SavingsAdviceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           colors: [Color(0xFFf0f9ff), Color(0xFFe0f2fe)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(16),
       ),
-      child: Column(
+      child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Titre avec icône
@@ -510,7 +510,7 @@ class SavingsChartCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -518,14 +518,14 @@ class SavingsChartCard extends StatelessWidget {
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.08),
             blurRadius: 20,
-            offset: Offset(0, 4),
+            offset: const Offset(0, 4),
           ),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             'Évolution de l\'épargne',
             style: TextStyle(
               fontSize: 16,
@@ -534,21 +534,21 @@ class SavingsChartCard extends StatelessWidget {
             ),
           ),
 
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
 
           // Placeholder pour le graphique
           Container(
             width: double.infinity,
             height: 150,
             decoration: BoxDecoration(
-              gradient: LinearGradient(
+              gradient: const LinearGradient(
                 colors: [Color(0xFFf8fafc), Color(0xFFe2e8f0)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Center(
+            child: const Center(
               child: Text(
                 '📈 Graphique d\'évolution mensuelle',
                 style: TextStyle(

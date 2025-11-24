@@ -81,7 +81,7 @@ class DioClient {
         onReceiveProgress: onReceiveProgress,
       );
     } on DioException catch (e) {
-      throw NetworkException.fromDioException(e);
+      throw DioNetworkException.fromDioException(e);
     }
   }
 
@@ -105,7 +105,7 @@ class DioClient {
         onReceiveProgress: onReceiveProgress,
       );
     } on DioException catch (e) {
-      throw NetworkException.fromDioException(e);
+      throw DioNetworkException.fromDioException(e);
     }
   }
 
@@ -129,7 +129,7 @@ class DioClient {
         onReceiveProgress: onReceiveProgress,
       );
     } on DioException catch (e) {
-      throw NetworkException.fromDioException(e);
+      throw DioNetworkException.fromDioException(e);
     }
   }
 
@@ -149,7 +149,7 @@ class DioClient {
         cancelToken: cancelToken,
       );
     } on DioException catch (e) {
-      throw NetworkException.fromDioException(e);
+      throw DioNetworkException.fromDioException(e);
     }
   }
 }

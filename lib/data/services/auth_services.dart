@@ -65,7 +65,9 @@ class AuthServices {
 
       final token = firebaseUser.credential?.accessToken;
 
-      if (token == null) throw Exception('Firebase access token is null');
+      if (token == null) {
+        throw Exception('Firebase access token is null');
+      }
 
       return token;
     } on FirebaseAuthException catch (err) {

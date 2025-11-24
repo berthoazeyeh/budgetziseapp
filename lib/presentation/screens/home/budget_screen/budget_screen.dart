@@ -32,7 +32,7 @@ class BudgetScreen extends StatelessWidget {
           elevation: 0,
           title: Text(
             LocaleKeys.budget_screen_budget_title.tr(),
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.black,
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -40,15 +40,18 @@ class BudgetScreen extends StatelessWidget {
           ),
           actions: [
             Padding(
-              padding: EdgeInsets.only(right: 16),
+              padding: const EdgeInsets.only(right: 16),
               child: ElevatedButton(
                 onPressed: () {
-                  context.router.push(CreateBudgetRoute());
+                  context.router.push(const CreateBudgetRoute());
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFF667EEA),
+                  backgroundColor: const Color(0xFF667EEA),
                   foregroundColor: Colors.white,
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -68,8 +71,11 @@ class BudgetScreen extends StatelessWidget {
                 Skeletonizer(
                   enabled: ctrl.isLoading,
                   child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                    padding: EdgeInsets.all(20),
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 15,
+                    ),
+                    padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
                       color: Colors.grey[100],
                       borderRadius: BorderRadius.circular(16),
@@ -91,13 +97,13 @@ class BudgetScreen extends StatelessWidget {
                                   ).format(DateTime.now()),
                                 ],
                               ),
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                             Container(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                 horizontal: 8,
                                 vertical: 4,
                               ),
@@ -116,7 +122,7 @@ class BudgetScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                        SizedBox(height: 16),
+                        const SizedBox(height: 16),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -132,7 +138,7 @@ class BudgetScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                        SizedBox(height: 16),
+                        const SizedBox(height: 16),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -149,11 +155,11 @@ class BudgetScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                        SizedBox(height: 16),
+                        const SizedBox(height: 16),
                         LinearProgressIndicator(
                           value: 0.84,
                           backgroundColor: Colors.grey[300],
-                          valueColor: AlwaysStoppedAnimation<Color>(
+                          valueColor: const AlwaysStoppedAnimation<Color>(
                             Color(0xFF667EEA),
                           ),
                           minHeight: 12,
@@ -165,7 +171,7 @@ class BudgetScreen extends StatelessWidget {
 
                 // Catégories de Budget
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Skeletonizer(
                     enabled: ctrl.isLoading,
                     child: Column(
@@ -236,7 +242,7 @@ class BudgetScreen extends StatelessWidget {
                               progress: 0.83,
                               remaining: 'Reste 120€',
                               status: '17 jours restants',
-                              progressColor: Color(0xFF667EEA),
+                              progressColor: const Color(0xFF667EEA),
                             ),
                           ),
                       ],
@@ -246,8 +252,8 @@ class BudgetScreen extends StatelessWidget {
 
                 // Conseil du mois
                 Container(
-                  margin: EdgeInsets.all(20),
-                  padding: EdgeInsets.all(20),
+                  margin: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [Colors.amber[100]!, Colors.orange[100]!],
@@ -261,18 +267,18 @@ class BudgetScreen extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Text('💡', style: TextStyle(fontSize: 24)),
-                          SizedBox(width: 12),
+                          const Text('💡', style: TextStyle(fontSize: 24)),
+                          const SizedBox(width: 12),
                           Text(
                             LocaleKeys.budget_screen_budget_tip_title.tr(),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 12),
+                      const SizedBox(height: 12),
                       Text(
                         LocaleKeys.budget_screen_budget_tip_text.tr(
                           args: ["loisirs", "20€"],
@@ -287,7 +293,7 @@ class BudgetScreen extends StatelessWidget {
                   ),
                 ),
 
-                SizedBox(height: 100), // Espace pour la bottom navigation
+                const SizedBox(height: 100), // Espace pour la bottom navigation
               ],
             ),
           ),
@@ -301,7 +307,7 @@ class BudgetScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(label, style: TextStyle(color: Colors.grey[600], fontSize: 12)),
-        SizedBox(height: 4),
+        const SizedBox(height: 4),
         Text(
           amount,
           style: TextStyle(
@@ -329,8 +335,8 @@ class BudgetScreen extends StatelessWidget {
     bool isOverBudget = false,
   }) {
     return Container(
-      margin: EdgeInsets.only(bottom: 16),
-      padding: EdgeInsets.all(15),
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -338,7 +344,7 @@ class BudgetScreen extends StatelessWidget {
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.08),
             blurRadius: 20,
-            offset: Offset(0, 4),
+            offset: const Offset(0, 4),
           ),
         ],
       ),
@@ -354,7 +360,7 @@ class BudgetScreen extends StatelessWidget {
             ),
             child: Center(child: Icon(icon, size: 24, color: iconColor)),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
 
           // Contenu
           Expanded(
@@ -368,7 +374,7 @@ class BudgetScreen extends StatelessWidget {
                     Expanded(
                       child: Text(
                         title,
-                        style: TextStyle(
+                        style: const TextStyle(
                           overflow: TextOverflow.ellipsis,
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
@@ -386,7 +392,7 @@ class BudgetScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
 
                 // Barre de progression
                 LinearProgressIndicator(
@@ -395,7 +401,7 @@ class BudgetScreen extends StatelessWidget {
                   valueColor: AlwaysStoppedAnimation<Color>(progressColor),
                   minHeight: 8,
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

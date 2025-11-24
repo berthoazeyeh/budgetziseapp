@@ -43,7 +43,9 @@ class CubitConnectivityServiceImpl extends Cubit<ConnectivityState>
       listener(state);
     }
 
-    if (isClosed) return; // Prevent emitting state if the cubit is closed
+    if (isClosed) {
+      return; // Prevent emitting state if the cubit is closed
+    }
     super.emit(state);
   }
 

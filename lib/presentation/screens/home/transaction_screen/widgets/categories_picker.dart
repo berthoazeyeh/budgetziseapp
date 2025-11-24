@@ -17,7 +17,7 @@ class CategoriesPicker extends StatelessWidget {
   final Function(int) onChanged;
   final int? selectedCategoryId;
   final bool isLoading;
-  static show(
+  static void show(
     BuildContext context,
     Function(int) onChanged,
     int? selectedCategoryId,
@@ -41,9 +41,9 @@ class CategoriesPicker extends StatelessWidget {
     final languageSwitchCubit = BlocProvider.of<LanguageSwitchCubit>(context);
     return Container(
       height: screenSize.height * 0.8,
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       width: screenSize.width,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
@@ -56,25 +56,25 @@ class CategoriesPicker extends StatelessWidget {
           Container(
             height: 10,
             width: screenSize.width * 0.5,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.grey,
               borderRadius: BorderRadius.all(Radius.circular(20)),
             ),
           ),
-          SizedBox(height: 10),
-          Text(
+          const SizedBox(height: 10),
+          const Text(
             'Catégories de Depense',
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
           ),
 
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Expanded(
             child: Skeletonizer(
               enabled: isLoading && categories.isEmpty,
               child: GridView.builder(
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   childAspectRatio: 1.2,
                   crossAxisSpacing: 12,
@@ -98,12 +98,12 @@ class CategoriesPicker extends StatelessWidget {
                     child: Container(
                       decoration: BoxDecoration(
                         color: isSelected
-                            ? Color(0xFF667eea)
-                            : Color(0xFFF8FAFC),
+                            ? const Color(0xFF667eea)
+                            : const Color(0xFFF8FAFC),
                         border: Border.all(
                           color: isSelected
-                              ? Color(0xFF667eea)
-                              : Color(0xFFE2E8F0),
+                              ? const Color(0xFF667eea)
+                              : const Color(0xFFE2E8F0),
                           width: 2,
                         ),
                         borderRadius: BorderRadius.circular(12),
@@ -118,7 +118,7 @@ class CategoriesPicker extends StatelessWidget {
                                 ? Colors.white
                                 : IconMapper.getIcon(category.name).color,
                           ),
-                          SizedBox(height: 8),
+                          const SizedBox(height: 8),
                           Text(
                             label,
                             overflow: TextOverflow.ellipsis,
@@ -127,7 +127,7 @@ class CategoriesPicker extends StatelessWidget {
                               fontWeight: FontWeight.w500,
                               color: isSelected
                                   ? Colors.white
-                                  : Color(0xFF374151),
+                                  : const Color(0xFF374151),
                             ),
                             textAlign: TextAlign.center,
                           ),

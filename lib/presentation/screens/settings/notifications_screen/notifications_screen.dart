@@ -37,7 +37,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           elevation: 0,
           title: Text(
             LocaleKeys.notifications_title.tr(),
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
               color: Color(0xFF1E293B),
@@ -57,7 +57,10 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                 children: [
                   Text(
                     LocaleKeys.notifications_today.tr(),
-                    style: TextStyle(color: Color(0xFF64748B), fontSize: 14),
+                    style: const TextStyle(
+                      color: Color(0xFF64748B),
+                      fontSize: 14,
+                    ),
                   ),
                   TextButton(
                     onPressed: ctrl.markAllAsRead,
@@ -70,7 +73,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                       ),
                       child: Text(
                         LocaleKeys.notifications_mark_all_as_read.tr(),
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color(0xFF667EEA),
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
@@ -98,7 +101,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                       children: [
                         Text(
                           ctrl.formatRelativeDate(date),
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Color(0xFF64748B),
                             fontSize: 14,
                             fontWeight: FontWeight.w700,
@@ -142,20 +145,20 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   ),
                   child: Column(
                     children: [
-                      Text('🔔', style: TextStyle(fontSize: 48)),
-                      SizedBox(height: 16),
+                      const Text('🔔', style: TextStyle(fontSize: 48)),
+                      const SizedBox(height: 16),
                       Text(
                         LocaleKeys.notifications_empty_title.tr(),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                           color: Color(0xFF64748B),
                         ),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       Text(
                         LocaleKeys.notifications_empty_subtitle.tr(),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 14,
                           color: Color(0xFF64748B),
                         ),
@@ -232,7 +235,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                       Row(
                         children: [
                           if (notification.isRead)
-                            Icon(
+                            const Icon(
                               MaterialCommunityIcons.check_all,
                               size: 12,
                               color: Colors.green,

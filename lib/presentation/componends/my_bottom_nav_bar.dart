@@ -159,7 +159,7 @@ class FloatingBottomNavBar extends StatelessWidget {
                     child: Container(
                       width: 10,
                       height: 10,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Colors.red,
                         shape: BoxShape.circle,
                       ),

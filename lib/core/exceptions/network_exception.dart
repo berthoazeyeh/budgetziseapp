@@ -5,18 +5,18 @@ import 'package:budget_zise/gen/locale_keys.g.dart';
 import 'package:dio/dio.dart';
 
 /// Classe personnalisée pour gérer les erreurs réseau plus proprement.
-class NetworkException implements Exception {
+class DioNetworkException implements Exception {
   final String message;
   final int? statusCode;
   final dynamic details;
 
-  NetworkException(this.message, {this.statusCode, this.details});
+  DioNetworkException(this.message, {this.statusCode, this.details});
 
-  /// Fabrique une NetworkException à partir d'une exception Dio
-  factory NetworkException.fromDioException(DioException dioError) {
+  /// Fabrique une DioNetworkException à partir d'une exception Dio
+  factory DioNetworkException.fromDioException(DioException dioError) {
     String message = LocaleKeys.network_unknown.tr();
-    int? code = dioError.response?.statusCode;
-    dynamic details = dioError.response?.data;
+    final int? code = dioError.response?.statusCode;
+    final dynamic details = dioError.response?.data;
 
     if (dioError.type == DioExceptionType.connectionTimeout ||
         dioError.type == DioExceptionType.sendTimeout ||
@@ -41,7 +41,7 @@ class NetworkException implements Exception {
           LocaleKeys.network_unknown.tr();
     }
 
-    return NetworkException(message, statusCode: code, details: details);
+    return DioNetworkException(message, statusCode: code, details: details);
   }
 
   static String _getServerErrorMessage(int? statusCode, dynamic details) {
@@ -69,5 +69,5 @@ class NetworkException implements Exception {
 
   @override
   String toString() =>
-      'NetworkException(statusCode: $statusCode, message: $message, details: $details)';
+      'DioNetworkException(statusCode: $statusCode, message: $message, details: $details)';
 }

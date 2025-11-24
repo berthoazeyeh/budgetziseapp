@@ -303,7 +303,7 @@ class OTPHeader extends StatelessWidget {
             ).createShader(bounds),
             child: Text(
               LocaleKeys.otp_screen_title.tr(),
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w800,
                 color: Colors.white,
@@ -313,7 +313,7 @@ class OTPHeader extends StatelessWidget {
           const SizedBox(height: 10),
           Text(
             LocaleKeys.otp_screen_subtitle.tr(),
-            style: TextStyle(fontSize: 14, color: Colors.white),
+            style: const TextStyle(fontSize: 14, color: Colors.white),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 4),
@@ -612,7 +612,7 @@ class ResendSection extends StatelessWidget {
       children: [
         Text(
           LocaleKeys.otp_screen_not_received.tr(),
-          style: TextStyle(fontSize: 13, color: Color(0xFF64748B)),
+          style: const TextStyle(fontSize: 13, color: Color(0xFF64748B)),
         ),
         const SizedBox(height: 12),
         TextButton(
@@ -653,11 +653,11 @@ class FingerprintHint extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('👆', style: TextStyle(fontSize: 18)),
-          SizedBox(width: 8),
+          const Text('👆', style: TextStyle(fontSize: 18)),
+          const SizedBox(width: 8),
           Text(
             LocaleKeys.otp_screen_fingerprint_hint.tr(),
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w500,
               color: Color(0xFF059669),

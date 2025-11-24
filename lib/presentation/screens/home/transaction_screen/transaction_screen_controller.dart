@@ -74,7 +74,7 @@ class TransactionScreenController extends ScreenController {
       );
       transactionsStats = res;
     } catch (e) {
-      if (e is NetworkException) {
+      if (e is DioNetworkException) {
         UiAlertHelper.showErrorToast(e.message);
       } else {
         UiAlertHelper.showErrorToast(LocaleKeys.network_unknown.tr());
@@ -110,7 +110,7 @@ class TransactionScreenController extends ScreenController {
         nextPage++;
       }
     } catch (e) {
-      if (e is NetworkException) {
+      if (e is DioNetworkException) {
         UiAlertHelper.showErrorToast(e.message);
       } else {
         UiAlertHelper.showErrorToast(LocaleKeys.network_unknown.tr());
@@ -132,10 +132,10 @@ class TransactionScreenController extends ScreenController {
   }
 
   Map<String, List<Transaction>> groupByDate() {
-    Map<String, List<Transaction>> groupedTransactions = {};
+    final Map<String, List<Transaction>> groupedTransactions = {};
 
-    for (var transaction in transactions) {
-      String dateKey = DateFormat('yyyy-MM-dd').format(transaction.date);
+    for (final transaction in transactions) {
+      final String dateKey = DateFormat('yyyy-MM-dd').format(transaction.date);
       if (!groupedTransactions.containsKey(dateKey)) {
         groupedTransactions[dateKey] = [];
       }
@@ -148,7 +148,7 @@ class TransactionScreenController extends ScreenController {
     });
 
     // Trier les groupes par date (plus récent en premier)
-    var sortedEntries = groupedTransactions.entries.toList()
+    final sortedEntries = groupedTransactions.entries.toList()
       ..sort((a, b) => b.key.compareTo(a.key));
 
     return Map.fromEntries(sortedEntries);
@@ -171,7 +171,7 @@ class TransactionScreenController extends ScreenController {
       rechargeType = await publicRepository.getRechargeTypes();
       updateUI();
     } catch (e) {
-      if (e is NetworkException) {
+      if (e is DioNetworkException) {
         UiAlertHelper.showErrorToast(e.message);
       } else {
         UiAlertHelper.showErrorToast(LocaleKeys.network_unknown.tr());
@@ -183,8 +183,8 @@ class TransactionScreenController extends ScreenController {
   }
 
   Period getPeriod(int index) {
-    DateTime now = DateTime.now();
-    DateTime startOfDay = DateTime(
+    final DateTime now = DateTime.now();
+    final DateTime startOfDay = DateTime(
       now.year,
       now.month,
       now.day,
@@ -196,14 +196,14 @@ class TransactionScreenController extends ScreenController {
         return (startDate: startOfDay, endDate: now);
       case 1:
         // Début de la semaine courante (lundi)
-        int daysSinceMonday = now.weekday - DateTime.monday;
-        DateTime startOfWeek = startOfDay.subtract(
+        final int daysSinceMonday = now.weekday - DateTime.monday;
+        final DateTime startOfWeek = startOfDay.subtract(
           Duration(days: daysSinceMonday),
         );
         return (startDate: startOfWeek, endDate: now);
       case 2:
         // Début du mois courant
-        DateTime startOfMonth = DateTime(now.year, now.month, 1);
+        final DateTime startOfMonth = DateTime(now.year, now.month, 1);
         return (startDate: startOfMonth, endDate: now);
       default:
         return (startDate: startOfDay, endDate: now);

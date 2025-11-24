@@ -47,7 +47,7 @@ class _MyApiDioInterceptor extends Interceptor {
           requestOptions: response.requestOptions,
           response: response,
           type: DioExceptionType.badResponse,
-          error: NetworkException(
+          error: DioNetworkException(
             errorMessage,
             statusCode: finalStatusCode,
             details: data.toString(),
@@ -84,7 +84,7 @@ class _MyApiDioInterceptor extends Interceptor {
       requestOptions: err.requestOptions,
       response: err.response,
       type: err.type,
-      error: NetworkException.fromDioException(err),
+      error: DioNetworkException.fromDioException(err),
     );
     super.onError(customError, handler);
   }

@@ -42,7 +42,7 @@ class PushNotificationService {
     });
 
     // 🔔 Quand l’app est lancée par une notif (froid)
-    RemoteMessage? initialMessage = await FirebaseMessaging.instance
+    final RemoteMessage? initialMessage = await FirebaseMessaging.instance
         .getInitialMessage();
     if (initialMessage != null) {
       debugPrint('Notification reçue au lancement: ${initialMessage.data}');

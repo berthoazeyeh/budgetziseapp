@@ -16,7 +16,9 @@ class NotificationCountCubit extends HydratedCubit<NotificationState> {
   NotificationState get getCount => state;
 
   Future<void> fetchNotificationCount() async {
-    if (state.isFechting) return;
+    if (state.isFechting) {
+      return;
+    }
     try {
       emit(NotificationState(isFechting: true));
       final count = await dashboardRepository.getUnreadNotificationsCount();

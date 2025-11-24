@@ -48,7 +48,7 @@ class AuthRepository {
       await localStorageService.deleteAccessToken();
       return ApiResult.success(null);
     } catch (e) {
-      return ApiResult.failure(NetworkException(e.toString()).toString());
+      return ApiResult.failure(DioNetworkException(e.toString()).toString());
     }
   }
 
@@ -80,7 +80,7 @@ class AuthRepository {
 
       return ApiResult.failure("No new access token provided");
     } catch (e) {
-      return ApiResult.failure(NetworkException(e.toString()).toString());
+      return ApiResult.failure(DioNetworkException(e.toString()).toString());
     }
   }
 }

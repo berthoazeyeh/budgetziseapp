@@ -52,7 +52,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   child: Center(
                     child: Image.asset(
-                      Assets.images.logo.path,
+                      MyAssets.images.logo.path,
                       width: 50,
                       height: 50,
                     ),
@@ -61,7 +61,7 @@ class LoginScreen extends StatelessWidget {
                 const SizedBox(height: 14),
                 Text(
                   LocaleKeys.home_app_name.tr(),
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
@@ -70,7 +70,7 @@ class LoginScreen extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text(
                   LocaleKeys.auth_subtitle.tr(),
-                  style: TextStyle(fontSize: 16, color: Colors.white70),
+                  style: const TextStyle(fontSize: 16, color: Colors.white70),
                 ),
                 const SizedBox(height: 30),
                 Container(
@@ -85,7 +85,7 @@ class LoginScreen extends StatelessWidget {
                       children: [
                         Text(
                           LocaleKeys.auth_login.tr(),
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
@@ -171,7 +171,7 @@ class LoginScreen extends StatelessWidget {
                                 )
                               : Text(
                                   LocaleKeys.auth_sign_in.tr(),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -184,7 +184,7 @@ class LoginScreen extends StatelessWidget {
                           },
                           child: Text(
                             LocaleKeys.auth_forgot_password.tr(),
-                            style: TextStyle(color: Colors.white70),
+                            style: const TextStyle(color: Colors.white70),
                           ),
                         ),
                         const SizedBox(height: 10),
@@ -207,7 +207,9 @@ class LoginScreen extends StatelessWidget {
                             ),
                             label: Text(
                               LocaleKeys.auth_continue_with_google.tr(),
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             onPressed: () async {
                               await ctrl._signInWithGoogle();
@@ -221,7 +223,7 @@ class LoginScreen extends StatelessWidget {
                 const SizedBox(height: 14),
                 Text(
                   LocaleKeys.auth_no_account.tr(),
-                  style: TextStyle(color: Colors.white70),
+                  style: const TextStyle(color: Colors.white70),
                 ),
                 TextButton(
                   onPressed: () {
@@ -229,7 +231,7 @@ class LoginScreen extends StatelessWidget {
                   },
                   child: Text(
                     LocaleKeys.auth_create_account.tr(),
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),

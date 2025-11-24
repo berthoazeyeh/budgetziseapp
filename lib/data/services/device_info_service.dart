@@ -11,7 +11,9 @@ class DeviceInfoService {
   Map<String, dynamic>? _deviceInfo;
 
   Future<String> getDeviceId() async {
-    if (_deviceId != null) return _deviceId!;
+    if (_deviceId != null) {
+      return _deviceId!;
+    }
 
     final deviceInfo = DeviceInfoPlugin();
 
@@ -29,12 +31,14 @@ class DeviceInfoService {
   }
 
   Future<Map<String, dynamic>> getDeviceInfo() async {
-    if (_deviceInfo != null) return _deviceInfo!;
+    if (_deviceInfo != null) {
+      return _deviceInfo!;
+    }
 
     final deviceInfo = DeviceInfoPlugin();
     final packageInfo = await PackageInfo.fromPlatform();
 
-    Map<String, dynamic> info = {
+    final Map<String, dynamic> info = {
       'appVersion': packageInfo.version,
       'buildNumber': packageInfo.buildNumber,
       'packageName': packageInfo.packageName,

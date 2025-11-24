@@ -23,7 +23,7 @@ class NewBudgetScreenController extends ScreenController {
 
   String selectedPeriod = 'Mensuel';
   DateTime startDate = DateTime.now();
-  DateTime endDate = DateTime.now().add(Duration(days: 30));
+  DateTime endDate = DateTime.now().add(const Duration(days: 30));
 
   // Pour l'onglet catégorie unique
   String selectedSingleCategory = 'Alimentation';
@@ -41,40 +41,50 @@ class NewBudgetScreenController extends ScreenController {
       'name': 'Alimentation',
       'icon': '🍕',
       'amount': 0.0,
-      'color': Color(0xFFFF6B6B),
+      'color': const Color(0xFFFF6B6B),
     },
     {
       'name': 'Transport',
       'icon': '🚗',
       'amount': 0.0,
-      'color': Color(0xFF4ECDC4),
+      'color': const Color(0xFF4ECDC4),
     },
     {
       'name': 'Loisirs',
       'icon': '🎯',
       'amount': 0.0,
-      'color': Color(0xFF45B7D1),
+      'color': const Color(0xFF45B7D1),
     },
     {
       'name': 'Logement',
       'icon': '🏠',
       'amount': 0.0,
-      'color': Color(0xFF96CEB4),
+      'color': const Color(0xFF96CEB4),
     },
-    {'name': 'Santé', 'icon': '💊', 'amount': 0.0, 'color': Color(0xFFFECE2F)},
+    {
+      'name': 'Santé',
+      'icon': '💊',
+      'amount': 0.0,
+      'color': const Color(0xFFFECE2F),
+    },
     {
       'name': 'Vêtements',
       'icon': '👕',
       'amount': 0.0,
-      'color': Color(0xFFFF8A65),
+      'color': const Color(0xFFFF8A65),
     },
     {
       'name': 'Épargne',
       'icon': '💰',
       'amount': 0.0,
-      'color': Color(0xFF9C88FF),
+      'color': const Color(0xFF9C88FF),
     },
-    {'name': 'Autres', 'icon': '📦', 'amount': 0.0, 'color': Color(0xFFE17055)},
+    {
+      'name': 'Autres',
+      'icon': '📦',
+      'amount': 0.0,
+      'color': const Color(0xFFE17055),
+    },
   ];
 
   @override
@@ -96,7 +106,7 @@ class NewBudgetScreenController extends ScreenController {
       expencesTypes = categories;
       updateUI();
     } catch (e) {
-      if (e is NetworkException) {
+      if (e is DioNetworkException) {
         UiAlertHelper.showErrorToast(e.message);
       } else {
         UiAlertHelper.showErrorToast(LocaleKeys.network_unknown.tr());
@@ -126,7 +136,7 @@ class NewBudgetScreenController extends ScreenController {
   void updateDateRange() {
     switch (selectedPeriod) {
       case 'Hebdomadaire':
-        endDate = startDate.add(Duration(days: 7));
+        endDate = startDate.add(const Duration(days: 7));
         break;
       case 'Mensuel':
         endDate = DateTime(startDate.year, startDate.month + 1, startDate.day);

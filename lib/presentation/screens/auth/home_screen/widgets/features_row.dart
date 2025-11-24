@@ -27,7 +27,7 @@ class FeaturesRow extends StatelessWidget {
               padding: const EdgeInsets.all(0),
               child: Row(
                 children: [
-                  Icon(Icons.check_box, color: Colors.green, size: 20),
+                  const Icon(Icons.check_box, color: Colors.green, size: 20),
                   const SizedBox(width: 4),
                   Expanded(
                     child: Text(
@@ -49,7 +49,7 @@ class FeaturesRow extends StatelessWidget {
               padding: const EdgeInsets.all(0),
               child: Row(
                 children: [
-                  Icon(Icons.check_box, color: Colors.green, size: 20),
+                  const Icon(Icons.check_box, color: Colors.green, size: 20),
                   const SizedBox(width: 4),
                   Expanded(
                     child: Text(

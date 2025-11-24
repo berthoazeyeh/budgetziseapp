@@ -38,7 +38,7 @@ class DashboardScreenController extends ScreenController {
       );
       transactions.addAll(res.data);
     } catch (e) {
-      if (e is NetworkException) {
+      if (e is DioNetworkException) {
         UiAlertHelper.showErrorToast(e.message);
       } else {
         UiAlertHelper.showErrorToast(LocaleKeys.network_unknown.tr());
@@ -74,7 +74,7 @@ class DashboardScreenController extends ScreenController {
       debugPrint('budget: ${budget.length}');
       updateUI();
     } catch (e) {
-      if (e is NetworkException) {
+      if (e is DioNetworkException) {
         UiAlertHelper.showErrorToast(e.message);
       } else {
         UiAlertHelper.showErrorToast(e.toString());

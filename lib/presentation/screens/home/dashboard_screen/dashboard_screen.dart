@@ -57,16 +57,16 @@ class DashboardScreen extends StatelessWidget {
                                 LocaleKeys.dashboard_screen_greeting.tr(
                                   namedArgs: {'name': user.firstName},
                                 ),
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
                                 ),
                               ),
-                              SizedBox(height: 4),
+                              const SizedBox(height: 4),
                               Text(
                                 LocaleKeys.dashboard_screen_subtitle.tr(),
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 16,
                                   color: Colors.white70,
                                 ),
@@ -110,12 +110,12 @@ class DashboardScreen extends StatelessWidget {
                             children: [
                               Text(
                                 LocaleKeys.dashboard_screen_balance.tr(),
-                                style: TextStyle(color: Colors.white70),
+                                style: const TextStyle(color: Colors.white70),
                               ),
                               const SizedBox(height: 8),
                               Text(
                                 '2,485.50 ${user.country.currency}',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 36,
                                   fontWeight: FontWeight.bold,
@@ -130,14 +130,14 @@ class DashboardScreen extends StatelessWidget {
                                         Text(
                                           LocaleKeys.dashboard_screen_this_month
                                               .tr(),
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.white70,
                                           ),
                                         ),
-                                        SizedBox(height: 4),
+                                        const SizedBox(height: 4),
                                         Text(
                                           '+650 ${user.country.currency}',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -151,12 +151,12 @@ class DashboardScreen extends StatelessWidget {
                                         Text(
                                           LocaleKeys.dashboard_screen_savings
                                               .tr(),
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.white70,
                                           ),
                                         ),
-                                        SizedBox(height: 4),
-                                        Text(
+                                        const SizedBox(height: 4),
+                                        const Text(
                                           '12.3%',
                                           style: TextStyle(
                                             color: Colors.white,
@@ -212,7 +212,7 @@ class DashboardScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 10),
                       Container(
-                        margin: EdgeInsets.symmetric(
+                        margin: const EdgeInsets.symmetric(
                           horizontal: 15,
                           vertical: 10,
                         ),
@@ -223,7 +223,7 @@ class DashboardScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(16),
-                          boxShadow: [
+                          boxShadow: const [
                             BoxShadow(color: Colors.black12, blurRadius: 10),
                           ],
                         ),
@@ -236,7 +236,7 @@ class DashboardScreen extends StatelessWidget {
                                   child: Text(
                                     LocaleKeys.dashboard_screen_active_budgets
                                         .tr(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -248,7 +248,7 @@ class DashboardScreen extends StatelessWidget {
                                   },
                                   child: Text(
                                     LocaleKeys.dashboard_screen_see_all.tr(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 12,
                                       color: Colors.blue,
                                     ),
@@ -278,7 +278,7 @@ class DashboardScreen extends StatelessWidget {
                                 child: Column(
                                   children: List.generate(
                                     4,
-                                    (index) => BudgetCard(
+                                    (index) => const BudgetCard(
                                       title: "..............",
                                       icon: Icons.restaurant,
                                       spent: 880,
@@ -296,14 +296,14 @@ class DashboardScreen extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.all(20),
 
-                        margin: EdgeInsets.symmetric(
+                        margin: const EdgeInsets.symmetric(
                           horizontal: 15,
                           vertical: 10,
                         ),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(16),
-                          boxShadow: [
+                          boxShadow: const [
                             BoxShadow(color: Colors.black12, blurRadius: 10),
                           ],
                         ),
@@ -317,7 +317,7 @@ class DashboardScreen extends StatelessWidget {
                                     LocaleKeys
                                         .dashboard_screen_recent_transactions
                                         .tr(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -333,7 +333,7 @@ class DashboardScreen extends StatelessWidget {
                                     LocaleKeys
                                         .dashboard_screen_see_all_transactions
                                         .tr(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 12,
                                       color: Colors.blue,
                                     ),
@@ -368,8 +368,8 @@ class DashboardScreen extends StatelessWidget {
                                 time: Moment(e.date).format('HH:mm'),
                                 amount: amount,
                                 amountColor: isExpense
-                                    ? Color(0xFFEF4444)
-                                    : Color(0xFF10B981),
+                                    ? const Color(0xFFEF4444)
+                                    : const Color(0xFF10B981),
                                 category: e.paymentMethod,
                                 fileUrl: e.receiptUrl,
                                 currency: user.country.currency,
@@ -410,7 +410,7 @@ class _StatCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 10)],
+        boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 10)],
       ),
       child: Column(
         children: [

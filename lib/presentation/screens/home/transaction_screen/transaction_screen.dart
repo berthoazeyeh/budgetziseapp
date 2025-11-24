@@ -42,7 +42,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
-          title: Text(
+          title: const Text(
             'Transactions',
             style: TextStyle(
               fontSize: 24,
@@ -52,22 +52,27 @@ class _TransactionScreenState extends State<TransactionScreen> {
           ),
           actions: [
             Padding(
-              padding: EdgeInsets.only(right: 16),
+              padding: const EdgeInsets.only(right: 16),
               child: ElevatedButton(
                 onPressed: () {
-                  context.router.push(NewTransactionRoute()).then((value) {
+                  context.router.push(const NewTransactionRoute()).then((
+                    value,
+                  ) {
                     ctrl.refreshTransactions();
                   });
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFF667EEA),
+                  backgroundColor: const Color(0xFF667EEA),
                   foregroundColor: Colors.white,
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                child: Text('+ Ajouter', style: TextStyle(fontSize: 14)),
+                child: const Text('+ Ajouter', style: TextStyle(fontSize: 14)),
               ),
             ),
           ],
@@ -79,7 +84,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
               // Header avec recherche et filtres
               Container(
                 color: Colors.white,
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 child: Column(
                   children: [
                     // Barre de recherche et filtre
@@ -91,11 +96,11 @@ class _TransactionScreenState extends State<TransactionScreen> {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(12),
                               border: Border.all(
-                                color: Color(0xFFE5E7EB),
+                                color: const Color(0xFFE5E7EB),
                                 width: 2,
                               ),
                             ),
-                            child: TextField(
+                            child: const TextField(
                               decoration: InputDecoration(
                                 hintText: 'Rechercher...',
                                 prefixIcon: Icon(
@@ -111,11 +116,13 @@ class _TransactionScreenState extends State<TransactionScreen> {
                             ),
                           ),
                         ),
-                        SizedBox(width: 12),
+                        const SizedBox(width: 12),
                         PopupMenuButton<String>(
                           position: PopupMenuPosition.under,
                           onSelected: (String value) {
-                            if (ctrl.isLoadingCategories) return;
+                            if (ctrl.isLoadingCategories) {
+                              return;
+                            }
                             ctrl.getCategories();
                             CategoriesPicker.show(
                               context,
@@ -127,7 +134,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                           },
                           itemBuilder: (BuildContext context) =>
                               <PopupMenuEntry<String>>[
-                                PopupMenuItem<String>(
+                                const PopupMenuItem<String>(
                                   value: '1',
                                   child: Row(
                                     children: [
@@ -136,7 +143,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                                     ],
                                   ),
                                 ),
-                                PopupMenuItem<String>(
+                                const PopupMenuItem<String>(
                                   value: '2',
                                   child: Row(
                                     children: [
@@ -147,13 +154,15 @@ class _TransactionScreenState extends State<TransactionScreen> {
                                 ),
                               ],
                           child: Container(
-                            padding: EdgeInsets.all(12),
+                            padding: const EdgeInsets.all(12),
                             decoration: BoxDecoration(
-                              color: Color(0xFFF8FAFC),
+                              color: const Color(0xFFF8FAFC),
                               borderRadius: BorderRadius.circular(12),
-                              border: Border.all(color: Color(0xFFE2E8F0)),
+                              border: Border.all(
+                                color: const Color(0xFFE2E8F0),
+                              ),
                             ),
-                            child: Icon(
+                            child: const Icon(
                               Icons.bar_chart,
                               color: Color(0xFF64748B),
                             ),
@@ -161,19 +170,19 @@ class _TransactionScreenState extends State<TransactionScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     // Onglets de période
                     Container(
                       decoration: BoxDecoration(
-                        color: Color(0xFFF8FAFC),
+                        color: const Color(0xFFF8FAFC),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      padding: EdgeInsets.all(4),
+                      padding: const EdgeInsets.all(4),
                       child: Row(
                         children: ctrl.periods.asMap().entries.map((entry) {
-                          int index = entry.key;
-                          String period = entry.value;
-                          bool isSelected = ctrl.selectedPeriod == index;
+                          final int index = entry.key;
+                          final String period = entry.value;
+                          final bool isSelected = ctrl.selectedPeriod == index;
 
                           return Expanded(
                             child: GestureDetector(
@@ -191,12 +200,12 @@ class _TransactionScreenState extends State<TransactionScreen> {
                                               alpha: 0.05,
                                             ),
                                             blurRadius: 4,
-                                            offset: Offset(0, 2),
+                                            offset: const Offset(0, 2),
                                           ),
                                         ]
                                       : [],
                                 ),
-                                padding: EdgeInsets.symmetric(
+                                padding: const EdgeInsets.symmetric(
                                   vertical: 8,
                                   horizontal: 12,
                                 ),
@@ -208,8 +217,8 @@ class _TransactionScreenState extends State<TransactionScreen> {
                                         ? FontWeight.w500
                                         : FontWeight.normal,
                                     color: isSelected
-                                        ? Color(0xFF667EEA)
-                                        : Color(0xFF64748B),
+                                        ? const Color(0xFF667EEA)
+                                        : const Color(0xFF64748B),
                                     fontSize: 14,
                                   ),
                                 ),
@@ -226,7 +235,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
               Expanded(
                 child: ListView(
                   controller: ctrl.scrollController,
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   children: [
                     // Résumé du jour
                     Skeletonizer(
@@ -239,30 +248,30 @@ class _TransactionScreenState extends State<TransactionScreen> {
                             BoxShadow(
                               color: Colors.black.withValues(alpha: 0.08),
                               blurRadius: 20,
-                              offset: Offset(0, 4),
+                              offset: const Offset(0, 4),
                             ),
                           ],
-                          border: Border.all(color: Color(0xFFF1F5F9)),
+                          border: Border.all(color: const Color(0xFFF1F5F9)),
                         ),
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           vertical: 20,
                           horizontal: 15,
                         ),
-                        margin: EdgeInsets.only(bottom: 24),
+                        margin: const EdgeInsets.only(bottom: 24),
                         child: Row(
                           children: [
                             Expanded(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(
+                                  const Text(
                                     'Dépenses',
                                     style: TextStyle(
                                       color: Color(0xFF64748B),
                                       fontSize: 14,
                                     ),
                                   ),
-                                  SizedBox(height: 4),
+                                  const SizedBox(height: 4),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -270,7 +279,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                                         '-${ctrl.transactionsStats?.totalExpenses.toStringAsFixed(1)} ',
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold,
                                           color: Color(0xFFEF4444),
@@ -280,7 +289,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                                         ' $currency',
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.bold,
                                           color: Color(0xFFEF4444),
@@ -294,20 +303,20 @@ class _TransactionScreenState extends State<TransactionScreen> {
                             Container(
                               width: 1,
                               height: 40,
-                              color: Color(0xFFE2E8F0),
+                              color: const Color(0xFFE2E8F0),
                             ),
                             Expanded(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(
+                                  const Text(
                                     'Revenus',
                                     style: TextStyle(
                                       color: Color(0xFF64748B),
                                       fontSize: 14,
                                     ),
                                   ),
-                                  SizedBox(height: 4),
+                                  const SizedBox(height: 4),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -315,7 +324,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                                         '+${ctrl.transactionsStats?.totalRecharges.toStringAsFixed(1)} ',
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold,
                                           color: Color(0xFF10B981),
@@ -325,7 +334,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                                         ' $currency',
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.bold,
                                           color: Color(0xFF10B981),
@@ -344,7 +353,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                       visible:
                           ctrl.groupByDate().isEmpty &&
                           !ctrl.isLoadingTransactions,
-                      child: Center(
+                      child: const Center(
                         child: Text(
                           'Aucune transaction trouvée pour cette période',
                           style: TextStyle(
@@ -364,8 +373,9 @@ class _TransactionScreenState extends State<TransactionScreen> {
                             return Column(
                               children: ctrl.groupByDate().entries.toList().map(
                                 (e) {
-                                  String date = e.key;
-                                  List<Transaction> transactions = e.value;
+                                  final String date = e.key;
+                                  final List<Transaction> transactions =
+                                      e.value;
                                   return Padding(
                                     padding: const EdgeInsets.only(bottom: 10),
                                     child: _buildTransactionSection(
@@ -405,8 +415,8 @@ class _TransactionScreenState extends State<TransactionScreen> {
                                           amount:
                                               "${amount.toStringAsFixed(2)} €",
                                           amountColor: isExpense
-                                              ? Color(0xFFEF4444)
-                                              : Color(0xFF10B981),
+                                              ? const Color(0xFFEF4444)
+                                              : const Color(0xFF10B981),
                                           category: e.paymentMethod,
                                           fileUrl: e.receiptUrl,
                                         );
@@ -429,35 +439,35 @@ class _TransactionScreenState extends State<TransactionScreen> {
                             _buildTransactionSection('Aujourd\'hui', [
                               TransactionItem(
                                 icon: Icons.shopping_cart,
-                                iconColor: Color(0xFFEF4444),
-                                iconBg: Color(0xFFFEF2F2),
+                                iconColor: const Color(0xFFEF4444),
+                                iconBg: const Color(0xFFFEF2F2),
                                 title: 'Carrefour Market',
                                 subtitle: 'Alimentation • Carte bancaire',
                                 time: '14:30',
                                 amount: '-45.80 €',
-                                amountColor: Color(0xFFEF4444),
+                                amountColor: const Color(0xFFEF4444),
                                 category: 'Alimentaire',
                               ),
                               TransactionItem(
                                 icon: Icons.coffee,
-                                iconColor: Color(0xFFEF4444),
-                                iconBg: Color(0xFFFEF2F2),
+                                iconColor: const Color(0xFFEF4444),
+                                iconBg: const Color(0xFFFEF2F2),
                                 title: 'Starbucks',
                                 subtitle: 'Loisirs • Carte bancaire',
                                 time: '11:15',
                                 amount: '-4.50 €',
-                                amountColor: Color(0xFFEF4444),
+                                amountColor: const Color(0xFFEF4444),
                                 category: 'Café',
                               ),
                               TransactionItem(
                                 icon: Icons.train,
-                                iconColor: Color(0xFFEF4444),
-                                iconBg: Color(0xFFFEF2F2),
+                                iconColor: const Color(0xFFEF4444),
+                                iconBg: const Color(0xFFFEF2F2),
                                 title: 'Métro RATP',
                                 subtitle: 'Transport • Paiement mobile',
                                 time: '09:30',
                                 amount: '-2.15 €',
-                                amountColor: Color(0xFFEF4444),
+                                amountColor: const Color(0xFFEF4444),
                                 category: 'Transport',
                               ),
                             ]),
@@ -467,10 +477,10 @@ class _TransactionScreenState extends State<TransactionScreen> {
                       visible:
                           ctrl.isLoadingTransactions &&
                           ctrl.groupByDate().isNotEmpty,
-                      child: Center(child: CircularProgressIndicator()),
+                      child: const Center(child: CircularProgressIndicator()),
                     ),
 
-                    SizedBox(height: 200),
+                    const SizedBox(height: 200),
                   ],
                 ),
               ),
@@ -490,13 +500,13 @@ class _TransactionScreenState extends State<TransactionScreen> {
       children: [
         Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
             color: Color(0xFF1E293B),
           ),
         ),
-        SizedBox(height: 16),
+        const SizedBox(height: 16),
         Container(
           decoration: BoxDecoration(
             color: Colors.white,
@@ -505,24 +515,29 @@ class _TransactionScreenState extends State<TransactionScreen> {
               BoxShadow(
                 color: Colors.black.withValues(alpha: 0.08),
                 blurRadius: 20,
-                offset: Offset(0, 4),
+                offset: const Offset(0, 4),
               ),
             ],
-            border: Border.all(color: Color(0xFFF1F5F9)),
+            border: Border.all(color: const Color(0xFFF1F5F9)),
           ),
           child: Column(
             children: transactions.asMap().entries.map((entry) {
-              int index = entry.key;
-              TransactionItem transaction = entry.value;
-              bool isLast = index == transactions.length - 1;
+              final int index = entry.key;
+              final TransactionItem transaction = entry.value;
+              final bool isLast = index == transactions.length - 1;
 
               return Container(
                 decoration: BoxDecoration(
                   border: !isLast
-                      ? Border(bottom: BorderSide(color: Color(0xFFF1F5F9)))
+                      ? const Border(
+                          bottom: BorderSide(color: Color(0xFFF1F5F9)),
+                        )
                       : null,
                 ),
-                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 16,
+                  horizontal: 12,
+                ),
                 child: Row(
                   children: [
                     Container(
@@ -540,30 +555,30 @@ class _TransactionScreenState extends State<TransactionScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 12),
+                    const SizedBox(width: 12),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             transaction.title,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 16,
                             ),
                           ),
-                          SizedBox(height: 4),
+                          const SizedBox(height: 4),
                           Text(
                             transaction.subtitle,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Color(0xFF64748B),
                               fontSize: 14,
                             ),
                           ),
-                          SizedBox(height: 2),
+                          const SizedBox(height: 2),
                           Text(
                             transaction.time,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Color(0xFF64748B),
                               fontSize: 12,
                             ),
@@ -582,17 +597,17 @@ class _TransactionScreenState extends State<TransactionScreen> {
                             color: transaction.amountColor,
                           ),
                         ),
-                        SizedBox(height: 4),
+                        const SizedBox(height: 4),
                         Text(
                           transaction.category,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Color(0xFF64748B),
                             fontSize: 12,
                           ),
                         ),
-                        SizedBox(height: 4),
+                        const SizedBox(height: 4),
                         if (transaction.fileUrl != null)
-                          Icon(
+                          const Icon(
                             Icons.file_present,
                             color: Color.fromARGB(255, 73, 128, 206),
                             size: 16,

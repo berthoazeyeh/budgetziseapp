@@ -26,7 +26,7 @@ class _StatisticsScreenState extends State<StatisticsScreen>
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
-          title: Text(
+          title: const Text(
             'Statistiques',
             style: TextStyle(
               color: Colors.black,
@@ -36,10 +36,10 @@ class _StatisticsScreenState extends State<StatisticsScreen>
           ),
           actions: [
             Container(
-              margin: EdgeInsets.only(right: 16),
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              margin: const EdgeInsets.only(right: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               decoration: BoxDecoration(
-                color: Color(0xFFF8FAFC),
+                color: const Color(0xFFF8FAFC),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: DropdownButton<String>(
@@ -63,33 +63,33 @@ class _StatisticsScreenState extends State<StatisticsScreen>
             ),
           ],
           bottom: PreferredSize(
-            preferredSize: Size.fromHeight(60),
+            preferredSize: const Size.fromHeight(60),
             child: Container(
-              padding: EdgeInsets.all(4),
-              margin: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              padding: const EdgeInsets.all(4),
+              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               decoration: BoxDecoration(
-                color: Color(0xFFF8FAFC),
+                color: const Color(0xFFF8FAFC),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: TabBar(
                 controller: ctrl._tabController,
-                tabs: [
+                tabs: const [
                   Tab(text: 'Dépenses'),
                   Tab(text: 'Revenus'),
                   Tab(text: 'Épargne'),
                 ],
 
-                labelColor: Color(0xFF667eea),
+                labelColor: const Color(0xFF667eea),
                 unselectedLabelColor: Colors.black.withValues(alpha: 0.8),
                 dividerColor: Colors.transparent,
 
-                indicatorColor: Color(0xFF667eea),
+                indicatorColor: const Color(0xFF667eea),
                 indicatorWeight: 3,
-                labelStyle: TextStyle(
+                labelStyle: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 16,
                 ),
-                unselectedLabelStyle: TextStyle(
+                unselectedLabelStyle: const TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 16,
                 ),
@@ -99,7 +99,7 @@ class _StatisticsScreenState extends State<StatisticsScreen>
         ),
         body: TabBarView(
           controller: ctrl._tabController,
-          children: [ExpensesTab(), IncomesTab(), SavingsTab()],
+          children: const [ExpensesTab(), IncomesTab(), SavingsTab()],
         ),
       ),
     );

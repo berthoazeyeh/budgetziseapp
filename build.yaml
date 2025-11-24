@@ -1,0 +1,36 @@
+targets:
+  $default:
+    builders:
+      graphql_codegen:
+        enabled: true
+        options:
+          outputDirectory: .                    # ← IMPORTANT: Ajouter ceci
+          addTypename: true
+          assetsPath: lib/graphql/**.graphql    # ← Changer queries_glob en assetsPath
+          clients:                               # ← IMPORTANT: Ajouter les clients
+            - graphql
+            - graphql_flutter
+          scalars:                               # ← IMPORTANT: Définir les scalaires
+            Date:
+              type: DateTime
+            DateTime:
+              type: DateTime
+            JSON:
+              type: Map<String, dynamic>
+
+      flutter_gen:
+        options:
+          line_length: 80
+          parse_metadata: false
+          integrations:
+            flutter_svg: true
+            lottie: false
+            rive: false
+          assets:
+            enabled: true
+            outputs:
+              class_name: MyAssets
+              package_parameter_enabled: false
+              style: dot-delimiter
+            exclude:
+              - assets/i18n/**

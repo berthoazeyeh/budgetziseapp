@@ -21,7 +21,7 @@ class IncomeForm extends StatelessWidget {
     ];
     final user = BlocProvider.of<AuthCubit>(context).getSignedInUser;
     return SingleChildScrollView(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       child: Form(
         key: ctrl.formKeyIncome,
         child: Column(
@@ -32,7 +32,7 @@ class IncomeForm extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'Montant',
                     style: TextStyle(
                       fontSize: 16,
@@ -40,18 +40,18 @@ class IncomeForm extends StatelessWidget {
                       color: Color(0xFF374151),
                     ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Row(
                     children: [
                       Expanded(
                         child: TextFormField(
                           controller: ctrl.amountIncomeController,
-                          keyboardType: TextInputType.numberWithOptions(
+                          keyboardType: const TextInputType.numberWithOptions(
                             decimal: true,
                           ),
                           textAlign: TextAlign.center,
                           validator: ['required', 'numeric', 'min:1'].v,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 32,
                             fontWeight: FontWeight.bold,
                             color: Color(0xFF10B981),
@@ -59,33 +59,35 @@ class IncomeForm extends StatelessWidget {
                           decoration: InputDecoration(
                             hintText: '0.00',
                             hintStyle: TextStyle(
-                              color: Color(0xFF10B981).withValues(alpha: 0.5),
+                              color: const Color(
+                                0xFF10B981,
+                              ).withValues(alpha: 0.5),
                             ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Color(0xFFE5E7EB),
                                 width: 2,
                               ),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Color(0xFF667eea),
                                 width: 2,
                               ),
                             ),
-                            contentPadding: EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                               vertical: 16,
                               horizontal: 16,
                             ),
                           ),
                         ),
                       ),
-                      SizedBox(width: 12),
+                      const SizedBox(width: 12),
                       Text(
                         user.country.currency,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
                           color: Color(0xFF64748B),
@@ -97,14 +99,14 @@ class IncomeForm extends StatelessWidget {
               ),
             ),
 
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
             // Carte Catégorie
             _buildCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'Type de revenu',
                     style: TextStyle(
                       fontSize: 16,
@@ -112,18 +114,19 @@ class IncomeForm extends StatelessWidget {
                       color: Color(0xFF374151),
                     ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Skeletonizer(
                     enabled: ctrl.isLoadingRechargeTypes,
                     child: GridView.builder(
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        childAspectRatio: 1.2,
-                        crossAxisSpacing: 12,
-                        mainAxisSpacing: 12,
-                      ),
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            childAspectRatio: 1.2,
+                            crossAxisSpacing: 12,
+                            mainAxisSpacing: 12,
+                          ),
                       itemCount: ctrl.rechargeTypes.isNotEmpty
                           ? ctrl.rechargeTypes.length
                           : 6,
@@ -147,12 +150,12 @@ class IncomeForm extends StatelessWidget {
                           child: Container(
                             decoration: BoxDecoration(
                               color: isSelected
-                                  ? Color(0xFF10B981)
-                                  : Color(0xFFF8FAFC),
+                                  ? const Color(0xFF10B981)
+                                  : const Color(0xFFF8FAFC),
                               border: Border.all(
                                 color: isSelected
-                                    ? Color(0xFF10B981)
-                                    : Color(0xFFE2E8F0),
+                                    ? const Color(0xFF10B981)
+                                    : const Color(0xFFE2E8F0),
                                 width: 2,
                               ),
                               borderRadius: BorderRadius.circular(12),
@@ -167,7 +170,7 @@ class IncomeForm extends StatelessWidget {
                                       ? Colors.white
                                       : IconMapper.getIcon(category.name).color,
                                 ),
-                                SizedBox(height: 8),
+                                const SizedBox(height: 8),
                                 Text(
                                   label,
                                   overflow: TextOverflow.ellipsis,
@@ -176,7 +179,7 @@ class IncomeForm extends StatelessWidget {
                                     fontWeight: FontWeight.w500,
                                     color: isSelected
                                         ? Colors.white
-                                        : Color(0xFF374151),
+                                        : const Color(0xFF374151),
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
@@ -191,7 +194,7 @@ class IncomeForm extends StatelessWidget {
               ),
             ),
 
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
             // Carte Détails
             _buildCard(
@@ -203,20 +206,20 @@ class IncomeForm extends StatelessWidget {
                     hint: 'Saisissez une description...',
                     prefixIcon: Icons.description,
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   _buildFloatingInput(
                     label: 'Source',
                     controller: ctrl.sourceController,
                     hint: 'D\'où vient ce revenu ?',
                     prefixIcon: Icons.source,
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
 
                   // Mode de paiement
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Mode de réception',
                         style: TextStyle(
                           fontSize: 16,
@@ -224,25 +227,25 @@ class IncomeForm extends StatelessWidget {
                           color: Color(0xFF374151),
                         ),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       DropdownButtonFormField<String>(
                         initialValue: ctrl.selectedPaymentMethod,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0xFFE5E7EB),
                               width: 2,
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0xFF667eea),
                               width: 2,
                             ),
                           ),
-                          contentPadding: EdgeInsets.symmetric(
+                          contentPadding: const EdgeInsets.symmetric(
                             vertical: 16,
                             horizontal: 16,
                           ),
@@ -260,13 +263,13 @@ class IncomeForm extends StatelessWidget {
                     ],
                   ),
 
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
 
                   // Date
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Date',
                         style: TextStyle(
                           fontSize: 16,
@@ -274,7 +277,7 @@ class IncomeForm extends StatelessWidget {
                           color: Color(0xFF374151),
                         ),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       GestureDetector(
                         onTap: () async {
                           final date = await showDatePicker(
@@ -288,13 +291,13 @@ class IncomeForm extends StatelessWidget {
                           }
                         },
                         child: Container(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                             vertical: 16,
                             horizontal: 16,
                           ),
                           decoration: BoxDecoration(
                             border: Border.all(
-                              color: Color(0xFFE5E7EB),
+                              color: const Color(0xFFE5E7EB),
                               width: 2,
                             ),
                             borderRadius: BorderRadius.circular(12),
@@ -306,9 +309,9 @@ class IncomeForm extends StatelessWidget {
                                 DateFormat(
                                   'dd/MM/yyyy',
                                 ).format(ctrl.selectedDate),
-                                style: TextStyle(fontSize: 16),
+                                style: const TextStyle(fontSize: 16),
                               ),
-                              Icon(
+                              const Icon(
                                 Icons.calendar_today,
                                 color: Color(0xFF64748B),
                               ),
@@ -322,7 +325,7 @@ class IncomeForm extends StatelessWidget {
               ),
             ),
 
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Boutons
             Row(
@@ -331,16 +334,16 @@ class IncomeForm extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () => Navigator.pop(context),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFFF8FAFC),
-                      foregroundColor: Color(0xFF64748B),
-                      padding: EdgeInsets.symmetric(vertical: 14),
+                      backgroundColor: const Color(0xFFF8FAFC),
+                      foregroundColor: const Color(0xFF64748B),
+                      padding: const EdgeInsets.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
-                        side: BorderSide(color: Color(0xFFE2E8F0)),
+                        side: const BorderSide(color: Color(0xFFE2E8F0)),
                       ),
                       elevation: 0,
                     ),
-                    child: Text(
+                    child: const Text(
                       'Annuler',
                       style: TextStyle(
                         fontSize: 16,
@@ -349,23 +352,23 @@ class IncomeForm extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(width: 12),
+                const SizedBox(width: 12),
                 Expanded(
                   flex: 2,
                   child: ElevatedButton(
                     onPressed: ctrl.saveIncome,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF10B981),
+                      backgroundColor: const Color(0xFF10B981),
                       foregroundColor: Colors.white,
-                      padding: EdgeInsets.symmetric(vertical: 14),
+                      padding: const EdgeInsets.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
                       elevation: 0,
                     ),
                     child: ctrl.isMutating
-                        ? CircularProgressIndicator.adaptive()
-                        : Text(
+                        ? const CircularProgressIndicator.adaptive()
+                        : const Text(
                             'Enregistrer',
                             style: TextStyle(
                               fontSize: 16,
@@ -377,7 +380,7 @@ class IncomeForm extends StatelessWidget {
               ],
             ),
 
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
           ],
         ),
       ),
@@ -387,7 +390,7 @@ class IncomeForm extends StatelessWidget {
   Widget _buildCard({required Widget child}) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -395,10 +398,10 @@ class IncomeForm extends StatelessWidget {
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.08),
             blurRadius: 20,
-            offset: Offset(0, 4),
+            offset: const Offset(0, 4),
           ),
         ],
-        border: Border.all(color: Color(0xFFF1F5F9)),
+        border: Border.all(color: const Color(0xFFF1F5F9)),
       ),
       child: child,
     );
@@ -415,28 +418,31 @@ class IncomeForm extends StatelessWidget {
       children: [
         Text(
           label,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w500,
             color: Color(0xFF64748B),
           ),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         TextFormField(
           validator: ['required'].v,
           controller: controller,
           decoration: InputDecoration(
             hintText: hint,
-            prefixIcon: Icon(prefixIcon, color: Color(0xFF64748B)),
+            prefixIcon: Icon(prefixIcon, color: const Color(0xFF64748B)),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: Color(0xFFE5E7EB), width: 2),
+              borderSide: const BorderSide(color: Color(0xFFE5E7EB), width: 2),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: Color(0xFF667eea), width: 2),
+              borderSide: const BorderSide(color: Color(0xFF667eea), width: 2),
             ),
-            contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+            contentPadding: const EdgeInsets.symmetric(
+              vertical: 16,
+              horizontal: 16,
+            ),
           ),
         ),
       ],

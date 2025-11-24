@@ -35,7 +35,7 @@ class _CreateBudgetScreenState extends State<CreateBudgetScreen>
           userCubit,
         ),
         builder: (context, ctrl) => Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -47,7 +47,7 @@ class _CreateBudgetScreenState extends State<CreateBudgetScreen>
               children: [
                 // Header
                 Container(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   child: Column(
                     children: [
                       Row(
@@ -55,7 +55,7 @@ class _CreateBudgetScreenState extends State<CreateBudgetScreen>
                           GestureDetector(
                             onTap: () => Navigator.pop(context),
                             child: Container(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                 horizontal: 12,
                                 vertical: 8,
                               ),
@@ -63,15 +63,15 @@ class _CreateBudgetScreenState extends State<CreateBudgetScreen>
                                 color: Colors.white.withValues(alpha: 0.1),
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              child: Icon(
+                              child: const Icon(
                                 Icons.arrow_back_ios,
                                 color: Colors.white,
                                 size: 16,
                               ),
                             ),
                           ),
-                          SizedBox(width: 16),
-                          Text(
+                          const SizedBox(width: 16),
+                          const Text(
                             'Nouveau Budget',
                             style: TextStyle(
                               fontSize: 24,
@@ -81,9 +81,9 @@ class _CreateBudgetScreenState extends State<CreateBudgetScreen>
                           ),
                         ],
                       ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       Container(
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 16,
                           vertical: 12,
                         ),
@@ -93,12 +93,12 @@ class _CreateBudgetScreenState extends State<CreateBudgetScreen>
                         ),
                         child: Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.lightbulb_outline,
                               color: Colors.white,
                               size: 20,
                             ),
-                            SizedBox(width: 8),
+                            const SizedBox(width: 8),
                             Expanded(
                               child: Text(
                                 'Créez un budget pour mieux gérer vos finances',
@@ -111,9 +111,9 @@ class _CreateBudgetScreenState extends State<CreateBudgetScreen>
                           ],
                         ),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Container(
-                        padding: EdgeInsets.all(4),
+                        padding: const EdgeInsets.all(4),
                         decoration: BoxDecoration(
                           color: Colors.white.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(12),
@@ -126,22 +126,22 @@ class _CreateBudgetScreenState extends State<CreateBudgetScreen>
                             borderRadius: BorderRadius.circular(8),
                           ),
 
-                          labelColor: Color(0xFF667eea),
+                          labelColor: const Color(0xFF667eea),
                           unselectedLabelColor: Colors.white.withValues(
                             alpha: 0.8,
                           ),
                           dividerColor: Colors.transparent,
 
                           indicatorColor: Colors.transparent,
-                          labelStyle: TextStyle(
+                          labelStyle: const TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 14,
                           ),
-                          unselectedLabelStyle: TextStyle(
+                          unselectedLabelStyle: const TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 14,
                           ),
-                          tabs: [
+                          tabs: const [
                             Tab(text: '    Catégorie unique    '),
                             Tab(text: '    Toutes catégories    '),
                           ],

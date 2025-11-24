@@ -67,7 +67,7 @@ class PinScreenController extends ScreenController {
       if (canAuthenticate) {
         final didAuthenticate = await auth.authenticate(
           localizedReason: LocaleKeys.auth_please_authenticate.tr(),
-          options: const AuthenticationOptions(biometricOnly: true),
+          biometricOnly: true,
         );
         if (didAuthenticate) {
           await localStorageService.setBiometricAuthDate(DateTime.now());
@@ -183,7 +183,7 @@ class PinScreenController extends ScreenController {
         _resetCurrentPin();
       }
     } catch (e) {
-      if (e is NetworkException) {
+      if (e is DioNetworkException) {
         _setError(e.message);
       } else {
         _setError(e.toString());

@@ -8,7 +8,7 @@ class IncomesTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Column(
         children: [
           // Résumé des revenus
@@ -22,7 +22,7 @@ class IncomesTab extends StatelessWidget {
                   isPositive: true,
                 ),
               ),
-              SizedBox(width: 16),
+              const SizedBox(width: 16),
               Expanded(
                 child: _buildStatCard(
                   title: 'Revenus nets',
@@ -33,7 +33,7 @@ class IncomesTab extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
 
           // Graphique d'évolution des revenus
           _buildChartCard(
@@ -42,37 +42,37 @@ class IncomesTab extends StatelessWidget {
               height: 200,
               child: LineChart(
                 LineChartData(
-                  gridData: FlGridData(show: false),
-                  titlesData: FlTitlesData(show: false),
+                  gridData: const FlGridData(show: false),
+                  titlesData: const FlTitlesData(show: false),
                   borderData: FlBorderData(show: false),
                   lineBarsData: [
                     LineChartBarData(
                       spots: [
-                        FlSpot(0, 2600),
-                        FlSpot(1, 2700),
-                        FlSpot(2, 2750),
-                        FlSpot(3, 2720),
-                        FlSpot(4, 2800),
+                        const FlSpot(0, 2600),
+                        const FlSpot(1, 2700),
+                        const FlSpot(2, 2750),
+                        const FlSpot(3, 2720),
+                        const FlSpot(4, 2800),
                       ],
                       isCurved: true,
-                      color: Color(0xFF10B981),
+                      color: const Color(0xFF10B981),
                       barWidth: 3,
                       belowBarData: BarAreaData(
                         show: true,
-                        color: Color(0xFF10B981).withValues(alpha: 0.1),
+                        color: const Color(0xFF10B981).withValues(alpha: 0.1),
                       ),
-                      dotData: FlDotData(show: false),
+                      dotData: const FlDotData(show: false),
                     ),
                   ],
                 ),
               ),
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
 
           // Sources de revenus
           _buildRevenueSourcesCard(),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
 
           // Historique des revenus
           _buildRevenueHistoryCard(),
@@ -88,7 +88,7 @@ class IncomesTab extends StatelessWidget {
     required bool isPositive,
   }) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       height: 130,
       decoration: BoxDecoration(
         color: Colors.white,
@@ -97,7 +97,7 @@ class IncomesTab extends StatelessWidget {
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ],
       ),
@@ -105,21 +105,23 @@ class IncomesTab extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(title, style: TextStyle(color: Colors.grey[600], fontSize: 14)),
-          SizedBox(height: 4),
+          const SizedBox(height: 4),
           Text(
             value,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
               color: Color(0xFF10B981),
             ),
           ),
-          SizedBox(height: 4),
+          const SizedBox(height: 4),
           Text(
             change,
             style: TextStyle(
               fontSize: 12,
-              color: isPositive ? Color(0xFF10B981) : Color(0xFFEF4444),
+              color: isPositive
+                  ? const Color(0xFF10B981)
+                  : const Color(0xFFEF4444),
             ),
           ),
         ],
@@ -133,7 +135,7 @@ class IncomesTab extends StatelessWidget {
     required Widget child,
   }) {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -141,7 +143,7 @@ class IncomesTab extends StatelessWidget {
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ],
       ),
@@ -153,16 +155,22 @@ class IncomesTab extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
               if (subtitle != null)
                 Text(
                   subtitle,
-                  style: TextStyle(fontSize: 14, color: Color(0xFF667EEA)),
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color(0xFF667EEA),
+                  ),
                 ),
             ],
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           child,
         ],
       ),
@@ -175,24 +183,24 @@ class IncomesTab extends StatelessWidget {
         'title': 'Salaire principal',
         'amount': '2,500 €',
         'icon': '💼',
-        'color': Color(0xFFECFDF5),
+        'color': const Color(0xFFECFDF5),
       },
       {
         'title': 'Freelance',
         'amount': '200 €',
         'icon': '💻',
-        'color': Color(0xFFF0F9FF),
+        'color': const Color(0xFFF0F9FF),
       },
       {
         'title': 'Investissements',
         'amount': '100 €',
         'icon': '📈',
-        'color': Color(0xFFFEF3C7),
+        'color': const Color(0xFFFEF3C7),
       },
     ];
 
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -200,18 +208,18 @@ class IncomesTab extends StatelessWidget {
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             'Sources de revenus',
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           ...sources.map((source) => _buildRevenueSourceItem(source)),
         ],
       ),
@@ -220,7 +228,7 @@ class IncomesTab extends StatelessWidget {
 
   Widget _buildRevenueSourceItem(Map<String, dynamic> source) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 12),
+      padding: const EdgeInsets.symmetric(vertical: 12),
       decoration: BoxDecoration(
         border: Border(bottom: BorderSide(color: Colors.grey[100]!)),
       ),
@@ -234,19 +242,19 @@ class IncomesTab extends StatelessWidget {
               shape: BoxShape.circle,
             ),
             child: Center(
-              child: Text(source['icon'], style: TextStyle(fontSize: 18)),
+              child: Text(source['icon'], style: const TextStyle(fontSize: 18)),
             ),
           ),
-          SizedBox(width: 12),
+          const SizedBox(width: 12),
           Expanded(
             child: Text(
               source['title'],
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
             ),
           ),
           Text(
             source['amount'],
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
               color: Color(0xFF10B981),
@@ -266,7 +274,7 @@ class IncomesTab extends StatelessWidget {
     ];
 
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -274,18 +282,18 @@ class IncomesTab extends StatelessWidget {
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             'Historique des revenus',
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           ...history.map((item) => _buildHistoryItem(item)),
         ],
       ),
@@ -294,7 +302,7 @@ class IncomesTab extends StatelessWidget {
 
   Widget _buildHistoryItem(Map<String, dynamic> item) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 12),
+      padding: const EdgeInsets.symmetric(vertical: 12),
       decoration: BoxDecoration(
         border: Border(bottom: BorderSide(color: Colors.grey[100]!)),
       ),
@@ -306,7 +314,10 @@ class IncomesTab extends StatelessWidget {
               children: [
                 Text(
                   item['title'],
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
                 Text(
                   item['date'],
@@ -317,7 +328,7 @@ class IncomesTab extends StatelessWidget {
           ),
           Text(
             item['amount'],
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
               color: Color(0xFF10B981),

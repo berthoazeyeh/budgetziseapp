@@ -51,7 +51,7 @@ class _NewSavingsGoalScreenState extends State<NewSavingsGoalScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -64,7 +64,7 @@ class _NewSavingsGoalScreenState extends State<NewSavingsGoalScreen> {
               CustomAppBar(onBackPressed: () => Navigator.pop(context)),
               Expanded(
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(25),
@@ -75,11 +75,11 @@ class _NewSavingsGoalScreenState extends State<NewSavingsGoalScreen> {
                     children: [
                       Expanded(
                         child: SingleChildScrollView(
-                          padding: EdgeInsets.all(20),
+                          padding: const EdgeInsets.all(20),
                           child: Column(
                             children: [
                               NameInputCard(controller: _nameController),
-                              SizedBox(height: 16),
+                              const SizedBox(height: 16),
                               IconSelectorCard(
                                 icons: availableIcons,
                                 selectedIcon: selectedIcon,
@@ -87,33 +87,33 @@ class _NewSavingsGoalScreenState extends State<NewSavingsGoalScreen> {
                                   setState(() => selectedIcon = icon);
                                 },
                               ),
-                              SizedBox(height: 16),
+                              const SizedBox(height: 16),
                               AmountInputCard(
                                 title: 'Montant objectif',
                                 controller: _targetAmountController,
                                 isTarget: true,
                               ),
-                              SizedBox(height: 16),
+                              const SizedBox(height: 16),
                               AmountInputCard(
                                 title: 'Montant déjà épargné (optionnel)',
                                 controller: _currentAmountController,
                                 isTarget: false,
                               ),
-                              SizedBox(height: 16),
+                              const SizedBox(height: 16),
                               DatePickerCard(
                                 selectedDate: selectedDate,
                                 onDateSelected: (date) {
                                   setState(() => selectedDate = date);
                                 },
                               ),
-                              SizedBox(height: 16),
+                              const SizedBox(height: 16),
                               PriorityCard(
                                 selectedPriority: selectedPriority,
                                 onPriorityChanged: (priority) {
                                   setState(() => selectedPriority = priority);
                                 },
                               ),
-                              SizedBox(height: 16),
+                              const SizedBox(height: 16),
                               AutoSaveCard(
                                 isEnabled: isAutoSaveEnabled,
                                 monthlyController: _monthlyAmountController,
@@ -122,7 +122,7 @@ class _NewSavingsGoalScreenState extends State<NewSavingsGoalScreen> {
                                   setState(() => isAutoSaveEnabled = enabled);
                                 },
                               ),
-                              SizedBox(height: 16),
+                              const SizedBox(height: 16),
                               PreviewCard(
                                 name: _nameController.text.isEmpty
                                     ? 'Nom de l\'objectif'
@@ -140,7 +140,7 @@ class _NewSavingsGoalScreenState extends State<NewSavingsGoalScreen> {
                                     0,
                                 deadline: selectedDate,
                               ),
-                              SizedBox(height: 100),
+                              const SizedBox(height: 100),
                             ],
                           ),
                         ),
@@ -197,7 +197,7 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -206,16 +206,20 @@ class CustomAppBar extends StatelessWidget {
               GestureDetector(
                 onTap: onBackPressed,
                 child: Container(
-                  padding: EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     color: Colors.white.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Icon(Icons.arrow_back, color: Colors.white, size: 20),
+                  child: const Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                    size: 20,
+                  ),
                 ),
               ),
-              SizedBox(width: 16),
-              Text(
+              const SizedBox(width: 16),
+              const Text(
                 'Nouvel Objectif',
                 style: TextStyle(
                   fontSize: 24,
@@ -225,7 +229,7 @@ class CustomAppBar extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
             'Définissez votre prochain objectif d\'épargne',
             style: TextStyle(
@@ -256,12 +260,12 @@ class BaseCard extends StatelessWidget {
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.08),
             blurRadius: 20,
-            offset: Offset(0, 4),
+            offset: const Offset(0, 4),
           ),
         ],
-        border: Border.all(color: Color(0xFFF1F5F9)),
+        border: Border.all(color: const Color(0xFFF1F5F9)),
       ),
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       child: child,
     );
   }
@@ -279,7 +283,7 @@ class NameInputCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             'Nom de l\'objectif',
             style: TextStyle(
               fontSize: 12,
@@ -287,20 +291,26 @@ class NameInputCard extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           TextField(
             controller: controller,
             decoration: InputDecoration(
               hintText: 'Ex: Vacances d\'été, Nouvelle voiture...',
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: Color(0xFFE5E7EB), width: 2),
+                borderSide: const BorderSide(
+                  color: Color(0xFFE5E7EB),
+                  width: 2,
+                ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: Color(0xFF667eea), width: 2),
+                borderSide: const BorderSide(
+                  color: Color(0xFF667eea),
+                  width: 2,
+                ),
               ),
-              contentPadding: EdgeInsets.all(16),
+              contentPadding: const EdgeInsets.all(16),
             ),
           ),
         ],
@@ -328,7 +338,7 @@ class IconSelectorCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             'Choisissez une icône',
             style: TextStyle(
               fontSize: 14,
@@ -336,11 +346,11 @@ class IconSelectorCard extends StatelessWidget {
               color: Color(0xFF374151),
             ),
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           GridView.builder(
             shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 4,
               crossAxisSpacing: 12,
               mainAxisSpacing: 12,
@@ -354,17 +364,21 @@ class IconSelectorCard extends StatelessWidget {
               return GestureDetector(
                 onTap: () => onIconSelected(icon),
                 child: AnimatedContainer(
-                  duration: Duration(milliseconds: 200),
+                  duration: const Duration(milliseconds: 200),
                   decoration: BoxDecoration(
-                    color: isSelected ? Color(0xFF667eea) : Color(0xFFF8FAFC),
+                    color: isSelected
+                        ? const Color(0xFF667eea)
+                        : const Color(0xFFF8FAFC),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: isSelected ? Color(0xFF667eea) : Color(0xFFE2E8F0),
+                      color: isSelected
+                          ? const Color(0xFF667eea)
+                          : const Color(0xFFE2E8F0),
                       width: 2,
                     ),
                   ),
                   child: Center(
-                    child: Text(icon, style: TextStyle(fontSize: 24)),
+                    child: Text(icon, style: const TextStyle(fontSize: 24)),
                   ),
                 ),
               );
@@ -397,13 +411,13 @@ class AmountInputCard extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w500,
               color: Color(0xFF374151),
             ),
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           Row(
             children: [
               Expanded(
@@ -414,30 +428,32 @@ class AmountInputCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: isTarget ? 24 : 20,
                     fontWeight: FontWeight.bold,
-                    color: isTarget ? Color(0xFF667eea) : Color(0xFF10b981),
+                    color: isTarget
+                        ? const Color(0xFF667eea)
+                        : const Color(0xFF10b981),
                   ),
                   decoration: InputDecoration(
                     hintText: isTarget ? '2500' : '0',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(
+                      borderSide: const BorderSide(
                         color: Color(0xFFE5E7EB),
                         width: 2,
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(
+                      borderSide: const BorderSide(
                         color: Color(0xFF667eea),
                         width: 2,
                       ),
                     ),
-                    contentPadding: EdgeInsets.all(16),
+                    contentPadding: const EdgeInsets.all(16),
                   ),
                 ),
               ),
-              SizedBox(width: 12),
-              Text(
+              const SizedBox(width: 12),
+              const Text(
                 '€',
                 style: TextStyle(
                   fontSize: 18,
@@ -470,7 +486,7 @@ class DatePickerCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             'Date limite (optionnel)',
             style: TextStyle(
               fontSize: 14,
@@ -478,23 +494,24 @@ class DatePickerCard extends StatelessWidget {
               color: Color(0xFF374151),
             ),
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           GestureDetector(
             onTap: () async {
               final date = await showDatePicker(
                 context: context,
                 initialDate:
-                    selectedDate ?? DateTime.now().add(Duration(days: 365)),
+                    selectedDate ??
+                    DateTime.now().add(const Duration(days: 365)),
                 firstDate: DateTime.now(),
-                lastDate: DateTime.now().add(Duration(days: 3650)),
+                lastDate: DateTime.now().add(const Duration(days: 3650)),
               );
               onDateSelected(date);
             },
             child: Container(
               width: double.infinity,
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                border: Border.all(color: Color(0xFFE5E7EB), width: 2),
+                border: Border.all(color: const Color(0xFFE5E7EB), width: 2),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
@@ -534,7 +551,7 @@ class PriorityCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             'Priorité',
             style: TextStyle(
               fontSize: 14,
@@ -542,13 +559,13 @@ class PriorityCard extends StatelessWidget {
               color: Color(0xFF374151),
             ),
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           Container(
             decoration: BoxDecoration(
-              color: Color(0xFFF8FAFC),
+              color: const Color(0xFFF8FAFC),
               borderRadius: BorderRadius.circular(12),
             ),
-            padding: EdgeInsets.all(4),
+            padding: const EdgeInsets.all(4),
             child: Row(
               children: [
                 _buildPriorityOption('🟢 Faible', Priority.low),
@@ -569,8 +586,8 @@ class PriorityCard extends StatelessWidget {
       child: GestureDetector(
         onTap: () => onPriorityChanged(priority),
         child: AnimatedContainer(
-          duration: Duration(milliseconds: 200),
-          padding: EdgeInsets.symmetric(vertical: 12),
+          duration: const Duration(milliseconds: 200),
+          padding: const EdgeInsets.symmetric(vertical: 12),
           decoration: BoxDecoration(
             color: isSelected ? Colors.white : Colors.transparent,
             borderRadius: BorderRadius.circular(8),
@@ -579,7 +596,7 @@ class PriorityCard extends StatelessWidget {
                     BoxShadow(
                       color: Colors.black.withValues(alpha: 0.05),
                       blurRadius: 4,
-                      offset: Offset(0, 2),
+                      offset: const Offset(0, 2),
                     ),
                   ]
                 : [],
@@ -589,7 +606,9 @@ class PriorityCard extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
               fontWeight: FontWeight.w500,
-              color: isSelected ? Color(0xFF667eea) : Color(0xFF64748b),
+              color: isSelected
+                  ? const Color(0xFF667eea)
+                  : const Color(0xFF64748b),
             ),
           ),
         ),
@@ -619,14 +638,14 @@ class AutoSaveCard extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Color(0xFFF8FAFC),
+              color: const Color(0xFFF8FAFC),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Row(
               children: [
-                Expanded(
+                const Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -651,22 +670,24 @@ class AutoSaveCard extends StatelessWidget {
                 GestureDetector(
                   onTap: () => onToggle(!isEnabled),
                   child: AnimatedContainer(
-                    duration: Duration(milliseconds: 300),
+                    duration: const Duration(milliseconds: 300),
                     width: 50,
                     height: 28,
                     decoration: BoxDecoration(
-                      color: isEnabled ? Color(0xFF667eea) : Color(0xFFE2E8F0),
+                      color: isEnabled
+                          ? const Color(0xFF667eea)
+                          : const Color(0xFFE2E8F0),
                       borderRadius: BorderRadius.circular(14),
                     ),
                     child: AnimatedAlign(
-                      duration: Duration(milliseconds: 300),
+                      duration: const Duration(milliseconds: 300),
                       alignment: isEnabled
                           ? Alignment.centerRight
                           : Alignment.centerLeft,
                       child: Container(
                         width: 24,
                         height: 24,
-                        margin: EdgeInsets.all(2),
+                        margin: const EdgeInsets.all(2),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(12),
@@ -679,14 +700,14 @@ class AutoSaveCard extends StatelessWidget {
             ),
           ),
           if (isEnabled) ...[
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Row(
               children: [
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Montant mensuel',
                         style: TextStyle(
                           fontSize: 14,
@@ -694,7 +715,7 @@ class AutoSaveCard extends StatelessWidget {
                           color: Color(0xFF374151),
                         ),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       Row(
                         children: [
                           Expanded(
@@ -706,24 +727,24 @@ class AutoSaveCard extends StatelessWidget {
                                 hintText: '100',
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     color: Color(0xFFE5E7EB),
                                     width: 2,
                                   ),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     color: Color(0xFF667eea),
                                     width: 2,
                                   ),
                                 ),
-                                contentPadding: EdgeInsets.all(12),
+                                contentPadding: const EdgeInsets.all(12),
                               ),
                             ),
                           ),
-                          SizedBox(width: 8),
-                          Text(
+                          const SizedBox(width: 8),
+                          const Text(
                             '€',
                             style: TextStyle(
                               fontSize: 16,
@@ -735,12 +756,12 @@ class AutoSaveCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(width: 12),
+                const SizedBox(width: 12),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Jour du mois',
                         style: TextStyle(
                           fontSize: 14,
@@ -748,7 +769,7 @@ class AutoSaveCard extends StatelessWidget {
                           color: Color(0xFF374151),
                         ),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       TextField(
                         controller: dayController,
                         keyboardType: TextInputType.number,
@@ -757,19 +778,19 @@ class AutoSaveCard extends StatelessWidget {
                           hintText: '1',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0xFFE5E7EB),
                               width: 2,
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0xFF667eea),
                               width: 2,
                             ),
                           ),
-                          contentPadding: EdgeInsets.all(12),
+                          contentPadding: const EdgeInsets.all(12),
                         ),
                       ),
                     ],
@@ -811,18 +832,18 @@ class PreviewCard extends StatelessWidget {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [Color(0xFFF0F9FF), Color(0xFFE0F2FE)],
         ),
         borderRadius: BorderRadius.circular(16),
       ),
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             'Aperçu de l\'objectif',
             style: TextStyle(
               fontSize: 16,
@@ -830,21 +851,21 @@ class PreviewCard extends StatelessWidget {
               color: Color(0xFF0c4a6e),
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Row(
             children: [
               Container(
                 width: 56,
                 height: 56,
                 decoration: BoxDecoration(
-                  color: Color(0xFF667eea),
+                  color: const Color(0xFF667eea),
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Center(
-                  child: Text(icon, style: TextStyle(fontSize: 24)),
+                  child: Text(icon, style: const TextStyle(fontSize: 24)),
                 ),
               ),
-              SizedBox(width: 16),
+              const SizedBox(width: 16),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -854,7 +875,7 @@ class PreviewCard extends StatelessWidget {
                       children: [
                         Text(
                           name,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
                             color: Color(0xFF0c4a6e),
@@ -862,7 +883,7 @@ class PreviewCard extends StatelessWidget {
                         ),
                         Text(
                           '${currentAmount.toInt()}€ / ${targetAmount.toInt()}€',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
                             color: Color(0xFF0c4a6e),
@@ -870,7 +891,7 @@ class PreviewCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: 12),
+                    const SizedBox(height: 12),
                     Container(
                       height: 8,
                       decoration: BoxDecoration(
@@ -882,19 +903,19 @@ class PreviewCard extends StatelessWidget {
                         widthFactor: progress,
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Color(0xFF667eea),
+                            color: const Color(0xFF667eea),
                             borderRadius: BorderRadius.circular(4),
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           'Reste ${remaining.toInt()}€',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 12,
                             color: Color(0xFF0c4a6e),
                           ),
@@ -903,7 +924,7 @@ class PreviewCard extends StatelessWidget {
                           deadline != null
                               ? '${_getMonthName(deadline!.month)} ${deadline!.year}'
                               : 'Pas de limite',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 12,
                             color: Color(0xFF0c4a6e),
                           ),
@@ -953,8 +974,8 @@ class BottomActionButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(20),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.all(20),
+      decoration: const BoxDecoration(
         color: Colors.white,
         border: Border(top: BorderSide(color: Color(0xFFF1F5F9))),
       ),
@@ -964,36 +985,36 @@ class BottomActionButtons extends StatelessWidget {
             child: ElevatedButton(
               onPressed: onCancel,
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFFF8FAFC),
-                foregroundColor: Color(0xFF64748b),
+                backgroundColor: const Color(0xFFF8FAFC),
+                foregroundColor: const Color(0xFF64748b),
                 elevation: 0,
-                padding: EdgeInsets.symmetric(vertical: 16),
+                padding: const EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
-                  side: BorderSide(color: Color(0xFFE2E8F0)),
+                  side: const BorderSide(color: Color(0xFFE2E8F0)),
                 ),
               ),
-              child: Text(
+              child: const Text(
                 'Annuler',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),
             ),
           ),
-          SizedBox(width: 12),
+          const SizedBox(width: 12),
           Expanded(
             flex: 2,
             child: ElevatedButton(
               onPressed: onSave,
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFF667eea),
+                backgroundColor: const Color(0xFF667eea),
                 foregroundColor: Colors.white,
                 elevation: 0,
-                padding: EdgeInsets.symmetric(vertical: 16),
+                padding: const EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
-              child: Text(
+              child: const Text(
                 'Créer l\'objectif',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),

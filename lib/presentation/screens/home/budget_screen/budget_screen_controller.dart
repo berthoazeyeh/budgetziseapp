@@ -37,7 +37,7 @@ class BudgetScreenController extends ScreenController {
       debugPrint('budget: ${budget.length}');
       updateUI();
     } catch (e) {
-      if (e is NetworkException) {
+      if (e is DioNetworkException) {
         UiAlertHelper.showErrorToast(e.message);
       } else {
         UiAlertHelper.showErrorToast(e.toString());

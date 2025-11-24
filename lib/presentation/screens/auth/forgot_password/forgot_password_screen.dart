@@ -120,7 +120,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           ),
                         ),
                       ),
-                      Expanded(
+                      const Expanded(
                         child: Text(
                           'Mot de passe oublié',
                           style: TextStyle(

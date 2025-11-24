@@ -53,5 +53,5 @@ class UploadResponse {
   factory UploadResponse.fromJson(Map<String, dynamic> json) {
     return UploadResponse(url: json['url']);
   }
-  toJson() => {'url': url};
+  Map<String, String> toJson() => {'url': url};
 }

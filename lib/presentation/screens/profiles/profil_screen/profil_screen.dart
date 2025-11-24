@@ -26,7 +26,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
         children: [
           Container(
             width: double.infinity,
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [Color(0xFF667EEA), Color(0xFF764BA2)],
@@ -42,7 +42,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                     children: [
                       Text(
                         LocaleKeys.profile_screen_title.tr(),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
@@ -51,9 +51,9 @@ class _ProfilScreenState extends State<ProfilScreen> {
 
                       IconButton(
                         onPressed: () {
-                          context.router.push(PrincipalSettingsRoute());
+                          context.router.push(const PrincipalSettingsRoute());
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Feather.settings,
                           color: Colors.white,
                           size: 20,
@@ -61,10 +61,10 @@ class _ProfilScreenState extends State<ProfilScreen> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          context.router.push(EditProfilRoute());
+                          context.router.push(const EditProfilRoute());
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFF667EEA),
+                          backgroundColor: const Color(0xFF667EEA),
                           foregroundColor: Colors.white,
                           elevation: 0,
                           shape: RoundedRectangleBorder(
@@ -80,7 +80,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                   Container(
                     width: 80,
                     height: 80,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Color(0xFF667EEA),
                       shape: BoxShape.circle,
                       border: Border(),
@@ -89,7 +89,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                       child: Text(
                         user.firstName.substring(0, 1).toUpperCase() +
                             user.lastName.substring(0, 1).toUpperCase(),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 32,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
@@ -97,22 +97,22 @@ class _ProfilScreenState extends State<ProfilScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 12),
+                  const SizedBox(height: 12),
                   // Nom et email
                   Text(
                     '${user.firstName} ${user.lastName}',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
                       color: Colors.white,
                     ),
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Text(
                     user.email,
-                    style: TextStyle(fontSize: 12, color: Colors.white),
+                    style: const TextStyle(fontSize: 12, color: Colors.white),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                 ],
               ),
             ),
@@ -124,8 +124,11 @@ class _ProfilScreenState extends State<ProfilScreen> {
                   Skeletonizer(
                     enabled: false,
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      padding: EdgeInsets.all(20),
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
+                      padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(16),
@@ -134,7 +137,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                             color: Colors.grey.withValues(alpha: 0.1),
                             spreadRadius: 1,
                             blurRadius: 10,
-                            offset: Offset(0, 2),
+                            offset: const Offset(0, 2),
                           ),
                         ],
                       ),
@@ -143,13 +146,13 @@ class _ProfilScreenState extends State<ProfilScreen> {
                         children: [
                           Text(
                             LocaleKeys.profile_screen_stats_title.tr(),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
                               color: Colors.black,
                             ),
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           Row(
                             children: [
                               Expanded(
@@ -162,7 +165,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                                   Colors.green[500]!,
                                 ),
                               ),
-                              SizedBox(width: 20),
+                              const SizedBox(width: 20),
                               Expanded(
                                 child: _buildStatCard(
                                   '🎯',
@@ -174,7 +177,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           Row(
                             children: [
                               Expanded(
@@ -186,7 +189,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                                   Colors.blue[600]!,
                                 ),
                               ),
-                              SizedBox(width: 20),
+                              const SizedBox(width: 20),
                               Expanded(
                                 child: _buildStatCard(
                                   '⏰',
@@ -206,8 +209,11 @@ class _ProfilScreenState extends State<ProfilScreen> {
                   ),
                   // Informations Personnelles
                   Container(
-                    margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    padding: EdgeInsets.all(20),
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
+                    padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(16),
@@ -216,7 +222,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                           color: Colors.grey.withValues(alpha: 0.1),
                           spreadRadius: 1,
                           blurRadius: 10,
-                          offset: Offset(0, 2),
+                          offset: const Offset(0, 2),
                         ),
                       ],
                     ),
@@ -225,13 +231,13 @@ class _ProfilScreenState extends State<ProfilScreen> {
                       children: [
                         Text(
                           LocaleKeys.profile_screen_personal_info.tr(),
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
                             color: Colors.black,
                           ),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         _buildInfoItem(
                           Feather.user,
                           LocaleKeys.profile_screen_full_name.tr(),
@@ -266,8 +272,11 @@ class _ProfilScreenState extends State<ProfilScreen> {
 
                   // Actions Rapides
                   Container(
-                    margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    padding: EdgeInsets.all(20),
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
+                    padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(16),
@@ -276,7 +285,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                           color: Colors.grey.withValues(alpha: 0.1),
                           spreadRadius: 1,
                           blurRadius: 10,
-                          offset: Offset(0, 2),
+                          offset: const Offset(0, 2),
                         ),
                       ],
                     ),
@@ -285,27 +294,27 @@ class _ProfilScreenState extends State<ProfilScreen> {
                       children: [
                         Text(
                           LocaleKeys.profile_screen_quick_actions.tr(),
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
                             color: Colors.black,
                           ),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton.icon(
                             onPressed: () {
-                              context.router.push(EditProfilRoute());
+                              context.router.push(const EditProfilRoute());
                             },
-                            icon: Icon(Feather.user, color: Colors.amber),
+                            icon: const Icon(Feather.user, color: Colors.amber),
                             label: Text(
                               LocaleKeys.profile_screen_edit_profile.tr(),
                             ),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blue[600],
                               foregroundColor: Colors.white,
-                              padding: EdgeInsets.symmetric(vertical: 12),
+                              padding: const EdgeInsets.symmetric(vertical: 12),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -313,22 +322,22 @@ class _ProfilScreenState extends State<ProfilScreen> {
                           ),
                         ),
 
-                        SizedBox(height: 12),
+                        const SizedBox(height: 12),
 
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton.icon(
                             onPressed: () {
-                              context.router.push(ChangePasswordRoute());
+                              context.router.push(const ChangePasswordRoute());
                             },
-                            icon: Icon(Feather.lock, color: Colors.amber),
+                            icon: const Icon(Feather.lock, color: Colors.amber),
                             label: Text(
                               LocaleKeys.profile_screen_change_password.tr(),
                             ),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.grey[200],
                               foregroundColor: Colors.black,
-                              padding: EdgeInsets.symmetric(vertical: 12),
+                              padding: const EdgeInsets.symmetric(vertical: 12),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -336,21 +345,26 @@ class _ProfilScreenState extends State<ProfilScreen> {
                           ),
                         ),
 
-                        SizedBox(height: 16),
+                        const SizedBox(height: 16),
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton.icon(
                             onPressed: () {
-                              context.router.push(PrincipalSettingsRoute());
+                              context.router.push(
+                                const PrincipalSettingsRoute(),
+                              );
                             },
-                            icon: Icon(Feather.settings, color: Colors.blue),
+                            icon: const Icon(
+                              Feather.settings,
+                              color: Colors.blue,
+                            ),
                             label: Text(
                               LocaleKeys.profile_screen_app_settings.tr(),
                             ),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.grey[200],
                               foregroundColor: Colors.black,
-                              padding: EdgeInsets.symmetric(vertical: 12),
+                              padding: const EdgeInsets.symmetric(vertical: 12),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -361,7 +375,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                     ),
                   ),
 
-                  SizedBox(height: 100),
+                  const SizedBox(height: 100),
                 ],
               ),
             ),
@@ -390,14 +404,16 @@ class _ProfilScreenState extends State<ProfilScreen> {
             color: bgColor,
             borderRadius: BorderRadius.circular(12),
           ),
-          child: Center(child: Text(emoji, style: TextStyle(fontSize: 20))),
+          child: Center(
+            child: Text(emoji, style: const TextStyle(fontSize: 20)),
+          ),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         Text(label, style: TextStyle(fontSize: 14, color: Colors.grey[600])),
-        SizedBox(height: 4),
+        const SizedBox(height: 4),
         Text(
           value,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
             color: Colors.black,
@@ -415,7 +431,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
     Color iconColor,
   ) {
     return Container(
-      margin: EdgeInsets.only(bottom: 16),
+      margin: const EdgeInsets.only(bottom: 16),
       child: Row(
         children: [
           Container(
@@ -427,20 +443,20 @@ class _ProfilScreenState extends State<ProfilScreen> {
             ),
             child: Center(child: Icon(emoji, size: 24)),
           ),
-          SizedBox(width: 12),
+          const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   label,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 16,
                     color: Colors.black,
                   ),
                 ),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Text(
                   value,
                   style: TextStyle(color: Colors.grey[600], fontSize: 14),

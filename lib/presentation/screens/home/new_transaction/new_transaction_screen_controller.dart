@@ -28,23 +28,25 @@ class NewTransactionScreenController extends ScreenController {
   DateTime selectedDate = DateTime.now();
   String selectedPaymentMethod = 'Cash';
   XFile? receiptImage;
-  onDateSelected(DateTime date) {
+  void onDateSelected(DateTime date) {
     selectedDate = date;
     updateUI();
   }
 
-  onReceiptImageSelected(XFile? image) {
+  void onReceiptImageSelected(XFile? image) {
     receiptImage = image;
     updateUI();
   }
 
-  onPaymentMethodSelected(String paymentMethod) {
+  void onPaymentMethodSelected(String paymentMethod) {
     selectedPaymentMethod = paymentMethod;
     updateUI();
   }
 
   Future<void> saveIncome() async {
-    if (isMutating) return;
+    if (isMutating) {
+      return;
+    }
     if (!(formKeyIncome.currentState?.validate() ?? false)) {
       UiAlertHelper.showErrorToast('Veuillez remplir tous les champs');
       return;
@@ -76,7 +78,7 @@ class NewTransactionScreenController extends ScreenController {
         UiAlertHelper.showErrorToast("Erreur lors de l'ajout de la recharge");
       }
     } catch (e) {
-      if (e is NetworkException) {
+      if (e is DioNetworkException) {
         UiAlertHelper.showErrorToast(e.message);
       } else {
         UiAlertHelper.showErrorToast(LocaleKeys.network_unknown.tr());
@@ -88,7 +90,9 @@ class NewTransactionScreenController extends ScreenController {
   }
 
   Future<void> saveExpense() async {
-    if (isMutating) return;
+    if (isMutating) {
+      return;
+    }
     if (!(formKeyExpense.currentState?.validate() ?? false)) {
       UiAlertHelper.showErrorToast('Veuillez remplir tous les champs');
       return;
@@ -132,7 +136,7 @@ class NewTransactionScreenController extends ScreenController {
         UiAlertHelper.showErrorToast("Erreur lors de l'ajout de la dépense");
       }
     } catch (e) {
-      if (e is NetworkException) {
+      if (e is DioNetworkException) {
         UiAlertHelper.showErrorToast(e.message);
       } else {
         UiAlertHelper.showErrorToast(LocaleKeys.network_unknown.tr());
@@ -143,12 +147,12 @@ class NewTransactionScreenController extends ScreenController {
     }
   }
 
-  onCategorySelectedIncome(int categoryId) {
+  void onCategorySelectedIncome(int categoryId) {
     selectedCategoryIncome = categoryId;
     updateUI();
   }
 
-  onCategorySelectedExpense(int categoryId) {
+  void onCategorySelectedExpense(int categoryId) {
     selectedCategoryExpense = categoryId;
     updateUI();
   }
@@ -173,7 +177,7 @@ class NewTransactionScreenController extends ScreenController {
       rechargeTypes = categories;
       updateUI();
     } catch (e) {
-      if (e is NetworkException) {
+      if (e is DioNetworkException) {
         UiAlertHelper.showErrorToast(e.message);
       } else {
         UiAlertHelper.showErrorToast(LocaleKeys.network_unknown.tr());
@@ -196,7 +200,7 @@ class NewTransactionScreenController extends ScreenController {
       expencesTypes = categories;
       updateUI();
     } catch (e) {
-      if (e is NetworkException) {
+      if (e is DioNetworkException) {
         UiAlertHelper.showErrorToast(e.message);
       } else {
         UiAlertHelper.showErrorToast(LocaleKeys.network_unknown.tr());

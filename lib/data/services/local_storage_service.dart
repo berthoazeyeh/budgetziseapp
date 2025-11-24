@@ -28,7 +28,9 @@ final class LocalStorageService {
     final box = await _getBox();
     final isNotFirstTimeVal = box.get(_isNotFirstTime);
     await box.clear();
-    if (isNotFirstTimeVal != null) box.put(_isNotFirstTime, isNotFirstTimeVal);
+    if (isNotFirstTimeVal != null) {
+      box.put(_isNotFirstTime, isNotFirstTimeVal);
+    }
   }
 
   //////////////// Access Token ///////////

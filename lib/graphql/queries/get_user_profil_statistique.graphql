@@ -1,0 +1,11 @@
+query GetUserProfileStatistique($userID: Int!) {
+  userProfileStatistique(userID: $userID) {
+    budgetCount
+    transactionCount
+    registrationDate
+    profit
+    currentMonthTransactionCount
+    currentMonthBudgetCount
+    currentMonthProfit
+  }
+}

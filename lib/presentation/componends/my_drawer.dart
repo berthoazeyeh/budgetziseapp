@@ -16,7 +16,7 @@ class BudgetDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(10),
           bottomRight: Radius.circular(10),
@@ -45,7 +45,7 @@ class BudgetDrawer extends StatelessWidget {
                   children: [
                     Text(
                       LocaleKeys.drawer_app_title.tr(),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFF1F2937),
@@ -125,7 +125,7 @@ class BudgetDrawer extends StatelessWidget {
                         children: [
                           Text(
                             user.firstName,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
                               color: Color(0xFF1F2937),
@@ -133,7 +133,7 @@ class BudgetDrawer extends StatelessWidget {
                           ),
                           Text(
                             LocaleKeys.drawer_classic_member.tr(),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 14,
                               color: Color(0xFF6B7280),
                             ),
@@ -152,7 +152,7 @@ class BudgetDrawer extends StatelessWidget {
                               const SizedBox(width: 8),
                               Text(
                                 LocaleKeys.drawer_online.tr(),
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 12,
                                   color: Color(0xFF6B7280),
                                 ),
@@ -186,14 +186,14 @@ class BudgetDrawer extends StatelessWidget {
                     children: [
                       Text(
                         LocaleKeys.drawer_total_balance.tr(),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 14,
                           color: Color(0xFF6B7280),
                         ),
                       ),
                       Text(
                         '2,450 ${user.country.currency}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Color(0xFF10B981),
@@ -279,11 +279,15 @@ class BudgetDrawer extends StatelessWidget {
                     ),
                     child: Row(
                       children: [
-                        Icon(Icons.logout, color: Color(0xFFDC2626), size: 20),
-                        SizedBox(width: 12),
+                        const Icon(
+                          Icons.logout,
+                          color: Color(0xFFDC2626),
+                          size: 20,
+                        ),
+                        const SizedBox(width: 12),
                         Text(
                           LocaleKeys.drawer_logout.tr(),
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
                             color: Color(0xFFDC2626),
@@ -341,7 +345,7 @@ class BudgetDrawer extends StatelessWidget {
                     child: Container(
                       width: 20,
                       height: 20,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Colors.red,
                         shape: BoxShape.circle,
                       ),
@@ -424,7 +428,7 @@ class BudgetDrawer extends StatelessWidget {
               },
               child: Text(
                 LocaleKeys.drawer_logout_confirm.tr(),
-                style: TextStyle(color: Color(0xFFDC2626)),
+                style: const TextStyle(color: Color(0xFFDC2626)),
               ),
             ),
           ],

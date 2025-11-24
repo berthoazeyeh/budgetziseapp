@@ -52,36 +52,45 @@ dependencies:
   flutter_screen_controller: ^0.0.5+1
   image: ^4.5.2
   flutter_native_splash: ^2.4.6
-  firebase_core: ^3.15.1
+  firebase_core: ^4.2.1
   provider: ^6.1.5
   url_launcher: ^6.3.1
   dio_cache_interceptor_hive_store: ^4.0.0
   dio_cache_interceptor: ^3.4.4
   hive_ce: ^2.11.3
-  fluttertoast: ^8.2.12
+  fluttertoast: ^9.0.0
   flutter_laravel_form_validation: ^1.0.4
   pretty_dio_logger: ^1.4.0
   flutter_vector_icons: ^2.0.0
-  connectivity_plus: ^6.1.4
-  firebase_messaging: ^15.2.9
-  firebase_auth: ^5.6.2
+  # connectivity_plus: ^7.0.0
+  firebase_messaging: ^16.0.4
+  firebase_auth: ^6.1.2
   google_sign_in: ^6.2.1
-  firebase_analytics: ^11.5.2
+  firebase_analytics: ^12.0.4
   skeletonizer: ^2.1.0+1
   image_picker: ^1.1.2
   moment_dart: ^5.2.3
-  fl_chart: ^0.67.0
-  local_auth: ^2.3.0
+  fl_chart: ^1.1.1
+  local_auth: ^3.0.0
+  graphql: ^5.2.0-beta.9
+  graphql_flutter: ^5.2.0-beta.7
   flutter_local_notifications: ^19.3.1
-  device_info_plus: ^11.5.0
-  package_info_plus: ^8.3.0
+  device_info_plus: ^12.2.0
+  package_info_plus: ^9.0.0
+  connectivity_plus: ^6.1.5
+  awesome_dio_interceptor: ^1.3.0
+  gql_dio_link: ^2.0.0
+  graphql_query_compress: ^1.0.0
+  sentry_dio: ^9.8.0
+  sentry: ^9.8.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
   build_runner: ^2.4.13
-  retrofit_generator: ^9.1.5
+  graphql_codegen: ^3.0.0
+  retrofit_generator: ^10.2.0
   flutter_gen_runner: ^5.10.0
   json_serializable: ^6.9.5
   auto_route_generator: ^10.2.3
